@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Preparation App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Placement Preparation App</h1>
+    </header>
+
+    <main>
+        <section id="studentSection">
+            <h2>Student Management</h2>
+            <button id="getAllStudents">Get All Students</button>
+            <button id="getStudent">Get Student</button>
+            <button id="addStudent">Add Student</button>
+            <button id="loginStudent">Login Student</button>
+        </section>
+
+        <section id="questionSection">
+            <h2>Question Management</h2>
+            <button id="getQuestionsTitle">Get Question Titles</button>
+            <form id="questionForm">
+                <label for="name">Question Name:</label>
+                <input id="name" type="text" name="name" required>
+                <label for="abcd">Add File:</label>
+                <input id="abcd" type="file" name="questions" required>
+                <button type="button" id="addQuestionFile">Add Question</button>
+            </form>
+        </section>
+
+        <section id="marksSection">
+            <h2>Marks Management</h2>
+            <button id="getMarks">Get Marks</button>
+            <button id="addMark">Add Mark</button>
+        </section>
+
+        <section id="output">
+            <h2>API Output</h2>
+            <pre id="outputDisplay">API responses will be displayed here.</pre>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
