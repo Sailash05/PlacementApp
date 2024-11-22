@@ -1,0 +1,57 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.fullContainer{
+    background-color: rebeccapurple;
+}
+
+
+.topContainer{
+    display: flex;
+    justify-content: center;
+}
+.topLogBtn{
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    margin: 0 18px 0 18px;
+}
+
+
+.container{
+    background-color: orange;
+}
+.container>h1{
+    color: red;
+    text-align: center;
+}
+
+
+.studentSignInForm {
+    text-align: center;
+    padding-bottom: 20px;
+}
+.studentSignInForm>input{
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border-color: gray;
+    border-width: 1px;
+    background-color: rgb(255, 255, 255);
+}
+
+.studentSignInForm>input::placeholder{
+    color: red;
+}
