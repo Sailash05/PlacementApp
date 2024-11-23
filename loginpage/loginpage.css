@@ -5,37 +5,81 @@
 }
 body{
     display: flex;
+    height: 100vh;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 
 
 
 .fullContainer{
-    background-color: rebeccapurple;
+    height: fit-content;
+    width: 400px;
 }
 
 
 .topContainer{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(255,184,253);
+    background: linear-gradient(90deg, rgba(255,184,253,1) 0%, rgba(202,116,255,0.9831582291119573) 100%);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 100%;
 }
 .topLogBtn{
     display: inline-block;
     color: white;
+    font-weight: bolder;
     text-align: center;
-    font-size: 30px;
-    margin: 0 18px 0 18px;
+    font-size: 20px;
+    padding: 10px 0 10px 0;
+    width: 50%;
+    position: relative;
 }
+.topLogBtn::after{
+    content: '';
+    height: 3px;
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.topLogBtn:hover{
+    cursor: pointer;
+    z-index: 0;
+}
+.studentBtn{
+    /* background-color: rgb(209, 164, 255); */
+    /* border: solid 1px black; */
+    color: rgb(255, 255, 255);
+}
+.underLine::after{
+    z-index: 0;
+}
+
+
 
 
 .container{
-    background-color: orange;
+    /* background-color: rgb(142, 255, 202); */
+    background: rgb(255,184,253);
+    background: linear-gradient(90deg, rgba(255,184,253,1) 0%, rgba(202,116,255,0.9831582291119573) 100%);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 .container>h1{
-    color: red;
+    color: black;
     text-align: center;
+    padding-top: 15px;
+    padding-bottom: 10px;
 }
 
 
@@ -43,15 +87,73 @@ body{
     text-align: center;
     padding-bottom: 20px;
 }
+.studentSignInForm>input::placeholder{
+    color: black;
+    font-weight: lighter;
+}
 .studentSignInForm>input{
     margin-top: 10px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 15px;
     border-radius: 5px;
-    border-color: gray;
-    border-width: 1px;
     background-color: rgb(255, 255, 255);
+    width: 75%;
+    border: none;
+    font-weight: bolder;
+}
+/* .studentSignInForm >input[type="number"]::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+.studentSignInForm>input:focus{
+    outline: none;
+    border: none;
+}
+.studentSignInForm>input:hover::placeholder{
+    font-weight: bolder;
+}
+#departmentSelect{
+    margin-top: 10px;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    width: 75%;
+    border: none;
+    width: 83%;
+}
+#departmentSelect:hover{
+    cursor: pointer;
+}
+.studentSignInForm>button{
+    padding: 7px 20px 7px 20px;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+    border-radius: 7px;
+    background-color: white;
+    font-weight: bolder;
+}
+.studentSignInForm>button:hover{
+    cursor: pointer;
+    outline: solid black 2px;
+    font-weight: bolder;
+}
+.changeToLoginS{
+    text-align: center;
+    padding-bottom: 15px;
+}
+.changeToLoginS>span{
+    color: #0000EE;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.changeToLoginS>span:hover{
+    color: #5c5cff;
 }
 
-.studentSignInForm>input::placeholder{
-    color: red;
+.studentLogInForm{
+    padding-bottom: 30px;
+    padding-top: 30px;
 }

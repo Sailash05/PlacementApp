@@ -1,25 +1,4 @@
-let container = document.querySelector('.container');
-
-
-function change(choice) {
-
-    switch(choice) {
-        case 1:
-            container.innerHTML = `
-            <h1>Student Log in</h1>
-            <form action="/student/addstudent" method="POST" class="studentLogInForm studentSignInForm">
-                <input type="number" placeholder="Roll Number"><br>
-                <input type="password" placeholder="Password">
-                <br>
-                <button type="button" class="submitBtn">Log in</button>
-            </form>
-            <p class="changeToLoginS">New User? <span onClick="change(2)">Sign in</span></p>
-            `;
-            break;
-        
-        case 2:
-            container.innerHTML = `
-            <h1>Student Sign in</h1>
+ <h1>Student Sign in</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name"><br>
                 <input type="number" placeholder="Roll Number"><br>
@@ -36,15 +15,28 @@ function change(choice) {
                 <br>
                 <button type="button" class="submitBtn">Sign in</button>
             </form>
-            <p class="changeToLoginS">Already have an account? <span onclick="change(1)">Log in</span></p>
-            `;
-            document.querySelector('.studentBtn').classList.add('underLine');
-            document.querySelector('.facultyBtn').classList.remove('underLine');
-            break;
+            <p class="changeToLoginS">Already have an account? <span>Log in</span></p> 
 
-        case 3:
-            container.innerHTML = `
-            <h1>Faculty Sign in</h1>
+
+
+
+
+
+<h1>Student Log in</h1>
+            <form action="/student/addstudent" method="POST" class="studentLogInForm studentSignInForm">
+                <input type="number" placeholder="Roll Number"><br>
+                <input type="password" placeholder="Password">
+                <br>
+                <button type="button" class="submitBtn">Log in</button>
+            </form>
+            <p class="changeToLoginS">New here? <span>Sign in</span></p>
+
+
+
+
+
+
+<h1>Faculty Sign in</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name"><br>
                 <input type="number" placeholder="Mobile Number"><br>
@@ -60,23 +52,19 @@ function change(choice) {
                 <br>
                 <button type="button" class="submitBtn">Sign in</button>
             </form>
-            <p class="changeToLoginS">Already have an account? <span onClick="change(4)">Log in</span></p>
-            `;
-            document.querySelector('.studentBtn').classList.remove('underLine');
-            document.querySelector('.facultyBtn').classList.add('underLine');
-            break;
-            
-        case 4:
-            container.innerHTML = `
-            <h1>Faculty Log in</h1>
+            <p class="changeToLoginS">Already have an account? <span>Log in</span></p> 
+
+
+
+
+
+
+
+<h1>Faculty Log in</h1>
             <form action="/student/addstudent" method="POST" class="studentLogInForm studentSignInForm">
                 <input type="number" placeholder="Mobile Number"><br>
                 <input type="password" placeholder="Password">
                 <br>
                 <button type="button" class="submitBtn">Log in</button>
             </form>
-            <p class="changeToLoginS">New here? <span onClick="change(3)">Sign in</span></p>
-            `;
-            break;
-    }
-}
+            <p class="changeToLoginS">New here? <span>Sign in</span></p>

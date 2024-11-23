@@ -12,18 +12,28 @@
 <body>
     <div class="fullContainer">
         <div class="topContainer">
-            <p class="studentBtn topLogBtn">Student</p>
-            <p class="facultyBtn topLogBtn">Faculty</p>
+            <p class="studentBtn topLogBtn underLine" onclick="change(2)">Student</p>
+            <p class="facultyBtn topLogBtn" onclick="change(3)">Faculty</p>
         </div>
         <div class="container">
             <h1>Student Sign in</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name"><br>
                 <input type="number" placeholder="Roll Number"><br>
-                <input type="text" placeholder="Year"><br>
-                <input type="text" placeholder="Department"><br>
-                <input type="password" placeholder="Password">
+                <input type="number" placeholder="Year"><br>
+                <select name="departmentSelect" id="departmentSelect">
+                    <option value="" disabled selected>Select a department</option>
+                    <option value="CSE">CSE</option>
+                    <option value="AIDS">AI & DS</option>
+                    <option value="ECE">ECE</option>
+                    <option value="MECH">MECH</option>
+                    <option value="GEO">GEO</option>
+                </select>
+                <input type="password" placeholder="Set Password">
+                <br>
+                <button type="button" class="submitBtn">Sign in</button>
             </form>
+            <p class="changeToLoginS">Already have an account? <span onclick="change(1)">Log in</span></p>
         </div>
     </div>
     <script src="./loginpage/loginpage.js"></script>
