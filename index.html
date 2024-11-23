@@ -18,9 +18,9 @@
         <div class="container">
             <h1>Student Sign in</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
-                <input type="text" placeholder="User Name"><br>
-                <input type="number" placeholder="Roll Number"><br>
-                <input type="number" placeholder="Year"><br>
+                <input type="text" placeholder="User Name" class="userName"><br>
+                <input type="number" placeholder="Roll Number" class="rollno"><br>
+                <input type="number" placeholder="Year" class="year"><br>
                 <select name="departmentSelect" id="departmentSelect">
                     <option value="" disabled selected>Select a department</option>
                     <option value="CSE">CSE</option>
@@ -29,13 +29,14 @@
                     <option value="MECH">MECH</option>
                     <option value="GEO">GEO</option>
                 </select>
-                <input type="password" placeholder="Set Password">
+                <input type="password" placeholder="Set Password" class="password">
                 <br>
-                <button type="button" class="submitBtn">Sign in</button>
+                <button type="button" class="submitBtn" onclick="addStudent()">Sign in</button>
             </form>
             <p class="changeToLoginS">Already have an account? <span onclick="change(1)">Log in</span></p>
         </div>
     </div>
+    <button onclick="abcd()">click me</button>
     <script src="./loginpage/loginpage.js"></script>
 </body>
 </html>
