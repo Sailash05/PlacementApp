@@ -18,5 +18,3 @@ function toggleSideBar() {
         xButton.style.height = '0px';
     }
 }
-
-console.log(window.records.number);

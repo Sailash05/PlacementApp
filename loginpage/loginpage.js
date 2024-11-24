@@ -1,12 +1,23 @@
-window.records = {
-    role: 'none',
-    number: 950023104024
-};
-
 let container = document.querySelector('.container');
 
-var _rollNo = 0;
+let records = {
+    role:null,
+    number:null
+}
 
+let student = {
+    name:null,
+    rollno:null,
+    year:null,
+    semester:null,
+    department:null
+}
+
+let faculty = {
+    name:null,
+    department:null,
+    mobileno:null
+}
 
 
 function change(choice) {
@@ -89,6 +100,32 @@ function change(choice) {
     }
 }
 
+// add student to local storage
+function studentLoc(userData) {
+    student.name = userData.returnStudent.name;
+    student.rollno = userData.returnStudent.rollno;
+    student.year = userData.returnStudent.year;
+    student.semester = userData.returnStudent.semester;
+    student.department = userData.returnStudent.department;
+    localStorage.setItem('student', JSON.stringify(student));
+}
+
+// Get student details
+async function getStudent(rollNo) {
+
+    try {
+        const response = await fetch(`http://localhost:8080/student/getstudent?rollno=${rollNo}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
 // Student Sign In
 async function addStudent() {
 
@@ -97,27 +134,32 @@ async function addStudent() {
     const year = document.querySelector('.year').value;
     const department = document.querySelector('#departmentSelect').value;
     const password = document.querySelector('.password').value;
-    
-    const response = await fetch('http://localhost:8080/student/addstudent',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            rollno: rollno,
-            name: name,
-            year: year,
-            department: department,
-            password: password
-        })
-    });
 
-    const data = await response.json();
+    try {
+        const response = await fetch('http://localhost:8080/student/addstudent',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                rollno: rollno,
+                name: name,
+                year: year,
+                department: department,
+                password: password
+            })
+        });
 
-    records.role = "STUDENT";
-    records.number = rollno;
-    console.log(data);
-
-    if(response.status === 201) {
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        records.role = "STUDENT";
+        records.number = rollno;
+        const userData = await getStudent(rollno);
+        studentLoc(userData);
         window.location.href = "./studentpage/studentpage.html";
+    }
+    catch (error) {
+        console.error('An error occurred:', error.message);
     }
 }
 
@@ -127,34 +169,32 @@ async function loginStudent() {
     const rollno = document.querySelector('.rollno').value;
     const password = document.querySelector('.password').value;
 
-    const response = await fetch('http://localhost:8080/student/loginstudent',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            rollno: rollno,
-            password: password
-        })
-    });
+    try {
 
-    const data = await response.json();
-    records.role = "STUDENT";
-    records.number = rollno;
-    console.log(data);
+        const response = await fetch('http://localhost:8080/student/loginstudent',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                rollno: rollno,
+                password: password
+            })
+        });
 
-    if(response.status === 201) {
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        records.role = "STUDENT";
+        records.number = rollno;
+        const userData = await getStudent(rollno);
+        studentLoc(userData);
         window.location.href = "./studentpage/studentpage.html";
     }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
 }
-
-// Get student
-async function getStudent() {
-
-    const response = await fetch(`http://localhost:8080/student/getstudent?rollno=${_rollNo}`)
-
-    const data = await response.json();
-    console.log(data);
-}
-
 
 // Faculty Sign in
 async function addFaculty() {
