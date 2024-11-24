@@ -1,11 +1,13 @@
+window.records = {
+    role: 'none',
+    number: 950023104024
+};
+
 let container = document.querySelector('.container');
 
 var _rollNo = 0;
 
-const records = {
-    role: 'none',
-    number: 0
-};
+
 
 function change(choice) {
 
@@ -113,6 +115,10 @@ async function addStudent() {
     records.role = "STUDENT";
     records.number = rollno;
     console.log(data);
+
+    if(response.status === 201) {
+        window.location.href = "./studentpage/studentpage.html";
+    }
 }
 
 // Student Log In
@@ -134,6 +140,10 @@ async function loginStudent() {
     records.role = "STUDENT";
     records.number = rollno;
     console.log(data);
+
+    if(response.status === 201) {
+        window.location.href = "./studentpage/studentpage.html";
+    }
 }
 
 // Get student
@@ -192,9 +202,4 @@ async function loginFaculty() {
     const data = await response.json();
 
     console.log(data);
-}
-
-function abcd() {
-    console.log(records.role);
-    console.log(records.number);
 }

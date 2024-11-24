@@ -68,3 +68,11 @@
                 <button type="button" class="submitBtn">Log in</button>
             </form>
             <p class="changeToLoginS">New here? <span>Sign in</span></p>
+
+
+
+
+
+home tab 
+
+<h1>Home Tab is under development</h1>
