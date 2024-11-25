@@ -1,9 +1,6 @@
-let container = document.querySelector('.container');
+let domain = 'http://192.168.1.6:8080/';
 
-let records = {
-    role:null,
-    number:null
-}
+let container = document.querySelector('.container');
 
 let student = {
     name:null,
@@ -114,7 +111,7 @@ function studentLoc(userData) {
 async function getStudent(rollNo) {
 
     try {
-        const response = await fetch(`http://localhost:8080/student/getstudent?rollno=${rollNo}`);
+        const response = await fetch(domain+`student/getstudent?rollno=${rollNo}`);
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
@@ -136,7 +133,7 @@ async function addStudent() {
     const password = document.querySelector('.password').value;
 
     try {
-        const response = await fetch('http://localhost:8080/student/addstudent',{
+        const response = await fetch(domain+'student/addstudent',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -152,8 +149,6 @@ async function addStudent() {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        records.role = "STUDENT";
-        records.number = rollno;
         const userData = await getStudent(rollno);
         studentLoc(userData);
         window.location.href = "./studentpage/studentpage.html";
@@ -170,8 +165,7 @@ async function loginStudent() {
     const password = document.querySelector('.password').value;
 
     try {
-
-        const response = await fetch('http://localhost:8080/student/loginstudent',{
+        const response = await fetch(domain+'student/loginstudent',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -185,10 +179,9 @@ async function loginStudent() {
         }
 
         const data = await response.json();
-        records.role = "STUDENT";
-        records.number = rollno;
         const userData = await getStudent(rollno);
         studentLoc(userData);
+        
         window.location.href = "./studentpage/studentpage.html";
     }
     catch(error) {
@@ -216,9 +209,6 @@ async function addFaculty() {
     });
 
     const data = await response.json();
-
-    records.role = "FACULTY";
-    records.number = mobileno;
 
     console.log(data);
 }

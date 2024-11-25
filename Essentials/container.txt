@@ -76,3 +76,54 @@
 home tab 
 
 <h1>Home Tab is under development</h1>
+
+
+Assessment tab 
+
+<div class="Assesment-details">
+            <p>Total Assesment : 4</p>
+            <p>Unfinished Assesment : 1</p>
+        </div>
+        <p class="ufa-head">Unfinished Assessment</p>
+        <div class="assessment-tab">
+            <div class="assessment">
+                <p>1.Java MCQ</p>
+                <button onClick="takeTest(event)">Take Test</button>
+            </div>
+        </div>
+        <p class="ufa-head">Finished Assessment</p>
+        <div class="assessment-tab">
+            <div class="assessment">
+                <p>1.Python Test</p>
+                <p>Your Mark : 98.3%</p>
+            </div>
+        </div>
+
+
+
+TEST 
+
+<div class="questions-mcq">
+                <h4>1. Who is the founder of Google?</h4>
+                <div class="options">
+                    <input type="radio" name="question-one" id="larry-sergey">
+                    <label for="larry-sergey">Larry Page and Sergey Brin</label>
+                    <input type="radio" name="question-one" id="elon">
+                    <label for="elon">Elon Musk</label>
+                    <input type="radio" name="question-one" id="bill">
+                    <label for="bill">Bill Gates</label>
+                    <input type="radio" name="question-one" id="steve">
+                    <label for="steve">Steve Jobs</label>
+                </div>
+            </div>
+            <div class="questions-fillup">
+                <h4><pre><code>2.What is the output of this code
+#include&lt;stdio.h&gt;
+void main() {
+    int a=10;
+    int b=++a + a++;
+    printf("%d",b);
+}
+                    </code></pre></h4>
+                <input type="text" placeholder="Enter your answer" class="fillup-answer-text">
+            </div>

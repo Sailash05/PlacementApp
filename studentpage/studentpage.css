@@ -13,7 +13,8 @@ body {
     height: 100dvh;
 }
 nav {
-    background-color: red;
+    background: rgb(254,142,251);
+background: linear-gradient(90deg, rgba(254,142,251,1) 0%, rgba(150,0,242,0.9831582291119573) 100%);
     grid-column-start: 1;
     grid-column-end: 3;
     grid-row-start: 1;
@@ -24,14 +25,14 @@ nav {
 }
 nav>h1{
     margin-left: 1rem;
+    color: white;
 }
-
 .side-bar {
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
-    background-color: orange;
+    background-color: rgb(200, 255, 241);
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -43,7 +44,6 @@ nav>h1{
     /* text-align: center; */
     padding-left: 1rem;
 }
-
 .side-bar>ul {
     list-style-type: none;
     display: flex;
@@ -51,21 +51,23 @@ nav>h1{
     height: 100%;
 }
 .side-bar>ul>li {
-    background-color: greenyellow;
+    background-color: rgb(200, 255, 241);
     padding: 15px 30px;
     cursor: pointer;
     transition: transform 0.2s ease;
+    border: solid 2px rgb(200, 255, 241);
 }
 .side-bar>ul>li:hover {
-    background-color: rgb(207, 255, 136);
+    background-color: rgb(134, 255, 225);
     transform: scale(1.1);
+    border-color: rgb(3, 160, 121);
 }
 .side-bar>ul>li:active {
-    background-color: rgb(207, 255, 136);
+    background-color: rgb(134, 255, 225);
     transform: scale(1.1);
 }
 .side-bar>ul>li:focus {
-    background-color: rgb(207, 255, 136);
+    background-color: rgb(134, 255, 225);
     transform: scale(1.1);
 }
 .element {
@@ -78,19 +80,9 @@ nav>h1{
 .side-bar>ul>li:nth-child(6) {
     margin-top: auto;
 }
-
-
-
-
-.main-bar {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 4;
-    background-color: rgb(198, 198, 255);
+.side-bar>ul>li:nth-child(7) {
+    margin-bottom: 10px;
 }
-
-
 @media (max-width: 480px) {
     .hamburger-btn {
         width: 25px;
@@ -104,5 +96,224 @@ nav>h1{
     }
     .side-bar>ul>li {
         padding: 15px 30px;
+    }
+}
+
+.main-bar {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    background-color: white;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.Assesment-details {
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem 10rem;
+    border-radius: 50px;
+    border: solid 2px black;
+    gap: 10rem;
+    font-weight: bolder;
+    font-size: 1rem;
+}
+.ufa-head {
+    margin-top: 1rem;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+.assessment-tab {
+    padding: 1rem;
+    border: solid black 2px;
+    border-radius: 20px;
+    margin: 1rem 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.assessment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    border-bottom: dotted black 3px;
+}
+.qid {
+    display: none;
+}
+.assessment>button {
+    outline: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 5px;
+    /* border: solid black 2px; */
+    border: none;
+    text-decoration: underline;
+    background-color: transparent;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    
+}
+.assessment>button:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+    .Assesment-details {
+        font-size: 0.9rem;
+        margin: 0.5rem;
+        gap: 1rem;
+    }
+    .assessment-tab {
+        padding: rem;
+        margin: 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .assessment {
+        align-items: center;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+    
+}
+
+
+.exam-title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+}
+.exam-no-of-questions{
+    margin: 1rem 15rem;
+}
+.questions-container {
+    margin: 20px;
+}
+
+.questions-mcq {
+    max-width: 800px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+.questions-mcq h4 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.options input[type="radio"] {
+    display: none;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.options label:hover {
+    transform: scale(1.01);
+    background-color: #f0f0f0;
+    border-color: #007bff;
+}
+
+.options input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    font-weight: bold;
+}
+.questions-fillup {
+    max-width: 800px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+.questions-fillup h4 {
+    margin-bottom: 0px;
+    font-size: 18px;
+    color: #333;
+}
+
+.questions-fillup pre {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5;
+    padding-bottom: 0px;
+}
+
+.questions-fillup input[type="text"] {
+    width: calc(100% - 30px);
+    padding: 10px 15px 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 1rem;
+}
+
+.questions-fillup input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.submit-test-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 70%;
+}
+.submit-test-btn:hover {
+    background-color: #0056b3;
+}
+
+
+@media (max-width: 480px) {
+    .exam-no-of-questions {
+        margin: 20px;
     }
 }
