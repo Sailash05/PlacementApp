@@ -107,6 +107,14 @@ function studentLoc(userData) {
     localStorage.setItem('student', JSON.stringify(student));
 }
 
+// add faculty to local storage
+function facultyLoc(facultyData) {
+    faculty.name = facultyData.returnFaculty.name;
+    faculty.department = facultyData.returnFaculty.department;
+    faculty.mobileno = facultyData.returnFaculty.mobileno;
+    localStorage.setItem('faculty',JSON.stringify(faculty));
+}
+
 // Get student details
 async function getStudent(rollNo) {
 
@@ -189,6 +197,21 @@ async function loginStudent() {
     }
 }
 
+// GEt faculty
+async function getFaculty(mobileno) {
+    try {
+        const response = await fetch(domain+`faculty/getfaculty?mobileno=${mobileno}`)
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
 // Faculty Sign in
 async function addFaculty() {
 
@@ -197,20 +220,29 @@ async function addFaculty() {
     const department = document.querySelector('#departmentSelect').value;
     const password = document.querySelector('.password').value;
 
-    const response = await fetch('http://localhost:8080/faculty/addfaculty',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            name: name,
-            mobileno: mobileno,
-            department: department,
-            password: password
-        })
-    });
+    try {
+        const response = await fetch(domain+'faculty/addfaculty',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: name,
+                mobileno: mobileno,
+                department: department,
+                password: password
+            })
+        });
 
-    const data = await response.json();
-
-    console.log(data);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        const facultyData = await getFaculty(mobileno);
+        facultyLoc(facultyData);
+        window.location.href = "./facultypage/facultypage.html";
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
 }
 
 
@@ -219,17 +251,29 @@ async function loginFaculty() {
 
     const mobileno = document.querySelector('.mobileNo').value;
     const password = document.querySelector('.password').value;
+    console.log(mobileno);
+    console.log(password);
 
-    const response = await fetch('http://localhost:8080/faculty/loginfaculty',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            mobileno: mobileno,
-            password: password
-        })
-    });
+    try {
+        const response = await fetch(domain+'faculty/loginfaculty',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                mobileno: mobileno,
+                password: password
+            })
+        });
 
-    const data = await response.json();
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        const facultyData = await getFaculty(mobileno);
+        facultyLoc(facultyData);
 
-    console.log(data);
+        window.location.href = "./facultypage/facultypage.html";
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
 }

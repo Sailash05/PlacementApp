@@ -72,7 +72,6 @@ body{
 
 
 .container{
-    /* background-color: rgb(142, 255, 202); */
     background: rgb(255,184,253);
     background: linear-gradient(90deg, rgba(255,184,253,1) 0%, rgba(202,116,255,0.9831582291119573) 100%);
     border-bottom-left-radius: 15px;
