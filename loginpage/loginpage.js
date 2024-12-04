@@ -1,4 +1,4 @@
-let domain = 'http://192.168.1.6:8080/';
+let domain = 'http://192.168.1.8:8080/';
 
 let container = document.querySelector('.container');
 
