@@ -42,7 +42,7 @@ function toggleMainBar(choice) {
         <div class="assessment-tab">
         </div>
             `;
-            assessmentCalculation();
+             assessmentCalculation(); 
             break;
             case 6:
                 mainBar.innerHTML = `<div class="profile-container">
@@ -50,12 +50,12 @@ function toggleMainBar(choice) {
         <form id="profileForm">
             <div class="profile-field">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" readonly>
+                <input type="text" id="name" name="name" placeholder="Enter your name" value="${student.name} readonly>
             </div>
 
             <div class="profile-field">
                 <label for="roll-number">Register Number:</label>
-                <input type="text" id="roll-number" name="roll-number" placeholder="Enter your register number"
+                <input type="text" id="roll-number" name="roll-number" placeholder="Enter your register number" value="${student.rollno}
                     readonly>
             </div>
 
@@ -73,12 +73,22 @@ function toggleMainBar(choice) {
 
             <div class="profile-field">
                 <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your E-mail" readonly>
+                <input type="email" id="email" name="email" placeholder="Enter your E-mail" value="${student.email} readonly>
             </div>
 
             <div class="profile-field">
                 <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" readonly>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" value="${student.mobileno} readonly>
+            </div>
+
+            <div class="profile-field">
+                <label for="Year">Select year:</label>
+                <select name="Year" id="Year" disabled>
+                    <option value="" disabled selected>Select year</option>
+                    <option value="op1">1</option>
+                    <option value="op2">2</option>
+                    <option value="op3">3</option>
+                    <option value="op4">4</option>
             </div>
 
             
@@ -89,7 +99,8 @@ function toggleMainBar(choice) {
 
         <button class="edit-button" onclick="editProfile()">Edit Profile</button>
     </div>
-`
+`;
+   break;
     }
     if(window.innerWidth <= 480) {
         toggleSideBar();
