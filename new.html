@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Placeholder logo -->
+            <img src="logo.jpeg" alt="Logo">
+        </div>
+        <h1>Reset Password</h1>
+        <p>Enter a new password below to change your password.</p>
+        <form>
+
+            <div class="form-group">
+                <input type="password" id="new-password" placeholder="New password*" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="re-enter-password" placeholder="Re-enter new password*" required>
+            </div>
+            <div class="password-criteria">
+                <p>Your password must contain:</p>
+                <ul>
+                    <li>At least 10 characters in length</li>
+                    <li>At least 1 special character</li>
+                    <li>At least 1 Uppercase character</li>
+
+                </ul>
+            </div>
+            <button type="submit" class="reset-button">Reset password</button>
+        </form>
+    </div>
+</body>
+</html>
