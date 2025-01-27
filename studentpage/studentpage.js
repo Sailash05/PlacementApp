@@ -44,6 +44,52 @@ function toggleMainBar(choice) {
             `;
             assessmentCalculation();
             break;
+            case 6:
+                mainBar.innerHTML = `<div class="profile-container">
+        <h2>Student Profile</h2>
+        <form id="profileForm">
+            <div class="profile-field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" readonly>
+            </div>
+
+            <div class="profile-field">
+                <label for="roll-number">Register Number:</label>
+                <input type="text" id="roll-number" name="roll-number" placeholder="Enter your register number"
+                    readonly>
+            </div>
+
+            <div class="profile-field">
+                <label for="department">Department:</label>
+                <select name="department" id="department" disabled>
+                    <option value="" disabled selected>Select department</option>
+                    <option value="op1">Computer Science and Engineering</option>
+                    <option value="op2">Electronics and Communication Engineering</option>
+                    <option value="op3">Geo-Informatics</option>
+                    <option value="op4">Mechanical Engineering</option>
+                    <option value="op5">Artificial Intelligence and Data Science</option>
+                </select>
+            </div>
+
+            <div class="profile-field">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your E-mail" readonly>
+            </div>
+
+            <div class="profile-field">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" readonly>
+            </div>
+
+            
+           
+            
+            <button type="button" onclick="saveProfile()">Save Profile</button>
+        </form>
+
+        <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+    </div>
+`
     }
     if(window.innerWidth <= 480) {
         toggleSideBar();
@@ -246,3 +292,38 @@ async function addAnswer() {
 function logOut() {
     window.location.href = "../index.html";
 }
+
+
+// Function to enable editing of the profile form
+function editProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    
+    // Enable editing by setting readOnly and disabled properties to false
+    inputs.forEach(input => {
+      input.readOnly = false;
+      input.disabled = false; // Enables the select element as well
+    });
+  
+    // Change button text to "Save Changes"
+    const editButton = document.querySelector('.edit-button');
+    editButton.textContent = "Save Changes";
+    editButton.setAttribute('onclick', 'saveProfile()');
+  }
+  
+  // Function to save profile after editing
+  function saveProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    
+    // Disable editing by setting readOnly and disabled properties to true
+    inputs.forEach(input => {
+      input.readOnly = true;
+      input.disabled = true; // Disables the select element
+    });
+  
+    // Change button text back to "Edit"
+    const editButton = document.querySelector('.edit-button');
+    editButton.textContent = "Edit Profile";
+    editButton.setAttribute('onclick', 'editProfile()');
+  
+    alert('Profile updated successfully!');
+  }
