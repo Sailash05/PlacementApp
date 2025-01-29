@@ -1,21 +1,25 @@
-let domain = 'http://192.168.1.8:8080/';
+let domain = 'http://192.168.1.4:8080/';
 
 let container = document.querySelector('.container');
-
+/* 
 let student = {
     name:null,
     rollno:null,
     year:null,
     semester:null,
-    department:null
-}
-
-let faculty = {
+    department:null,
+	email:null,
+	mobileno:null
+} */
+/* let faculty = {
     name:null,
     department:null,
-    mobileno:null
+    mobileno:null,
+	email:null
+} */
+let token = {
+	jwt_token:null
 }
-
 
 function change(choice) {
 
@@ -29,13 +33,13 @@ function change(choice) {
                 <br>
                 <button type="button" class="submitBtn" onClick="loginStudent()">Log in</button>
             </form>
-            <p class="changeToLoginS">New User? <span onClick="change(2)">Sign in</span></p>
+            <p class="changeToLoginS">New User? <span onClick="change(2)">Sign up</span></p>
             `;
             break;
         
         case 2:
             container.innerHTML = `
-            <h1>Student Sign in</h1>
+            <h1>Student Sign up</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name" class="userName"><br>
                 <input type="number" placeholder="Roll Number" class="rollno"><br>
@@ -50,7 +54,7 @@ function change(choice) {
                 </select>
                 <input type="password" placeholder="Set Password" class="password">
                 <br>
-                <button type="button" class="submitBtn" onclick="addStudent()">Sign in</button>
+                <button type="button" class="submitBtn" onclick="addStudent()">Sign up</button>
             </form>
             <p class="changeToLoginS">Already have an account? <span onclick="change(1)">Log in</span></p>
             `;
@@ -60,7 +64,7 @@ function change(choice) {
 
         case 3:
             container.innerHTML = `
-            <h1>Faculty Sign in</h1>
+            <h1>Faculty Sign up</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name" class="userName"><br>
                 <input type="number" placeholder="Mobile Number" class="mobileNo"><br>
@@ -74,7 +78,7 @@ function change(choice) {
                 </select>
                 <input type="password" placeholder="Set Password" class="password">
                 <br>
-                <button type="button" class="submitBtn" onClick="addFaculty()">Sign in</button>
+                <button type="button" class="submitBtn" onClick="addFaculty()">Sign up</button>
             </form>
             <p class="changeToLoginS">Already have an account? <span onClick="change(4)">Log in</span></p>
             `;
@@ -91,45 +95,57 @@ function change(choice) {
                 <br>
                 <button type="button" class="submitBtn" onClick="loginFaculty()">Log in</button>
             </form>
-            <p class="changeToLoginS">New here? <span onClick="change(3)">Sign in</span></p>
+            <p class="changeToLoginS">New here? <span onClick="change(3)">Sign up</span></p>
             `;
             break;
     }
 }
 
 // add student to local storage
-function studentLoc(userData) {
-    student.name = userData.returnStudent.name;
-    student.rollno = userData.returnStudent.rollno;
-    student.year = userData.returnStudent.year;
-    student.semester = userData.returnStudent.semester;
-    student.department = userData.returnStudent.department;
+/* function studentLoc(userData) {
+    student.name = userData.datas.name;
+    student.rollno = userData.datas.rollno;
+    student.year = userData.datas.year;
+    student.semester = userData.datas.semester;
+    student.department = userData.datas.department;
+	student.email = userData.datas.email;
+	student.mobileno = userData.datas.mobileno;
     localStorage.setItem('student', JSON.stringify(student));
-}
+} */
 
 // add faculty to local storage
-function facultyLoc(facultyData) {
-    faculty.name = facultyData.returnFaculty.name;
-    faculty.department = facultyData.returnFaculty.department;
-    faculty.mobileno = facultyData.returnFaculty.mobileno;
+/* function facultyLoc(facultyData) {
+    faculty.name = facultyData.datas.name;
+    faculty.department = facultyData.datas.department;
+    faculty.mobileno = facultyData.datas.mobileno;
+	faculty.email = facultyData.datas.email;
     localStorage.setItem('faculty',JSON.stringify(faculty));
-}
+} */
 
 // Get student details
-async function getStudent(rollNo) {
-
+/* async function getStudent(rollNo, token) {
+    const jwt_token = token; 
     try {
-        const response = await fetch(domain+`student/getstudent?rollno=${rollNo}`);
+        const response = await fetch(domain + `student/getstudent?rollno=${rollNo}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+        });
+
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
+
         const data = await response.json();
         return data;
     }
     catch (error) {
         console.error('An error occurred:', error.message);
     }
-}
+} */
+
 
 // Student Sign In
 async function addStudent() {
@@ -157,9 +173,7 @@ async function addStudent() {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        const userData = await getStudent(rollno);
-        studentLoc(userData);
-        window.location.href = "./studentpage/studentpage.html";
+		change(1);
     }
     catch (error) {
         console.error('An error occurred:', error.message);
@@ -185,11 +199,10 @@ async function loginStudent() {
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
-
         const data = await response.json();
-        const userData = await getStudent(rollno);
-        studentLoc(userData);
-        
+		token.jwt_token = data.datas;
+		localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('userName', rollno);
         window.location.href = "./studentpage/studentpage.html";
     }
     catch(error) {
@@ -197,10 +210,17 @@ async function loginStudent() {
     }
 }
 
-// GEt faculty
-async function getFaculty(mobileno) {
+
+/* async function getFaculty(mobileno, token) {
+	const jwt_token = token; 
     try {
-        const response = await fetch(domain+`faculty/getfaculty?mobileno=${mobileno}`)
+        const response = await fetch(domain+`faculty/getfaculty?mobileno=${mobileno}`, {
+			method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+		});
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
@@ -210,7 +230,7 @@ async function getFaculty(mobileno) {
     catch(error) {
         console.error('An error occurred:', error.message);
     }
-}
+} */
 
 // Faculty Sign in
 async function addFaculty() {
@@ -236,23 +256,18 @@ async function addFaculty() {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        const facultyData = await getFaculty(mobileno);
-        facultyLoc(facultyData);
-        window.location.href = "./facultypage/facultypage.html";
+		change(4);
     }
     catch(error) {
         console.error('An error occurred:', error.message);
     }
 }
 
-
 // Faculty Log in
 async function loginFaculty() {
 
     const mobileno = document.querySelector('.mobileNo').value;
     const password = document.querySelector('.password').value;
-    console.log(mobileno);
-    console.log(password);
 
     try {
         const response = await fetch(domain+'faculty/loginfaculty',{
@@ -268,12 +283,44 @@ async function loginFaculty() {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        const facultyData = await getFaculty(mobileno);
-        facultyLoc(facultyData);
-
+		token.jwt_token = data.datas;
+		localStorage.setItem('token',JSON.stringify(token));
+        localStorage.setItem('userName',mobileno);
         window.location.href = "./facultypage/facultypage.html";
     }
     catch(error) {
         console.error('An error occurred:', error.message);
     }
 }
+
+async function tokenValid() {
+	if(localStorage.getItem("token")) {
+		token = localStorage.getItem("token");
+		token = JSON.parse(token);
+		try {
+			const response = await fetch(domain + 'validate/token', {
+				method: "GET",
+				headers: {
+					"Authorization": `Bearer ${token.jwt_token}`, 
+					"Content-Type": "application/json"
+				}
+			});
+			if (!response.ok) {
+				throw new Error(`Error: ${response.status} - ${response.statusText}`);
+			}
+			const data = await response.json();
+			if(data.datas.role == "student") {
+                localStorage.setItem('userName',data.datas.userName);
+        		window.location.href = "./studentpage/studentpage.html";
+			}
+			else if(data.datas.role=="faculty") {
+                localStorage.setItem('userName',data.datas.userName);
+                window.location.href = "./facultypage/facultypage.html";
+			}
+		}
+		catch (error) {
+			console.error('An error occurred:', error.message);
+		}
+	}
+}
+tokenValid();

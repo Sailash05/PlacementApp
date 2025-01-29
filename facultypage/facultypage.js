@@ -1,4 +1,14 @@
-let domain = 'http://192.168.1.8:8080/';
+let domain = 'http://192.168.1.4:8080/';
+
+let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
+let userName = JSON.parse(localStorage.getItem('userName'));
+
+let faculty = {
+    name:null,
+    department:null,
+    mobileno:null,
+	email:null
+}
 
 function toggleSideBar() {
     let sideBar = document.querySelector('.side-bar');
@@ -128,6 +138,50 @@ async function toggleMainBar(choice) {
         </div>`;
         await getDefaulters();
         break;
+        case 5:
+                mainBar.innerHTML = `
+                <div class="profile-container">
+            <h2>Your Account</h2>
+            <form id="profileForm">
+                <div class="profile-field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" readonly value="${faculty.name}">
+                </div>
+    
+    
+                <div class="profile-field">
+                    <label for="department">Department:</label>
+                    <select name="department" id="department" disabled>
+                        <option value="CSE">Computer Science and Engineering</option>
+                        <option value="ECE">Electronics and Communication Engineering</option>
+                        <option value="GEO">Geo-Informatics</option>
+                        <option value="MECH">Mechanical Engineering</option>
+                        <option value="AIDS">Artificial Intelligence and Data Science</option>
+                    </select>
+                </div>
+    
+                <div class="profile-field">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="Your E-mail" readonly value="${faculty.email==null?"":faculty.email}">
+                </div>
+    
+                <div class="profile-field">
+                    <label for="phone">Phone Number:</label>
+                    <input type="number" id="phone" name="phone" placeholder="Your Mobile Number" readonly value="${faculty.mobileno==0?"":faculty.mobileno}">
+                </div>
+            </form>
+            <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+        </div>
+                `;
+            let options = document.querySelectorAll('.profile-field select option');
+            switch(faculty.department) {
+                case 'CSE': options[0].selected = true; break;
+                case 'ECE': options[1].selected = true; break;
+                case 'GEO': options[2].selected = true; break;
+                case 'MECH': options[3].selected = true; break;
+                case 'AIDS': options[4].selected = true; break;
+            }
+    break;
 
     }
     if(window.innerWidth <= 480) {
@@ -277,9 +331,6 @@ async function getDefaulters() {
 
 
 
-
-
-
 /* 
 async function viewQuestions(event) {
 
@@ -315,12 +366,110 @@ async function getQuestions(qid) {
 
 
 
+async function getFaculty(mobileno, token) {
+    try {
+        const response = await fetch(domain+`faculty/getfaculty?mobileno=${mobileno}`, {
+			method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+		});
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
+
+function facultyLoc(facultyData) {
+    faculty.name = facultyData.datas.name;
+    faculty.department = facultyData.datas.department;
+    faculty.mobileno = facultyData.datas.mobileno;
+	faculty.email = facultyData.datas.email;
+    localStorage.setItem('faculty',JSON.stringify(faculty));
+}
+
+
+function editProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    
+    // Enable editing by setting readOnly and disabled properties to false
+    inputs.forEach(input => {
+      input.style.color = "black";
+      input.readOnly = false;
+      input.disabled = false; // Enables the select element as well
+    });
+  
+    // Change button text to "Save Changes"
+    const editButton = document.querySelector('.edit-button');
+    editButton.textContent = "Save Changes";
+    editButton.setAttribute('onclick', 'saveProfile()');
+}
+
+async function saveProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    try {
+        const response = await fetch(domain+'faculty/updatefaculty', {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                'Content-type':'application/json'
+            },
+            body: JSON.stringify({
+                'name': inputs[0].value,
+                'department': inputs[1].value,
+                'mobileno': inputs[3].value,
+                'email': inputs[2].value
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const ansData = await response.json();
+         // Disable editing by setting readOnly and disabled properties to true
+        inputs.forEach(input => {
+        input.style.color = "rgb(93, 93, 93)";
+        input.readOnly = true;
+        input.disabled = true; // Disables the select element
+        });
+
+        const userData = await getFaculty(inputs[3].value);
+        facultyLoc(userData);
+    
+        // Change button text back to "Edit"
+        const editButton = document.querySelector('.edit-button');
+        editButton.textContent = "Edit Profile";
+        editButton.setAttribute('onclick', 'editProfile()');
+    
+        alert('Profile updated successfully!');
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+  }
 
 
 
+  async function getFacultyLoc() {
+    try {
+        const facultyData = await getFaculty(userName);
+        facultyLoc(facultyData);
+    }
+    catch {
+        console.error('An error occurred:', error.message);
+    }
+}
 
+getFacultyLoc();
 
 
 function logOut() {
+    localStorage.clear();
     window.location.href = "../index.html";
 }

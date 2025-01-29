@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./loginpage/loginpage.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="fullContainer">
@@ -16,7 +19,7 @@
             <p class="facultyBtn topLogBtn" onclick="change(3)">Faculty</p>
         </div>
         <div class="container">
-            <h1>Student Sign in</h1>
+            <h1>Student Sign up</h1>
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name" class="userName"><br>
                 <input type="number" placeholder="Roll Number" class="rollno"><br>
@@ -31,7 +34,7 @@
                 </select>
                 <input type="password" placeholder="Set Password" class="password">
                 <br>
-                <button type="button" class="submitBtn" onclick="addStudent()">Sign in</button>
+                <button type="button" class="submitBtn" onclick="addStudent()">Sign up</button>
             </form>
             <p class="changeToLoginS">Already have an account? <span onclick="change(1)">Log in</span></p>
         </div>
