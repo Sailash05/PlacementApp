@@ -92,6 +92,7 @@ nav>h1{
         display: none;
         position: fixed;
         top: 7dvh;
+        z-index: 10;
         height: 93dvh;
     }
     .side-bar>ul>li {
@@ -315,3 +316,56 @@ nav>h1{
         margin: 20px;
     }
 }
+
+
+
+.profile-container {
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+  }
+  
+.profile-container > h2 {
+    text-align: center;
+    color: #4CAF50;
+  }
+  .profile-container input {
+    outline: none;
+  }
+  .profile-field {
+    margin-bottom: 15px;
+  }
+  
+  .profile-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .profile-field input,
+  .profile-field select {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    color: rgb(93, 93, 93);
+  }
+ 
+  .edit-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #ff9800;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover {
+    background-color: #f57c00;
+  }

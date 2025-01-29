@@ -1,4 +1,17 @@
-let domain = 'http://192.168.1.8:8080/';
+let domain = 'http://192.168.1.4:8080/';
+
+let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
+let userName = JSON.parse(localStorage.getItem('userName'));
+
+let student = {
+    name:null,
+    rollno:null,
+    year:null,
+    semester:null,
+    department:null,
+	email:null,
+	mobileno:null
+}
 
 function toggleSideBar() {
     let sideBar = document.querySelector('.side-bar');
@@ -44,6 +57,55 @@ function toggleMainBar(choice) {
             `;
             assessmentCalculation();
             break;
+            case 3:
+                mainBar.innerHTML = `<div class="profile-container">
+            <h2>Your Account</h2>
+            <form id="profileForm">
+                <div class="profile-field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" readonly value="${student.name}">
+                </div>
+    
+                <div class="profile-field">
+                    <label for="roll-number">Register Number:</label>
+                    <input type="text" id="roll-number" name="roll-number" placeholder="Your Register Number"
+                        readonly value="${student.rollno}">
+                </div>
+    
+                <div class="profile-field">
+                    <label for="department">Department:</label>
+                    <select name="department" id="department" disabled>
+                        <option value="CSE">Computer Science and Engineering</option>
+                        <option value="ECE">Electronics and Communication Engineering</option>
+                        <option value="GEO">Geo-Informatics</option>
+                        <option value="MECH">Mechanical Engineering</option>
+                        <option value="AIDS">Artificial Intelligence and Data Science</option>
+                    </select>
+                </div>
+    
+                <div class="profile-field">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="Your E-mail" readonly value="${student.email==null?"":student.email}">
+                </div>
+    
+                <div class="profile-field">
+                    <label for="phone">Mobile Number:</label>
+                    <input type="number" id="phone" name="phone" placeholder="Your Mobile Number" readonly value="${student.mobileno==0?"":student.mobileno}">
+                </div>
+            </form>
+            <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+        </div>
+        
+    `
+    let options = document.querySelectorAll('.profile-field select option');
+            switch(student.department) {
+                case 'CSE': options[0].selected = true; break;
+                case 'ECE': options[1].selected = true; break;
+                case 'GEO': options[2].selected = true; break;
+                case 'MECH': options[3].selected = true; break;
+                case 'AIDS': options[4].selected = true; break;
+            }
+    break;
     }
     if(window.innerWidth <= 480) {
         toggleSideBar();
@@ -242,7 +304,116 @@ async function addAnswer() {
     
 }
 
+async function getStudent(rollNo) { 
+    try {
+        const response = await fetch(domain + `student/getstudent?rollno=${rollNo}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+        });
 
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
+// add student to local storage
+function studentLoc(userData) {
+    student.name = userData.datas.name;
+    student.rollno = userData.datas.rollno;
+    student.year = userData.datas.year;
+    student.semester = userData.datas.semester;
+    student.department = userData.datas.department;
+	student.email = userData.datas.email;
+	student.mobileno = userData.datas.mobileno;
+    localStorage.setItem('student', JSON.stringify(student));
+}
+
+// Function to enable editing of the profile form
+function editProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    
+    // Enable editing by setting readOnly and disabled properties to false
+    inputs.forEach(input => {
+      input.style.color = "black";
+      input.readOnly = false;
+      input.disabled = false; // Enables the select element as well
+    });
+  
+    // Change button text to "Save Changes"
+    const editButton = document.querySelector('.edit-button');
+    editButton.textContent = "Save Changes";
+    editButton.setAttribute('onclick', 'saveProfile()');
+}
+  
+  // Function to save profile after editing
+async function saveProfile() {
+    const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
+    try {
+        const response = await fetch(domain+'student/updatestudent', {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                'Content-type':'application/json'
+            },
+            body: JSON.stringify({
+                'rollno': inputs[1].value,
+                'name': inputs[0].value,
+                'year': student.year,
+                'department': inputs[2].value,
+                'mobileno': inputs[4].value,
+                'email': inputs[3].value
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const ansData = await response.json();
+         // Disable editing by setting readOnly and disabled properties to true
+        inputs.forEach(input => {
+        input.style.color = "rgb(93, 93, 93)";
+        input.readOnly = true;
+        input.disabled = true; // Disables the select element
+        });
+
+        const userData = await getStudent(inputs[1].value);
+        studentLoc(userData);
+    
+        // Change button text back to "Edit"
+        const editButton = document.querySelector('.edit-button');
+        editButton.textContent = "Edit Profile";
+        editButton.setAttribute('onclick', 'editProfile()');
+    
+        alert('Profile updated successfully!');
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+  }
+
+
+
+async function getStudentLoc() {
+    try {
+        const studentData = await getStudent(userName);
+        studentLoc(studentData);
+    }
+    catch {
+        console.error('An error occurred:', error.message);
+    }
+}
+getStudentLoc();
+  
 function logOut() {
+    localStorage.clear();
     window.location.href = "../index.html";
 }
