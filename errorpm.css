@@ -1,0 +1,90 @@
+/* Reset basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #78abf8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 350px;
+    height: 370px;
+    height: auto;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Centering the logo properly */
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.logo img {
+    width: 100px; /* Adjust size */
+    height: auto;
+}
+
+/* Typography adjustments */
+h1 {
+    font-size: 2.5rem;
+    color: #f72119;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #2e2b2b;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+/* Button Styling */
+.button {
+    background-color: #f72119;
+    color: #fff;
+    font-size: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 80%; /* More balanced width */
+    transition: background 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #780606;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
