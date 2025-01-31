@@ -1,4 +1,4 @@
-let domain = 'http://192.168.1.6:8080/';
+let domain = "http://192.168.1.5:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
