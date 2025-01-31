@@ -1,4 +1,4 @@
-let domain = 'http://192.168.1.4:8080/';
+let domain = 'http://192.168.1.6:8080/';
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -58,6 +58,12 @@ function toggleMainBar(choice) {
             assessmentCalculation();
             break;
             case 3:
+                mainBar.innerHTML = `<div class="event-container">
+            
+        </div>`;
+        getEvents(-1);
+                break;
+            case 4:
                 mainBar.innerHTML = `<div class="profile-container">
             <h2>Your Account</h2>
             <form id="profileForm">
@@ -412,8 +418,135 @@ async function getStudentLoc() {
     }
 }
 getStudentLoc();
-  
+
+
+
+
+
+
+
+
+function openImage(event) {
+    let image;
+    if (event.target.tagName === 'IMG') {
+        image = event.target;
+    } else {
+        image = event.target.querySelector('img');
+    }
+    imageSource = image.src;
+    imageOpen = document.createElement('div');
+    imageOpen.classList.add('image-open');
+
+    imageOpen.innerHTML = `
+    <div class="x-btn" onclick="closeImage()">X</div>
+    <img src="${imageSource}" alt="">
+    `;
+    document.body.appendChild(imageOpen);
+}
+function closeImage() {
+    document.querySelector('.image-open').remove();
+}
 function logOut() {
     localStorage.clear();
     window.location.href = "../index.html";
 }
+
+var eventData = [];
+async function getEvents(value) {
+    if(value === -1) {   //reset
+        eventData = [];
+    }
+    try {
+        const response = await fetch(domain+`event/getevent?offset=${eventData.length}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                'Content-type':'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        let temp = data.datas;
+        if(temp!=null) {
+            for(let i=0; i < temp.length; i++) {
+                eventData.push(temp[i]);
+            }
+        }
+        eventContainerFunc(eventData);
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
+function eventContainerFunc(eventData) {
+    let eventContainer = document.querySelector('.event-container');
+    eventContainer.innerHTML = `<h1>Upcoming Events</h1>`;
+    eventData.forEach(element=> {
+        let a = `
+        <div class="event" onClick="openEvent(event)">
+                <h2 class="event-title">${element.eventTitle}</h2>
+                <img src="${element.eventFiles.length!=0?domain+"event/getimage/"+element.eventFiles[0]:''}" alt="">
+                <div class="event-info">
+                    <div class="event-date-time">
+                        <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
+                        <p>${element.eventDateFrom} ${element.eventTimeFrom} - ${element.eventDataTo} ${element.eventTimeTo}</p>
+                    </div>
+                    <div class="event-location">
+                        <img src="../Resource/Event icons/location.png" alt="Location Icon">
+                        <p>${element.eventLocation}</p>
+                    </div>
+                </div>
+                <p class="event-description">
+                    ${element.eventDescription}
+                </p>
+                <p class="event-author"><span>Posted by:</span> ${element.postedBy}</p>
+            </div>
+        `;
+        eventContainer.innerHTML += a;
+        
+    });
+    eventContainer.innerHTML += `<button onClick="getEvents(1)">More</button>`;
+}
+
+
+
+function openEvent(event) {
+    let mainBar = document.querySelector('.main-bar');
+    let eventContainer = document.querySelector('.event-container');
+    let currentEvent = event.currentTarget;
+    let index = Array.from(eventContainer.children).indexOf(currentEvent)-1;
+
+    mainBar.innerHTML = `
+            <div class="event-in">
+            <h2>${eventData[index].eventTitle}</h2>
+            <div class="event-image-container"> 
+            </div>
+            </div>`;
+    
+    eventData[index].eventFiles.forEach(name => {
+        document.querySelector('.event-image-container').innerHTML += `
+        <button onclick="openImage(event)"><img src="${domain+"event/getimage/"+name}" alt=""></button>
+        `;
+    })
+
+    document.querySelector('.event-in').innerHTML += `</div> <pre> ${eventData[index].eventContent} </pre>
+    <div class="event-in-info">
+                <h3>Date and Location</h3>
+                <div class="event-in-date-time">
+                    <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
+                    <p>${eventData[index].eventDateFrom} ${eventData[index].eventTimeFrom} - ${eventData[index].eventDateTo} ${eventData[index].eventTimeTo}</p>
+                </div>
+                <div class="event-in-location">
+                    <img src="../Resource/Event icons/location.png" alt="Location Icon">
+                    <p>${eventData[index].eventLocation}</p>
+                </div>
+            </div>
+            <a href="${eventData[index].applyLink}" target="_blank">Apply</a>
+            <p class="event-author"><span>Posted by : </span> ${eventData[index].postedBy}</p>
+        </div>
+    `;
+} 
+
