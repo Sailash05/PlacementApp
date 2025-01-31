@@ -1,4 +1,4 @@
-let domain = 'http://192.168.1.4:8080/';
+let domain = 'http://192.168.1.6:8080/';
 
 let container = document.querySelector('.container');
 /* 
@@ -195,18 +195,18 @@ async function loginStudent() {
                 password: password
             })
         });
-
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
         const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+        
 		token.jwt_token = data.datas;
 		localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('userName', rollno);
         window.location.href = "./studentpage/studentpage.html";
     }
-    catch(error) {
-        console.error('An error occurred:', error.message);
+    catch(message) {
+        console.log(message.message);
     }
 }
 
@@ -319,7 +319,7 @@ async function tokenValid() {
 			}
 		}
 		catch (error) {
-			console.error('An error occurred:', error.message);
+            localStorage.clear();
 		}
 	}
 }
