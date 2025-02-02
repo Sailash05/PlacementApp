@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.8:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -364,47 +364,65 @@ function editProfile() {
   // Function to save profile after editing
 async function saveProfile() {
     const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
-    try {
-        const response = await fetch(domain+'student/updatestudent', {
-            method: 'PUT',
-            headers: {
-                "Authorization": `Bearer ${jwt_token}`, 
-                'Content-type':'application/json'
-            },
-            body: JSON.stringify({
-                'rollno': inputs[1].value,
-                'name': inputs[0].value,
-                'year': student.year,
-                'department': inputs[2].value,
-                'mobileno': inputs[4].value,
-                'email': inputs[3].value
-            })
-        });
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+    if(inputs[0].value.trim().length === 0) {
+        showFailMessage("Error","Please Enter Your Name.","Try again!!");
+    }
+    else if(inputs[1].value.length != 12) {
+        showFailMessage("Error","Please Enter the Correct Register Number.","Try again!!");
+    }
+    else if(inputs[3].value.trim().length === 0) {
+        showFailMessage("Error","Please Enter Your Email.","Try again!!");
+    }
+    else if(inputs[4].value.length != 10) {
+        showFailMessage("Error","Please Enter Your Mobile Number.","Try again!!");
+    }
+    else {
+        try {
+            const response = await fetch(domain+'student/updatestudent', {
+                method: 'PUT',
+                headers: {
+                    "Authorization": `Bearer ${jwt_token}`, 
+                    'Content-type':'application/json'
+                },
+                body: JSON.stringify({
+                    'rollno': inputs[1].value,
+                    'name': inputs[0].value.trim(),
+                    'year': student.year,
+                    'department': inputs[2].value,
+                    'mobileno': inputs[4].value,
+                    'email': inputs[3].value
+                })
+            });
+            const data = await response.json();
+            if(response.status === 200) {
+                showSuccessMessage("Success",data.message,"");
+                const userData = await getStudent(inputs[1].value);
+                studentLoc(userData);
+            }
+            else if(response.status === 404) {
+                showFailMessage("Error",data.message,"Please Enter the Correct Register Number");
+            }
+            else if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+            
+            inputs.forEach(input => {
+            input.style.color = "rgb(93, 93, 93)";
+            input.readOnly = true;
+            input.disabled = true;
+            });
+    
+            
+        
+            const editButton = document.querySelector('.edit-button');
+            editButton.textContent = "Edit Profile";
+            editButton.setAttribute('onclick', 'editProfile()');
         }
-        const ansData = await response.json();
-         // Disable editing by setting readOnly and disabled properties to true
-        inputs.forEach(input => {
-        input.style.color = "rgb(93, 93, 93)";
-        input.readOnly = true;
-        input.disabled = true; // Disables the select element
-        });
-
-        const userData = await getStudent(inputs[1].value);
-        studentLoc(userData);
-    
-        // Change button text back to "Edit"
-        const editButton = document.querySelector('.edit-button');
-        editButton.textContent = "Edit Profile";
-        editButton.setAttribute('onclick', 'editProfile()');
-    
-        alert('Profile updated successfully!');
+        catch(error) {
+            showFailMessage("Error","Internal Server Error","Please try again!");
+        }
     }
-    catch(error) {
-        console.error('An error occurred:', error.message);
-    }
-  }
+}
 
 
 
@@ -434,22 +452,19 @@ function openImage(event) {
         image = event.target.querySelector('img');
     }
     imageSource = image.src;
-    imageOpen = document.createElement('div');
-    imageOpen.classList.add('image-open');
+    imageOpenMaster = document.createElement('div');
+    imageOpenMaster.classList.add('image-open-master');
+    imageOpenMaster.innerHTML = `<div class="image-open">
+        <div class="x-btn" onclick="closeImage()">X</div>
+        <img src="${imageSource}" alt="">
+        </div>`
 
-    imageOpen.innerHTML = `
-    <div class="x-btn" onclick="closeImage()">X</div>
-    <img src="${imageSource}" alt="">
-    `;
-    document.body.appendChild(imageOpen);
+    document.body.appendChild(imageOpenMaster);
 }
 function closeImage() {
-    document.querySelector('.image-open').remove();
+    document.querySelector('.image-open-master').remove();
 }
-function logOut() {
-    localStorage.clear();
-    window.location.href = "../index.html";
-}
+
 
 var eventData = [];
 async function getEvents(value) {
@@ -550,3 +565,74 @@ function openEvent(event) {
     `;
 } 
 
+
+
+function showFailMessage(title, message1, message2) {
+    let popUpMasterContainer = document.createElement('div');
+    popUpMasterContainer.classList.add('pop-up-master-container');
+	let innerContent = `<div class="pop-up-container">
+            <div class="logo">
+            <img src="../Resource/pop up menu icons/cross.png" alt="Logo">
+        </div>
+        <h1>${title} :(</h1>
+        <p> ${message1} <br> ${message2}</p>
+        <form>
+            <button type="button" class="button" onClick="hideFailMessage()">TRY AGAIN</button>
+        </form>
+        </div>`;
+    popUpMasterContainer.innerHTML = innerContent;
+	document.querySelector('body').appendChild(popUpMasterContainer);
+}
+function hideFailMessage() {
+	let popUpMasterContainer = document.querySelector('.pop-up-master-container');
+	popUpMasterContainer.remove();
+}
+
+function showSuccessMessage(title, message1, message2) {
+    let popUpMasterContainer = document.createElement('div');
+    popUpMasterContainer.classList.add('pop-up-master-container1');
+	let innerContent = `<div class="pop-up-container1">
+            <div class="logo">
+            <img src="../Resource/pop up menu icons/tick.png" alt="Logo">
+        </div>
+        <h1>${title}!</h1>
+        <p> ${message1} <br> ${message2}</p>
+        <form>
+            <button type="button" class="button" onClick="hideSuccessMessage()">Okay</button>
+        </form>
+        </div>`;
+    popUpMasterContainer.innerHTML = innerContent;
+	document.querySelector('body').appendChild(popUpMasterContainer);
+}
+function hideSuccessMessage() {
+	let popUpMasterContainer = document.querySelector('.pop-up-master-container1');
+	popUpMasterContainer.remove();
+}
+
+
+
+
+
+function openLogOutMenu() {
+    let logOutMenuMasterContainer = document.createElement('div');
+    logOutMenuMasterContainer.classList.add('log-out-menu-master-container');
+    logOutMenuMasterContainer.innerHTML = `<div class="log-out-menu-container">
+        <div class="box">
+            <img src="../Resource/pop up menu icons/exclamation-mark.jpg" alt="!!!" class="logo">
+            <p>Are you sure you want to sign out?</p>
+            <div class="buttons">
+                <button class="ok-btn" onClick="logOut()">Ok</button>
+                <button class="cancel-btn" onClick="closeLogOutMenu()">Cancel</button>
+            </div>
+        </div>
+    </div>`;
+    document.querySelector('body').appendChild(logOutMenuMasterContainer);
+}
+function closeLogOutMenu() {
+    let logOutMenu = document.querySelector('.log-out-menu-master-container');
+    logOutMenu.remove();
+}
+function logOut() {
+    localStorage.clear();
+    window.location.href = "../index.html";
+}
