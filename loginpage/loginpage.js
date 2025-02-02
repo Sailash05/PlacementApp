@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.6:8080/";
 
 let container = document.querySelector(".container");
 
@@ -15,7 +15,7 @@ function change(choice) {
                 <input type="number" placeholder="Roll Number" class="rollno"><br>
                 <input type="password" placeholder="Password" class="password">
                 <br>
-				<p class="forgot-password"><span>Forgot Password?</span></p>
+				<p class="forgot-password"><span onClick="studentResetPassword()">Forgot Password?</span></p>
                 <button type="button" class="submitBtn" onClick="loginStudent()">Log in</button>
             </form>
             <p class="changeToLoginS">New User? <span onClick="change(2)">Sign up</span></p>
@@ -78,7 +78,7 @@ function change(choice) {
                 <input type="number" placeholder="Mobile Number" class="mobileNo"><br>
                 <input type="password" placeholder="Password" class="password">
                 <br>
-				<p class="forgot-password"><span>Forgot Password?</span></p>
+				<p class="forgot-password"><span onClick="facultyResetPassword()">Forgot Password?</span></p>
                 <button type="button" class="submitBtn" onClick="loginFaculty()">Log in</button>
             </form>
             <p class="changeToLoginS">New here? <span onClick="change(3)">Sign up</span></p>
@@ -94,10 +94,12 @@ async function addStudent() {
 	const department = document.querySelector("#departmentSelect").value;
 	const password = document.querySelector(".password").value;
 
-	if(rollno.length != 12) {
+	if(name.length === 0) {
+		showFailMessage("Error","Please Enter Your Name.","Try again!!");
+	}
+	else if(rollno.length != 12) {
 		showFailMessage("Error","Please Enter the Correct Register Number.","Try again!!");
 	}
-
 	else if(year < 1 || year > 4) {
 		showFailMessage("Error","Please enter the correct year.","Try again!!");
 	}
@@ -187,8 +189,11 @@ async function addFaculty() {
 	const department = document.querySelector("#departmentSelect").value;
 	const password = document.querySelector(".password").value;
 
-	if(mobileno.length != 10) {
-		showFailMessage("Error","Please Enter the Correct Mobile Number.","Try again!!");
+	if(name.length === 0) {
+		showFailMessage("Error","Please Enter Your Name.","Try again!!");
+	}
+	else if(mobileno.length != 10) {
+		showFailMessage("Error","Please Enter the Valid Mobile Number.","Try again!!");
 	}
 	else if(department === "") {
 		showFailMessage("Error","Please select the department.","Try again!!");
@@ -229,7 +234,7 @@ async function loginFaculty() {
 	const password = document.querySelector(".password").value;
 
 	if(mobileno.length != 10) {
-		showFailMessage("Error","Please Enter the Correct Mobile Number.","Try again!!");
+		showFailMessage("Error","Please Enter the Valid Mobile Number.","Try again!!");
 	}
 	else {
 		try {
@@ -264,7 +269,6 @@ async function loginFaculty() {
 			showFailMessage("Error","Internal Server Error","Please try again!");
 		}
 	}
-	
 }
 
 async function tokenValid() {
@@ -326,7 +330,7 @@ function showSuccessMessage(title, message1, message2) {
         <h1>${title}!</h1>
         <p> ${message1} <br> ${message2}</p>
         <form>
-            <button type="button" class="button" onClick="hideSuccessMessage()">LOG IN</button>
+            <button type="button" class="button" onClick="hideSuccessMessage()">Okay</button>
         </form>`;
 	popUpContainer.innerHTML = innerContent;
 	document.querySelector('body').appendChild(popUpContainer);
@@ -338,3 +342,151 @@ function hideSuccessMessage() {
 
 
 tokenValid();
+
+
+function studentResetPassword() {
+	let resendContainerMaster = document.createElement('div');
+	resendContainerMaster.classList.add('resend-container-master');
+	resendContainerMaster.innerHTML = `<div class="resend-container">
+        <button class="resend-close-btn" onClick="closeStudentResetPassword()">X</button>
+        
+        <h2 class="resend-title">Password Reset</h2>
+        
+        <form class="resend-form">
+            <label for="reg-number" class="resend-label">Register Number:</label>
+            <input type="number" id="reg-number" name="reg-number" class="resend-input" required>
+            <label for="email" class="resend-label">Email Address:</label>
+            <input type="email" id="email" name="email" class="resend-input" required>
+            <div class="resend-button-container">
+                <button type="button" class="resend-send-btn" onClick="sendStudentResetRequest()">Send</button>
+                <button type="button" class="resend-cancel-btn" onClick="closeStudentResetPassword()">Cancel</button>
+            </div>
+        </form>
+    </div>`;
+	document.querySelector('body').appendChild(resendContainerMaster);
+}
+function closeStudentResetPassword() {
+	document.querySelector('.resend-container-master').remove();
+}
+
+
+async function sendStudentResetRequest() {
+	const regNo = document.querySelector('.resend-form #reg-number').value;
+	const email = document.querySelector('.resend-form #email').value;
+	if(regNo.length != 12) {
+		showFailMessage("Error","Please Enter the Correct Register Number.","Try again!!");
+	}
+	else if(email.trim() === "") {
+		showFailMessage("Error","Please Enter the Correct Email Address.","Try again!!");
+	}
+	else {
+		try {
+			const response = await fetch(domain + 'student/resetrequest', {
+				method: 'PUT',
+				headers: {'Content-Type':'application/json'},
+				body: JSON.stringify({
+					rollno: regNo,
+					email: email
+				})
+			});
+			const data = await response.json();
+			if(response.status === 200) {
+				showSuccess("Success",data.message,"");
+			}
+			else if(response.status === 404) {
+				showFailMessage("Failed",data.message,"Please try again!");
+			}
+			else if (!response.ok) {
+				throw new Error(data.message);
+			}
+		}
+		catch(error) {
+			showFailMessage("Error","Internal Server Error","Please try again!");
+		}
+	}
+}
+
+
+function showSuccess(title, message1, message2) {
+	let popUpContainer = document.createElement('div');
+	popUpContainer.classList.add('pop-up-container1');
+	let innerContent = `<div class="logo">
+            <img src="./Resource/pop up menu icons/tick.png" alt="Logo">
+        </div>
+        <h1>${title}!</h1>
+        <p> ${message1} <br> ${message2}</p>
+        <form>
+            <button type="button" class="button" onClick="hideSuccess()">Okay</button>
+        </form>`;
+	popUpContainer.innerHTML = innerContent;
+	document.querySelector('body').appendChild(popUpContainer);
+}
+function hideSuccess() {
+	window.location.reload();
+}
+
+
+
+
+function facultyResetPassword() {	
+	let resendContainerMaster = document.createElement('div');
+	resendContainerMaster.classList.add('resend-container-master');
+	resendContainerMaster.innerHTML = `<div class="resend-container">
+        <button class="resend-close-btn" onClick="closeStudentResetPassword()">X</button>
+        
+        <h2 class="resend-title">Password Reset</h2>
+        
+        <form class="resend-form">
+            <label for="reg-number" class="resend-label">Mobile Number:</label>
+            <input type="number" id="reg-number" name="reg-number" class="resend-input" required>
+            <label for="email" class="resend-label">Email Address:</label>
+            <input type="email" id="email" name="email" class="resend-input" required>
+            <div class="resend-button-container">
+                <button type="button" class="resend-send-btn" onClick="sendFacultyResetRequest()">Send</button>
+                <button type="button" class="resend-cancel-btn" onClick="closeFacultyResetPassword()">Cancel</button>
+            </div>
+        </form>
+    </div>`;
+	document.querySelector('body').appendChild(resendContainerMaster);
+}
+function closeFacultyResetPassword() {
+	document.querySelector('.resend-container-master').remove();
+}
+
+
+
+async function sendFacultyResetRequest() {
+	const mobileno = document.querySelector('.resend-form #reg-number').value;
+	const email = document.querySelector('.resend-form #email').value;
+	if(mobileno.length != 10) {
+		showFailMessage("Error","Please Enter the Correct Mobile Number.","Try again!!");
+	}
+	else if(email.trim() === "") {
+		showFailMessage("Error","Please Enter the Correct Email Address.","Try again!!");
+	}
+	else {
+		try {
+			const response = await fetch(domain + 'faculty/resetrequest', {
+				method: 'PUT',
+				headers: {'Content-Type':'application/json'},
+				body: JSON.stringify({
+					mobileno: mobileno,
+					email: email
+				})
+			});
+			const data = await response.json();
+			if(response.status === 200) {
+				showSuccess("Success",data.message,"");
+			}
+			else if(response.status === 404) {
+				showFailMessage("Failed",data.message,"Please try again!");
+			}
+			else if (!response.ok) {
+				throw new Error(data.message);
+			}
+		}
+		catch(error) {
+			showFailMessage("Error","Internal Server Error","Please try again!");
+		}
+	}
+}
