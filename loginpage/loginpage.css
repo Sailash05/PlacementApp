@@ -103,11 +103,6 @@ body{
     border: none;
     font-weight: bolder;
 }
-/* .studentSignInForm >input[type="number"]::-webkit-outer-spin-button,
-.no-spinner::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-} */
 .studentSignInForm>input:focus{
     outline: none;
     border: none;
@@ -231,6 +226,7 @@ body{
 @media (max-width: 768px) {
     .pop-up-container {
         padding: 15px;
+        width: 300px;
     }
 
     .pop-up-container h1 {
@@ -302,6 +298,7 @@ body{
 @media (max-width: 768px) {
     .pop-up-container1 {
         padding: 15px;
+        width: 300px;
     }
 
     .pop-up-container1 h1 {

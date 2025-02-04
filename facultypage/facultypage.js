@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.8:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -10,20 +10,27 @@ let faculty = {
 	email:null
 }
 
-function toggleSideBar() {
-    let sideBar = document.querySelector('.side-bar');
-    let hamburgerButton = document.querySelector('.hamburger-btn');
-    let xButton = document.querySelector('.x-btn');
 
-    if(sideBar.style.display === 'none') {
+function openSideBar() {
+    let sideBar = document.querySelector('.side-bar');
+    if(!sideBar.classList.contains('active')) {
+        let hamburgerButton = document.querySelector('.hamburger-btn');
+        let xButton = document.querySelector('.x-btn');
         sideBar.style.display = 'flex';
+        setTimeout(() => { sideBar.classList.add('active'); }, 10); 
         xButton.style.width = '20px';
         xButton.style.height = '20px';
         hamburgerButton.style.width = '0px';
         hamburgerButton.style.height = '0px';
     }
-    else {
-        sideBar.style.display = 'none';
+}
+function closeSideBar() {
+    let sideBar = document.querySelector('.side-bar');
+    if (sideBar.classList.contains('active')) {
+        let hamburgerButton = document.querySelector('.hamburger-btn');
+        let xButton = document.querySelector('.x-btn');
+        sideBar.classList.remove('active');
+        setTimeout(() => { sideBar.style.display = 'none'; }, 500); 
         hamburgerButton.style.width = '25px';
         hamburgerButton.style.height = '25px';
         xButton.style.width = '0px';
@@ -140,9 +147,8 @@ async function toggleMainBar(choice) {
         break;
         case 5:
                 mainBar.innerHTML = `<div class="event-container">
-            
-        </div>`;
-        getEvents(-1);
+                </div>`;
+                getEvents(-1);
                 break;
         case 6:
                 mainBar.innerHTML = `
@@ -191,7 +197,7 @@ async function toggleMainBar(choice) {
 
     }
     if(window.innerWidth <= 480) {
-        toggleSideBar();
+        closeSideBar();
     }
 }
 
@@ -637,10 +643,6 @@ function eventContainerFunc(eventData) {
     let eventContainer = document.querySelector('.event-container');
     eventContainer.innerHTML = `<h1>Upcoming Events</h1> <p onclick="addEventOpen()">+ New Event</p>`;
     eventData.forEach(element=> {
-        console.log(element.eventDateFrom);
-        console.log(element.eventDateTo);
-            console.log(element.eventTimeFrom);
-                console.log(element.eventTimeTo);
         let a = `
             <div class="event" onClick="openEvent(event)">
                 <h2 class="event-title">${element.eventTitle}</h2>
@@ -767,6 +769,9 @@ function openLogOutMenu() {
             </div>
         </div>
     </div>`;
+    if(window.innerWidth <= 480) {
+        closeSideBar();
+    }
     document.querySelector('body').appendChild(logOutMenuMasterContainer);
 }
 function closeLogOutMenu() {
