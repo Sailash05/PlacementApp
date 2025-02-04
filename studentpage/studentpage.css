@@ -28,6 +28,22 @@ nav>h1{
     margin-left: 1rem;
     color: white;
 }
+nav > p {
+    flex: 1;
+    text-align: center;
+    color: white;
+    margin: 0;
+    font-weight: bolder;
+  }
+  
+  nav > .college-logo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    height: auto;
+    margin-left: auto;
+  }
 .side-bar {
     grid-column-start: 1;
     grid-column-end: 2;

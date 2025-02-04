@@ -70,18 +70,25 @@ body{
 
 
 
-
 .container{
     background: rgb(255,184,253);
     background: linear-gradient(90deg, rgba(255,184,253,1) 0%, rgba(202,116,255,0.9831582291119573) 100%);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    text-align: center;
 }
 .container>h1{
     color: black;
     text-align: center;
     padding-top: 15px;
     padding-bottom: 10px;
+}
+.container>span{
+    display: block;
+    color: white;
+    font-weight: bolder;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 
