@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.8:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -13,27 +13,32 @@ let student = {
 	mobileno:null
 }
 
-function toggleSideBar() {
+function openSideBar() {
     let sideBar = document.querySelector('.side-bar');
-    let hamburgerButton = document.querySelector('.hamburger-btn');
-    let xButton = document.querySelector('.x-btn');
-
-    if(sideBar.style.display === 'none') {
+    if(!sideBar.classList.contains('active')) {
+        let hamburgerButton = document.querySelector('.hamburger-btn');
+        let xButton = document.querySelector('.x-btn');
         sideBar.style.display = 'flex';
+        setTimeout(() => { sideBar.classList.add('active'); }, 10); 
         xButton.style.width = '20px';
         xButton.style.height = '20px';
         hamburgerButton.style.width = '0px';
         hamburgerButton.style.height = '0px';
     }
-    else {
-        sideBar.style.display = 'none';
+}
+function closeSideBar() {
+    let sideBar = document.querySelector('.side-bar');
+    if (sideBar.classList.contains('active')) {
+        let hamburgerButton = document.querySelector('.hamburger-btn');
+        let xButton = document.querySelector('.x-btn');
+        sideBar.classList.remove('active');
+        setTimeout(() => { sideBar.style.display = 'none'; }, 500); 
         hamburgerButton.style.width = '25px';
         hamburgerButton.style.height = '25px';
         xButton.style.width = '0px';
         xButton.style.height = '0px';
     }
 }
-
 function toggleMainBar(choice) {
     let mainBar = document.querySelector('.main-bar');
     switch(choice) {
@@ -59,9 +64,8 @@ function toggleMainBar(choice) {
             break;
             case 3:
                 mainBar.innerHTML = `<div class="event-container">
-            
-        </div>`;
-        getEvents(-1);
+                </div>`;
+                getEvents(-1);
                 break;
             case 4:
                 mainBar.innerHTML = `<div class="profile-container">
@@ -114,7 +118,7 @@ function toggleMainBar(choice) {
     break;
     }
     if(window.innerWidth <= 480) {
-        toggleSideBar();
+        closeSideBar();
     }
 }
 
@@ -501,21 +505,21 @@ function eventContainerFunc(eventData) {
     eventContainer.innerHTML = `<h1>Upcoming Events</h1>`;
     eventData.forEach(element=> {
         let a = `
-        <div class="event" onClick="openEvent(event)">
+            <div class="event" onClick="openEvent(event)">
                 <h2 class="event-title">${element.eventTitle}</h2>
                 <img src="${element.eventFiles.length!=0?domain+"event/getimage/"+element.eventFiles[0]:''}" alt="">
                 <div class="event-info">
-                    <div class="event-date-time">
+                ${(element.eventDateFrom=="" && element.eventDateTo=="" && element.eventTimeFrom=="" && element.eventTimeTo=="")?"":`<div class="event-date-time">
                         <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
-                        <p>${element.eventDateFrom} ${element.eventTimeFrom} - ${element.eventDataTo} ${element.eventTimeTo}</p>
-                    </div>
-                    <div class="event-location">
+                        <p>${element.eventDateFrom!="" ? element.eventDateFrom.substring(8,10)+"-"+element.eventDateFrom.substring(5,7)+"-"+element.eventDateFrom.substring(0,4):""} ${element.eventTimeFrom!="" ? element.eventTimeFrom.substring(0,2) <= 12?element.eventTimeFrom+"AM":(element.eventTimeFrom.substring(0,2)-12)+element.eventTimeFrom.substring(2)+"PM":""} - ${element.eventDateTo!="" ? element.eventDateTo.substring(8,10)+"-"+element.eventDateTo.substring(5,7)+"-"+element.eventDateTo.substring(0,4):""} ${element.eventTimeTo!="" ? element.eventTimeTo.substring(0,2) <= 12?element.eventTimeTo+"AM":(element.eventTimeTo.substring(0,2)-12)+element.eventTimeTo.substring(2)+"PM": ""}</p>
+                    </div>`}
+                    ${element.eventLocation!="" ? `<div class="event-location">
                         <img src="../Resource/Event icons/location.png" alt="Location Icon">
                         <p>${element.eventLocation}</p>
-                    </div>
+                    </div>`:""}
                 </div>
                 <p class="event-description">
-                    ${element.eventDescription}
+                    ${element.eventDescription.trim()!=""?element.eventDescription:element.eventContent.substring(0,100)+"...<span id='read-more-txt'>(read-more)</span>"}
                 </p>
                 <p class="event-author"><span>Posted by:</span> ${element.postedBy}</p>
             </div>
@@ -527,7 +531,9 @@ function eventContainerFunc(eventData) {
 }
 
 
-
+function wrapLinks(text) {
+    return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+}
 function openEvent(event) {
     let mainBar = document.querySelector('.main-bar');
     let eventContainer = document.querySelector('.event-container');
@@ -536,6 +542,7 @@ function openEvent(event) {
 
     mainBar.innerHTML = `
             <div class="event-in">
+            <p class="event-in-exit-btn" onClick="toggleMainBar(3)"> X </p>
             <h2>${eventData[index].eventTitle}</h2>
             <div class="event-image-container"> 
             </div>
@@ -547,19 +554,20 @@ function openEvent(event) {
         `;
     })
 
-    document.querySelector('.event-in').innerHTML += `</div> <pre> ${eventData[index].eventContent} </pre>
-    <div class="event-in-info">
+    document.querySelector('.event-in').innerHTML += `</div> <pre> ${wrapLinks(eventData[index].eventContent)} </pre>
+    ${eventData[index].eventDateFrom==""&&eventData[index].eventDateTo==""&&eventData[index].eventTimeFrom==""&&eventData[index].eventTimeFrom==""?""&&eventData[index].eventLocation=="":`<div class="event-in-info">
                 <h3>Date and Location</h3>
-                <div class="event-in-date-time">
-                    <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
-                    <p>${eventData[index].eventDateFrom} ${eventData[index].eventTimeFrom} - ${eventData[index].eventDateTo} ${eventData[index].eventTimeTo}</p>
-                </div>
-                <div class="event-in-location">
-                    <img src="../Resource/Event icons/location.png" alt="Location Icon">
-                    <p>${eventData[index].eventLocation}</p>
-                </div>
-            </div>
-            <a href="${eventData[index].applyLink}" target="_blank">Apply</a>
+                ${(eventData[index].eventDateFrom=="" && eventData[index].eventDateTo=="" && eventData[index].eventTimeFrom=="" && eventData[index].eventTimeTo=="")?"":`<div class="event-date-time">
+                        <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
+                        <p>${eventData[index].eventDateFrom!="" ? eventData[index].eventDateFrom.substring(8,10)+"-"+eventData[index].eventDateFrom.substring(5,7)+"-"+eventData[index].eventDateFrom.substring(0,4):""} ${eventData[index].eventTimeFrom!="" ? eventData[index].eventTimeFrom.substring(0,2) <= 12?eventData[index].eventTimeFrom+"AM":(eventData[index].eventTimeFrom.substring(0,2)-12)+eventData[index].eventTimeFrom.substring(2)+"PM":""} - ${eventData[index].eventDateTo!="" ? eventData[index].eventDateTo.substring(8,10)+"-"+eventData[index].eventDateTo.substring(5,7)+"-"+eventData[index].eventDateTo.substring(0,4):""} ${eventData[index].eventTimeTo!="" ? eventData[index].eventTimeTo.substring(0,2) <= 12?eventData[index].eventTimeTo+"AM":(eventData[index].eventTimeTo.substring(0,2)-12)+eventData[index].eventTimeTo.substring(2)+"PM": ""}</p>
+                    </div>`}
+
+                    ${eventData[index].eventLocation!="" ? `<div class="event-location">
+                        <img src="../Resource/Event icons/location.png" alt="Location Icon">
+                        <p>${eventData[index].eventLocation}</p>
+                    </div>`:""}</div>
+                `}
+                ${eventData[index].applyLink!=""?`<a href="${eventData[index].applyLink}" target="_blank">Apply</a>`:""}
             <p class="event-author"><span>Posted by : </span> ${eventData[index].postedBy}</p>
         </div>
     `;
@@ -626,6 +634,9 @@ function openLogOutMenu() {
             </div>
         </div>
     </div>`;
+    if(window.innerWidth <= 480) {
+        closeSideBar();
+    }
     document.querySelector('body').appendChild(logOutMenuMasterContainer);
 }
 function closeLogOutMenu() {

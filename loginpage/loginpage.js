@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.6:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 let container = document.querySelector(".container");
 
@@ -101,10 +101,13 @@ async function addStudent() {
 		showFailMessage("Error","Please Enter the Correct Register Number.","Try again!!");
 	}
 	else if(year < 1 || year > 4) {
-		showFailMessage("Error","Please enter the correct year.","Try again!!");
+		showFailMessage("Error","Please Enter the correct year.","Try again!!");
 	}
 	else if(department === "") {
 		showFailMessage("Error","Please select the department.","Try again!!");
+	}
+	else if(password.trim() === "") {
+		showFailMessage("Error","Please Enter the Password","Try again!!");
 	}
 	else {
 		try {
@@ -145,6 +148,9 @@ async function loginStudent() {
 
 	if(rollno.length != 12) {
 		showFailMessage("Error","Please Enter the Correct Register Number.","Try again!!");
+	}
+	else if(password.trim() === "") {
+		showFailMessage("Error","Please Enter the password","");
 	}
 	else {
 		try {
@@ -235,6 +241,9 @@ async function loginFaculty() {
 
 	if(mobileno.length != 10) {
 		showFailMessage("Error","Please Enter the Valid Mobile Number.","Try again!!");
+	}
+	else if(password.trim() === "") {
+		showFailMessage("Error","Please Enter the password","");
 	}
 	else {
 		try {
