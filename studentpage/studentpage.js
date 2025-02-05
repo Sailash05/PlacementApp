@@ -40,6 +40,12 @@ function closeSideBar() {
     }
 }
 function toggleMainBar(choice) {
+    let navElement = document.querySelectorAll('.element');
+    navElement.forEach(element=> {
+        if(element.classList.contains('side-bar-element-active')) {
+            element.classList.remove('side-bar-element-active');
+        }
+    });
     let mainBar = document.querySelector('.main-bar');
     switch(choice) {
         case 1:
@@ -62,12 +68,12 @@ function toggleMainBar(choice) {
             `;
             assessmentCalculation();
             break;
-            case 3:
+            case 5:
                 mainBar.innerHTML = `<div class="event-container">
                 </div>`;
                 getEvents(-1);
                 break;
-            case 4:
+            case 6:
                 mainBar.innerHTML = `<div class="profile-container">
             <h2>Your Account</h2>
             <form id="profileForm">
@@ -117,6 +123,7 @@ function toggleMainBar(choice) {
             }
     break;
     }
+    navElement[choice-1].classList.add('side-bar-element-active');
     if(window.innerWidth <= 480) {
         closeSideBar();
     }
@@ -158,10 +165,16 @@ function finishedAssessmentTab(data) {
 }
 async function assessmentCalculation() {
     try {
-        const unfinishedResponse = await fetch(domain+`answers/getunfinished?rollno=${JSON.parse(localStorage.getItem('student')).rollno}`);
+        const unfinishedResponse = await fetch(domain+`answers/getunfinished?rollno=${JSON.parse(localStorage.getItem('student')).rollno}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${jwt_token}`
+            }
+        });
 
         if(!unfinishedResponse.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            
         }
 
         const unfinishedData = await unfinishedResponse.json();
@@ -169,7 +182,7 @@ async function assessmentCalculation() {
         const answerResponse = await fetch(domain+`answers/getmark?rollno=${JSON.parse(localStorage.getItem('student')).rollno}`)
 
         if(!answerResponse.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            
         }
 
         const answerData = await answerResponse.json();
@@ -542,7 +555,7 @@ function openEvent(event) {
 
     mainBar.innerHTML = `
             <div class="event-in">
-            <p class="event-in-exit-btn" onClick="toggleMainBar(3)"> X </p>
+            <p class="event-in-exit-btn" onClick="toggleMainBar(5)"> X </p>
             <h2>${eventData[index].eventTitle}</h2>
             <div class="event-image-container"> 
             </div>
@@ -595,7 +608,6 @@ function hideFailMessage() {
 	let popUpMasterContainer = document.querySelector('.pop-up-master-container');
 	popUpMasterContainer.remove();
 }
-
 function showSuccessMessage(title, message1, message2) {
     let popUpMasterContainer = document.createElement('div');
     popUpMasterContainer.classList.add('pop-up-master-container1');

@@ -14,104 +14,61 @@
   </head>
   <body>
     <nav>
-      <img
-        src="../Resource/Nav Bar Logos/image.png" alt=""
-        height="0px"
-        width="0px"
-        onclick="openSideBar()"
-        class="hamburger-btn"
-      />
-      <img
-        src="../Resource/Nav Bar Logos/xMark.png"
-        alt=""
-        height="0px"
-        width="0px"
-        onclick="closeSideBar()"
-        class="x-btn"
-      />
-      <h1>Student Dashboard</h1>
+      <img src="../Resource/Nav Bar Logos/image.png" alt="" onclick="openSideBar()" class="hamburger-btn">
+      <img src="../Resource/Nav Bar Logos/xMark.png"  alt="" onclick="closeSideBar()" class="x-btn"/>
+      <!-- <img src="../Resource/college logo/college-logo.jpeg" alt="" id="nav-clg-logo"> -->
+      <h1>Anna University Regional Campus Tirunelveli</h1>
     </nav>
 
     <aside class="side-bar">
       <div class="head">
-        <h2>Menu</h2>
+        <div>
+          <h2>SS</h2>
+        </div>
+        <p>Sailash S</p>
+        <p>950023104024</p>
       </div>
       <ul>
-        <li onclick="toggleMainBar(1)">
-          <div class="element">
+        <li>
+          <div class="element side-bar-element-active"onclick="toggleMainBar(1)">
+            <img src="../Resource/Side Bar Logos/home.png" alt="">
             <p>Home</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
-        <li onclick="toggleMainBar(2)">
-          <div class="element">
+        <li>
+          <div class="element" onclick="toggleMainBar(2)">
+            <img src="../Resource/Side Bar Logos/assessment.png" alt="">
             <p>Assesment</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
         <li>
           <div class="element">
+            <img src="../Resource/Side Bar Logos/performance.png" alt="">
             <p>Performance</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
         <li>
           <div class="element">
+            <img src="../Resource/Side Bar Logos/job-post.png" alt="">
             <p>Job Post</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
-        <li onclick="toggleMainBar(3)">
-          <div class="element">
+        <li>
+          <div class="element" onclick="toggleMainBar(5)">
+            <img src="../Resource/Side Bar Logos/event.png" alt="">
             <p>Events</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
-        <li onclick="toggleMainBar(4)">
-          <div class="element">
+        <li>
+          <div class="element" onclick="toggleMainBar(6)">
+            <img src="../Resource/Side Bar Logos/profile.png" alt="">
             <p>Profile</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
-        <li onclick="openLogOutMenu()">
-          <div class="element">
+        <li>
+          <div class="element" onclick="openLogOutMenu()">
+            <img src="../Resource/Side Bar Logos/logout.png" alt="">
             <p>Log out</p>
-            <img
-              src="../Resource/Side Bar Logos/image.png"
-              alt=""
-              height="20px"
-              width="20px"
-            />
           </div>
         </li>
       </ul>
