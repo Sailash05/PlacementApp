@@ -1,0 +1,347 @@
+/* Root Variables: SuccessTab/Success.css */
+:root {
+  --primary-color: #e50914;
+  --secondary-color: #fff;
+  --background-color: #121212;
+  --card-bg: #222;
+  max-width: 100%;
+}
+
+/* Global Variables */
+body, html {
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  color: var(--secondary-color);
+  margin: 0;
+  padding: 0;
+  opacity: 100%;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../Resource/Success Assets/bg.jpg") no-repeat center center;
+  background-size: cover;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.cta-button {
+  background: var(--primary-color);
+  padding: 15px 40px;
+  color: white;
+  text-decoration: wavy;
+  border-radius: 25px;
+  transition: 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #ff4b5c;
+  transform: scale(1.05);
+}
+
+/* Filters */
+.filters {
+  text-align: center;
+  padding: 20px;
+}
+
+.filter-buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  background: var(--card-bg);
+  color: var(--secondary-color);
+  transition: 0.3s ease;
+  border-radius: 10px;
+}
+
+.filter-buttons button.active {
+  background: var(--primary-color);
+}
+
+/* Success Stories */
+.success-stories {
+  text-align: center;
+  padding: 50px;
+}
+
+.story-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.story-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 300px;
+  max-width: 300px;
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  margin: 0 10px;
+}
+
+.story-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(240, 238, 240, 0.2);
+}
+
+.story-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Placement Stats */
+.placement-stats {
+  text-align: center;
+  padding: 50px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.stat-box {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Recruiters Marquee */
+.recruiters {
+  text-align: center;
+  padding: 50px;
+}
+
+.recruiter-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 30px;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Uniform Recruiter Logos */
+.recruiter-logo {
+  width: 200px;
+  height: 100px;
+  object-fit: contain;
+  margin: 10px;
+  display: inline-block;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero {
+    height: 40vh;
+  }
+
+  .cta-button {
+    padding: 8px 16px;
+  }
+
+  .filter-buttons button {
+    padding: 6px 12px;
+  }
+
+  .story-card {
+    padding: 15px;
+  }
+
+  .recruiter-logo {
+    width: 150px;
+    height: 75px;
+  }
+
+  .story-container,
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-box {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero {
+    height: 30vh;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cta-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .filter-buttons button {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .story-card {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .stat-box {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .recruiter-logo {
+    width: 100px;
+
+    width: 80px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    height: 25vh;
+    background-size: cover;
+    background-position: center;
+  }
+  .cta-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .filter-buttons button {
+    padding: 2px 4px;
+    font-size: 12px;
+  }
+
+  .story-card {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .stat-box {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .recruiter-logo {
+    width: 80px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    height: 80vh;
+  }
+
+  .cta-button {
+    padding: 20px 50px;
+  }
+
+  .filter-buttons button {
+    padding: 12px 24px;
+  }
+
+  .story-card {
+    padding: 25px;
+  }
+
+  .stat-box {
+    padding: 25px;
+  }
+
+  .recruiter-logo {
+    width: 250px;
+    height: 125px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero {
+    height: 80vh;
+  }
+
+  .cta-button {
+    padding: 25px 60px;
+  }
+
+  .filter-buttons button {
+    padding: 15px 30px;
+  }
+
+  .story-card {
+    padding: 30px;
+  }
+
+  .stat-box {
+    padding: 30px;
+  }
+
+  .recruiter-logo {
+    width: 300px;
+    height: 150px;
+  }
+}
