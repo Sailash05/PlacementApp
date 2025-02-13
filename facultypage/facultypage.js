@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.5:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -194,6 +194,11 @@ async function toggleMainBar(choice) {
                 case 'AIDS': options[4].selected = true; break;
             }
     break;
+            
+            case 7:
+                mainBar.innerHTML = `<div class="job-post-container"></div>`;
+                getJobPost(-1);
+                break;
 
     }
     if(window.innerWidth <= 480) {
@@ -340,44 +345,6 @@ async function getDefaulters() {
 
 
 
-
-
-
-/* 
-async function viewQuestions(event) {
-
-    let qid = event.target.parentElement.querySelector('.qid').textContent;
-    let testTitle = event.target.parentElement.querySelector('.test-title').textContent;
-
-    let data = await getQuestions(qid);
-
-}
-
-
-async function getQuestions(qid) {
-    try {
-        const response = await fetch(domain+`questions/getquestions?questionid=${qid}`);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        const data = await response.json();
-        return data;
-        
-    }
-    catch(error) {
-        console.error('An error occurred:', error.message);
-    }
-}
-
-
- */
-
-
-
-
-
-
-
 async function getFaculty(mobileno, token) {
     try {
         const response = await fetch(domain+`faculty/getfaculty?mobileno=${mobileno}`, {
@@ -397,8 +364,6 @@ async function getFaculty(mobileno, token) {
         console.error('An error occurred:', error.message);
     }
 }
-
-
 function facultyLoc(facultyData) {
     faculty.name = facultyData.datas.name;
     faculty.department = facultyData.datas.department;
@@ -423,7 +388,6 @@ function editProfile() {
     editButton.textContent = "Save Changes";
     editButton.setAttribute('onclick', 'saveProfile()');
 }
-
 async function saveProfile() {
     const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
     if(inputs[0].value.trim().length === 0) {
@@ -479,11 +443,11 @@ async function saveProfile() {
             showFailMessage("Error","Internal Server Error","Please try again!");
         }
     }
-  }
+}
 
 
 
-  async function getFacultyLoc() {
+async function getFacultyLoc() {
     try {
         const facultyData = await getFaculty(userName);
         facultyLoc(facultyData);
@@ -492,11 +456,7 @@ async function saveProfile() {
         console.error('An error occurred:', error.message);
     }
 }
-
 getFacultyLoc();
-
-
-
 
 
 function addEventOpen() {
@@ -554,8 +514,6 @@ function addEventOpen() {
         </form>
     `;
 }
-
-
 async function addEvent(event) {
     event.preventDefault(); 
     const form = document.querySelector('.add-event-form');
@@ -586,7 +544,6 @@ async function addEvent(event) {
     }
     toggleMainBar(5);
 }
-
 function openImage(event) {
     let image;
     if (event.target.tagName === 'IMG') {
@@ -607,8 +564,6 @@ function openImage(event) {
 function closeImage() {
     document.querySelector('.image-open-master').remove();
 }
-
-
 var eventData = [];
 async function getEvents(value) {
     if(value === -1) {   //reset
@@ -638,7 +593,6 @@ async function getEvents(value) {
         console.error('An error occurred:', error.message);
     }
 }
-
 function eventContainerFunc(eventData) {
     let eventContainer = document.querySelector('.event-container');
     eventContainer.innerHTML = `<h1>Upcoming Events</h1> <p onclick="addEventOpen()">+ New Event</p>`;
@@ -668,7 +622,6 @@ function eventContainerFunc(eventData) {
     });
     eventContainer.innerHTML += `<button onClick="getEvents(1)">More</button>`;
 }
-
 function wrapLinks(text) {
     return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 }
@@ -710,6 +663,149 @@ function openEvent(event) {
     `;
 } 
 
+
+
+
+function addJobPostOpen() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `
+    <form class="add-job-post-form">
+            <h2>Add Job Post</h2>
+            <div class="add-job-post-field">
+                <label for="job-post-title">Job Title : </label>
+                <input type="text" id="job-post-title" name="job-post-title">
+            </div>
+
+            <div class="add-job-post-field">
+                <label for="job-post-description">Job Description : </label>
+                <input type="text" id="job-post-description" name="job-post-description">
+            </div>
+
+            <div class="add-job-post-field">
+                <label for="job-post-apply-link">Apply Link : </label>
+                <input type="text" id="job-post-apply-link" name="job-post-apply-link">
+            </div>
+
+            <div class="add-job-post-field">
+                <p>Job Post Content : </p>
+                <textarea name="job-post-content" id="job-post-content"></textarea>
+            </div>
+            <div class="add-job-post-field">
+                <label for="job-post-images">Job Post Images : </label>
+                <input type="file" id="job-post-images" name="job-post-images" multiple>
+            </div>
+            <div class="buttons">
+                <button class="cancel-btn-job-post" onClick="toggleMainBar(7)">Cancel</button>
+                <button class="add-job-post-btn" onClick="addJobPost(event)">Add Job Post</button>
+            </div>
+        </form>
+    `;
+}
+async function addJobPost(event) {
+    event.preventDefault(); 
+    const form = document.querySelector('.add-job-post-form');
+    const formData = new FormData(form);
+    formData.append("posted-by", faculty.name);
+
+    try {
+        const response = await fetch(domain+'jobpost/addjobpost',{
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${jwt_token}`
+            },
+            body: formData
+        });
+        const data = await response.json();
+        if(response.status === 201) {
+            showSuccessMessage("Success",data.message,"");
+        }
+        else if(response.status === 400) {
+            showFailMessage("Failed",data.message,"");
+        }
+        else if(!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+    }
+    catch(error) {
+        showFailMessage("Error","Internal Server Error","Please try again!");
+    }
+    toggleMainBar(7);
+}
+var jobPostData = [];
+async function getJobPost(value) {
+    if(value === -1) {   //reset
+        jobPostData = [];
+    }
+    try {
+        const response = await fetch(domain+`jobpost/getjobpost?offset=${jobPostData.length}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                'Content-type':'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        let temp = data.datas;
+        if(temp!=null) {
+            for(let i=0; i < temp.length; i++) {
+                jobPostData.push(temp[i]);
+            }
+        }
+        jobPostContainerFunc(jobPostData);
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+function jobPostContainerFunc(jobPostData) {
+    let jobPostContainer = document.querySelector('.job-post-container');
+    jobPostContainer.innerHTML = `<h1>Upcoming Jobs</h1> <p onclick="addJobPostOpen()">+ New Job Post</p>`;
+    jobPostData.forEach(element=> {
+        let a = `
+            <div class="job-post" onClick="openJobPost(event)">
+                <h2 class="job-post-title">${element.jobPostTitle}</h2>
+                 <img src="${element.jobPostFiles.length!=0?domain+"jobpost/getimage/"+element.jobPostFiles[0]:''}" alt=""> 
+                
+                <p class="job-post-description">
+                    ${element.jobPostDescription.trim()!=""?element.jobPostDescription:element.jobPostContent.substring(0,100)+"...<span id='read-more-txt'>(read-more)</span>"}
+                </p>
+                <p class="job-post-author"><span>Posted by:</span> ${element.postedBy}</p>
+            </div>
+        `;
+        jobPostContainer.innerHTML += a;
+        
+    });
+    jobPostContainer.innerHTML += `<button onClick="getJobPost(1)">More</button>`;
+}
+function openJobPost(event) {
+    let mainBar = document.querySelector('.main-bar');
+    let jobPostContainer = document.querySelector('.job-post-container');
+    let currentJobPost = event.currentTarget;
+    let index = Array.from(jobPostContainer.children).indexOf(currentJobPost)-2;
+    mainBar.innerHTML = `
+            <div class="job-post-in">
+            <p class="job-post-in-exit-btn" onClick="toggleMainBar(7)"> X </p>
+            <h2>${jobPostData[index].jobPostTitle}</h2>
+            <div class="job-post-image-container"> 
+            </div>
+            </div>`;
+    
+        jobPostData[index].jobPostFiles.forEach(name => {
+        document.querySelector('.job-post-image-container').innerHTML += `
+        <button onclick="openImage(event)"><img src="${domain+"jobpost/getimage/"+name}" alt=""></button>
+        `;
+    })
+
+    document.querySelector('.job-post-in').innerHTML += `</div> <pre> ${wrapLinks(jobPostData[index].jobPostContent)} </pre>
+    
+                ${jobPostData[index].applyLink!=""?`<a href="${jobPostData[index].applyLink}" target="_blank">Apply</a>`:""}
+            <p class="job-post-author"><span>Posted by : </span> ${jobPostData[index].postedBy}</p>
+        </div>
+    `;
+} 
 
 
 

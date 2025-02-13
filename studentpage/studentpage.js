@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.5:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -68,6 +68,10 @@ function toggleMainBar(choice) {
             `;
             assessmentCalculation();
             break;
+            case 4:
+                mainBar.innerHTML = `<div class="job-post-container"></div>`;
+                getJobPost(-1);
+                break;
             case 5:
                 mainBar.innerHTML = `<div class="event-container">
                 </div>`;
@@ -585,6 +589,84 @@ function openEvent(event) {
         </div>
     `;
 } 
+
+
+var jobPostData = [];
+async function getJobPost(value) {
+    if(value === -1) {   //reset
+        jobPostData = [];
+    }
+    try {
+        const response = await fetch(domain+`jobpost/getjobpost?offset=${jobPostData.length}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                'Content-type':'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        const data = await response.json();
+        let temp = data.datas;
+        if(temp!=null) {
+            for(let i=0; i < temp.length; i++) {
+                jobPostData.push(temp[i]);
+            }
+        }
+        jobPostContainerFunc(jobPostData);
+    }
+    catch(error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+function jobPostContainerFunc(jobPostData) {
+    let jobPostContainer = document.querySelector('.job-post-container');
+    jobPostContainer.innerHTML = `<h1>Upcoming Jobs</h1>`;
+    jobPostData.forEach(element=> {
+        let a = `
+            <div class="job-post" onClick="openJobPost(event)">
+                <h2 class="job-post-title">${element.jobPostTitle}</h2>
+                 <img src="${element.jobPostFiles.length!=0?domain+"jobpost/getimage/"+element.jobPostFiles[0]:''}" alt=""> 
+                
+                <p class="job-post-description">
+                    ${element.jobPostDescription.trim()!=""?element.jobPostDescription:element.jobPostContent.substring(0,100)+"...<span id='read-more-txt'>(read-more)</span>"}
+                </p>
+                <p class="job-post-author"><span>Posted by:</span> ${element.postedBy}</p>
+            </div>
+        `;
+        jobPostContainer.innerHTML += a;
+        
+    });
+    jobPostContainer.innerHTML += `<button onClick="getJobPost(1)">More</button>`;
+}
+function openJobPost(event) {
+    let mainBar = document.querySelector('.main-bar');
+    let jobPostContainer = document.querySelector('.job-post-container');
+    let currentJobPost = event.currentTarget;
+    let index = Array.from(jobPostContainer.children).indexOf(currentJobPost)-1;
+    mainBar.innerHTML = `
+            <div class="job-post-in">
+            <p class="job-post-in-exit-btn" onClick="toggleMainBar(4)"> X </p>
+            <h2>${jobPostData[index].jobPostTitle}</h2>
+            <div class="job-post-image-container"> 
+            </div>
+            </div>`;
+    
+        jobPostData[index].jobPostFiles.forEach(name => {
+        document.querySelector('.job-post-image-container').innerHTML += `
+        <button onclick="openImage(event)"><img src="${domain+"jobpost/getimage/"+name}" alt=""></button>
+        `;
+    })
+
+    document.querySelector('.job-post-in').innerHTML += `</div> <pre> ${wrapLinks(jobPostData[index].jobPostContent)} </pre>
+    
+                ${jobPostData[index].applyLink!=""?`<a href="${jobPostData[index].applyLink}" target="_blank">Apply</a>`:""}
+            <p class="job-post-author"><span>Posted by : </span> ${jobPostData[index].postedBy}</p>
+        </div>
+    `;
+} 
+
 
 
 
