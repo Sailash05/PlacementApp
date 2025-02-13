@@ -663,9 +663,10 @@ strong {
     white-space: pre-wrap; 
     word-wrap: break-word; 
     overflow-x: hidden;
+    margin-bottom: 2rem;
 }
 .event-in-info {
-    margin: 1rem 0;
+    margin: 1rem 0 0 0;
     background-color: #ffa525;
     color: white;
     font-weight: bolder;
@@ -733,6 +734,89 @@ strong {
 
 
 
+.add-job-post-form {
+    width: 80%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.add-job-post-form > h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+.add-job-post-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.add-job-post-field label,
+.add-job-post-field p {
+    font-weight: bold;
+    color: #333;
+}
+.add-job-post-field input,
+.add-job-post-field textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+.add-job-post-field textarea {
+    height: 15rem;
+}
+.add-job-post-field input:focus,
+.add-job-post-field textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+.add-job-post-field input[type="file"] {
+    border: none;
+    background: none;
+}
+.add-job-post-form > .buttons {
+    text-align: end;
+}
+.add-job-post-form > .buttons > button {
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 0.6rem;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.add-job-post-form > .buttons > .add-job-post-btn {
+    background-color: rgb(40, 255, 20);
+}
+.add-job-post-form > .buttons > .cancel-btn-job-post:hover {
+    background-color: rgb(255, 78, 78);
+}
+.add-job-post-form > .buttons > .add-job-post-btn:hover {
+    background-color: rgb(108, 255, 95);
+}
+@media (max-width: 600px) {
+    .add-job-post-form {
+        width: 95%;
+        padding: 0.5rem;
+    }
+    .add-job-post-field input,
+    .add-job-post-field textarea {
+        width: 90%;
+        padding: 0.5rem;
+    }
+}
+
+
+
 
 .image-open-master {
     height: 100dvh;
@@ -775,6 +859,178 @@ strong {
 }
 
 
+
+
+
+
+.job-post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.2rem;
+}
+.job-post-container > h1 {
+    font-size: 2rem;
+    text-decoration: underline;
+    color: #333;
+    align-self: flex-start;
+}
+.job-post-container > p {
+    background-color: #00ff3c;
+    width: fit-content;
+    padding: 0.6rem;
+    border-radius: 5px;
+    align-self: flex-start;
+    cursor: pointer;
+}
+.job-post-container > p:hover {
+    background-color: #4eff77;
+}
+.job-post {
+    background: #fff;
+    width: 55%;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+.job-post:hover {
+    transform: scale(1.01);
+}
+.job-post > img {
+    width: 5rem;
+    float: right;
+    padding-right: 1rem;
+}
+.job-post-title {
+    font-size: 1.8rem;
+    color: #2b7a78;
+    margin-bottom: 1rem;
+}
+.job-post-description {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 1rem;
+}
+#read-more-txt {
+    font-weight: bold;
+}
+.job-post-author {
+    font-size: 1rem;
+    color: #777;
+    justify-self: end;
+}
+.job-post-author span {
+    font-weight: 600;
+    color: #333;
+}
+.job-post-container > button {
+    padding: 0.5rem;
+    border: none;
+    background-color: rgb(2, 247, 255);
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.job-post-container > button:hover {
+    background-color: rgb(81, 249, 255);
+
+}
+@media (max-width: 480px) {
+    .event-container > h1 {
+        font-size: 1.3rem;
+    }
+    .event {
+        width: 95%;
+        padding: 1rem;
+    }
+    .event > img {
+        float: none;
+    }
+    .event-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.5em;
+    }
+    .event-date-time, .event-location {
+        font-size: 0.8rem;
+    }
+    .event-date-time img, .event-location img {
+        width: 1.2rem;
+    }
+    .event-description {
+        font-size: 1rem;
+    }
+    .event-author {
+        font-size: 0.8rem;
+    }
+}
+
+
+
+
+.job-post-in {
+    margin: 3.2rem;
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+    padding: 2rem;
+}
+.job-post-in-exit-btn {
+    display: inline;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 0.7rem;
+    margin-left: 98%;
+    cursor: pointer;
+}
+.job-post-in > h2 {
+    text-decoration: underline;
+    margin-bottom: 2rem;
+}
+.job-post-image-container {
+    margin-bottom: 2rem;
+}
+.job-post-image-container img {
+    width: 10rem;
+}
+.job-post-in > pre {
+    padding: 0 2rem;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow-x: hidden;
+    margin-bottom: 2rem;
+}
+.job-post-in > a {
+    background-color: rgb(24, 112, 255);
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 0.8rem;
+    border-radius: 5px;
+}
+@media (max-width: 480px) {
+    .job-post-in {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    .job-post-in-exit-btn {
+        margin-left: 94%;
+    }
+    .job-post-in > h2 {
+        margin-bottom: 1rem;
+    }
+    .job-post-image-container {
+        margin-bottom: 1rem;
+    }
+    .job-post-image-container img {
+        width: 6rem;
+    }
+    .job-post-in > pre {
+        padding: 0 1rem;
+        font-size: 0.9rem;
+    }
+}
 
 
 

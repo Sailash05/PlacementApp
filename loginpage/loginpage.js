@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.5:8080/";
 
 let container = document.querySelector(".container");
 
@@ -110,6 +110,7 @@ async function addStudent() {
 		showFailMessage("Error","Please Enter the Password","Try again!!");
 	}
 	else {
+		//document.querySelector('#loading-screen').style.display = 'flex';
 		try {
 			const response = await fetch(domain + "student/addstudent", {
 				method: "POST",
@@ -125,9 +126,11 @@ async function addStudent() {
 	
 			const data = await response.json();
 			if(response.status === 201) {
+				//document.querySelector('#loading-screen').style.display = 'none';
 				showSuccessMessage("Success","Account Created",data.message);
 			}
 			else if(response.status === 409) {
+				//document.querySelector('#loading-screen').style.display = 'none';
 				showFailMessage("Error",data.message,"Please Log In!");
 			}
 			else if (!response.ok) {
@@ -137,6 +140,7 @@ async function addStudent() {
 			change(1);
 		} 
 		catch (error) {
+			//document.querySelector('#loading-screen').style.display = 'none';
 			showFailMessage("Error","Internal Server Error","Please try again!");
 		}
 	}
@@ -499,3 +503,4 @@ async function sendFacultyResetRequest() {
 		}
 	}
 }
+
