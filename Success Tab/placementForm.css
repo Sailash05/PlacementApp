@@ -1,0 +1,198 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Main Container */
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    text-align: center;
+    width: 400px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Title Style */
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: red;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite alternate;
+
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.input-group input, 
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    outline: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px red;
+}
+
+/* Submit Button*/
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: darkred;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    from {
+        text-shadow: 0 0 10px red;
+    }
+    to {
+        text-shadow: 0 0 20px red;
+    }
+}
+
+/* Stylish Number Input Arrows */
+input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    position: relative;
+    padding-right: 30px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    position: relative;
+    background: #222;
+    color: white;
+    font-size: 18px;
+    
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Arrows Customisation */
+.custom-number-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+}
+
+.custom-number-input input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.custom-arrows {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.custom-arrows span {
+    cursor: pointer;
+    color: red;
+    font-size: 14px;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.custom-arrows span:hover {
+    transform: scale(1.2);
+    color: darkred;
+}
+
+/* Custom Dropdown Arrow for Selecting Department */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+}
+
+.select-wrapper select {
+    appearance: none;
+    background-color: #222;
+    color:white;
+    padding: 10px;
+    padding-right: 35px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 18px;
+    color: red;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.select-wrapper:hover::after {
+    color: darkred;
+    transform:translateY(-50%) scale(1.2);
+}

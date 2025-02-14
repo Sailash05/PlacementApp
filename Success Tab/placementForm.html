@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Placement Entry</title>
+    <link rel="stylesheet" href="placementForm.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Placement Entry</h1>
+      <form class="placement-form">
+        <div class="input-group">
+          <label for="student-name">Student Name</label>
+          <input
+            type="text"
+            id="student-name"
+            placeholder="Enter Student Name"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="roll-number">Roll Number</label>
+          <input
+            type="text"
+            id="roll-number"
+            placeholder="Enter Roll Number"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="department">Department</label>
+          <div class="select-wrapper">
+            <select id="department" required>
+              <option value=" ">Select Department</option>
+              <option value="CSE">CSE</option>
+              <option value="MECH">MECH</option>
+              <option value="ECE">ECE</option>
+              <option value="AI&DS">AI&DS</option>
+              <option value="GEO">GEO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="year">Passing Year</label>
+          <div class="custom-number-input">
+            <input
+              type="number"
+              id="year"
+              placeholder="Enter Passing Year"
+              required
+            />
+            <div class="custom-arrows">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="company">Company Name</label>
+          <input
+            type="text"
+            id="company"
+            placeholder="Enter Company Name"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="salary">Salary (LPA)</label>
+          <input
+            type="number"
+            step="0.1"
+            id="salary"
+            placeholder="Enter Salary in LPA"
+            required
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
