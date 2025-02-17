@@ -1,0 +1,289 @@
+/* Enhanced CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Page Layout */
+.assessment-tab {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 2fr 1fr;
+    background: linear-gradient(to right, #e6f0ff, #ffffff);
+    gap: 1rem;
+    padding: 2rem;
+}
+
+/* Title Bar */
+.assessment-tab .title {
+    grid-area: 1/1/2/3;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s ease-in-out;
+    border-radius: 10px;
+}
+
+/* Assessments List */
+.assessment-tab .assessment-list {
+    background: white;
+    border-radius: 15px;
+    margin: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Incomplete Assessments */
+.incomplete-assessment {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.incomplete-assessment h3 {
+    font-size: 1.8rem;
+    color: #007BFF;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+
+.assessments {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+}
+.assessments:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+.assessments button {
+    border: none;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+.assessments button:hover {
+    background: #004099;
+    transform: scale(1.05);
+}
+
+/* Previous Assessments */
+.complete-assessment h3 {
+    font-size: 1.8rem;
+    color: #0056b3;
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+.assessments-conpleted {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+    background: rgba(240, 248, 255, 0.9);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+}
+.assessments-conpleted:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+.assessments-conpleted p {
+    color: #007BFF;
+}
+.assessments-conpleted span {
+    font-weight: bold;
+}
+
+
+.extra-content {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.9));
+    color: white;
+    padding: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+}
+
+
+.stats-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffffff, #b3d9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    animation: slideIn 1s ease-in-out;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.stat:hover {
+    transform: scale(1.1);
+}
+
+.stat h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+}
+
+.stat p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #d1e8ff;
+}
+
+
+.progress-container {
+    margin-top: 2rem;
+    width: 80%;
+    max-width: 500px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.progress {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    height: 22px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0px 5px 10px rgba(255, 255, 255, 0.3);
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00eaff, #007bff);
+    animation: fillProgress 2s forwards ease-in-out;
+    box-shadow: 0px 0px 20px rgba(0, 234, 255, 0.8);
+}
+
+.progress-text {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fillProgress {
+    from { width: 0%; }
+    to { width: 87%; }
+}
+
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .assessment-tab {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .extra-content {
+        border-left: none;
+        border-top: 4px solid rgba(255, 255, 255, 0.3);
+        padding: 1.5rem;
+        margin-top: 1rem;
+        border-radius: 15px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .progress-container {
+        width: 90%;
+    }
+}
