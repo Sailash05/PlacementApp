@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.6:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -39,6 +39,17 @@ function closeSideBar() {
 }
 
 async function toggleMainBar(choice) {
+    let navElement = document.querySelectorAll('.element');
+    navElement.forEach(element=> {
+        if(element.classList.contains('side-bar-element-active')) {
+            element.classList.remove('side-bar-element-active');
+        }
+    });
+    let navBar = document.querySelector('nav');
+    if(navBar.style.backgroundColor == 'rgb(18, 18, 18)') {
+        navBar.style.backgroundColor = 'rgb(238, 238, 238)';
+        document.querySelector('nav > h1').style.color = '#416aff';
+    }
     let mainBar = document.querySelector('.main-bar');
     switch(choice) {
         case 1:
@@ -199,8 +210,96 @@ async function toggleMainBar(choice) {
                 mainBar.innerHTML = `<div class="job-post-container"></div>`;
                 getJobPost(-1);
                 break;
+            
+            case 8:
+                navBar.style.backgroundColor = '#121212';
+                document.querySelector('nav > h1').style.color = 'white';
+                mainBar.innerHTML = `<div class="placement">
+                <header class="hero">
+      <h1>Your Success Story Begins Here!</h1>
+      <p>Join hundreds who've landed their dream jobs</p>
+      <button onClick="openPlacementRecord()" class="cta-button">Explore Success Stories</button>
+    </header>
 
+    <!-- Filters-->
+    <section class="filters">
+      <div class="filter-buttons">
+        <button data-filter="all" class="active">Departments</button>
+        <button data-filter="CSE">CSE</button>
+        <button data-filter="Mechanical">MECH</button>
+        <button data-filter="Geo Informatics">GEO</button>
+        <button data-filter="ECE">ECE</button>
+        <button data-filter="AIDS">AIDS</button>
+      </div>
+    </section>
+
+    <!-- Success Stories-->
+    <section class="success-stories" id="success-stories">
+      <h2>Our Top Acheivers</h2>
+      <div class="story-container">
+        <div class="story-card fade-in" data-company="Zoho">
+          <img src="../Resource/Success Assets/Nishanth.jpg" alt="Student1" />
+          <h3>Nishanth R</h3>
+          <p>Placed at <strong>Zoho</strong> | &#8377;8.4 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="Wipro">
+          <img src="../Resource/Success Assets/SubaElakkiya.jpg" alt="Student2" />
+          <h3>Suba Elakkiya</h3>
+          <p>Placed at <strong>Wipro</strong> | &#8377;4 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="Infosys">
+          <img src="../Resource/Success Assets/Molija.jpg" alt="Student3" />
+          <h3>Molija</h3>
+          <p>Placed at <strong>Infosys</strong> | &#8377;3.6 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="TCS">
+          <img src="../Resource/Success Assets/janani.jpg" alt="Student4" />
+          <h3>Janani</h3>
+          <p>Placed at <strong>TCS</strong> | &#8377;3.6 LPA</p>
+      </div>
+    </section>
+
+
+    <!--Placement Statistics-->
+    <section class="placement-stats">
+      <h2>Placement Statistics</h2>
+      <div class="stats-container">
+        <div class="stat-box fade-in">
+            <h3>100+</h3>
+            <p>Students Placed</p>
+        </div>
+        <div class="stat-box fade-in">
+            <h3>50+</h3>
+            <p>Companies Visited</p>
+        </div>
+        <div class="stat-box fade-in">
+            <h3>&#8377;8.4 LPA</h3>
+            <p>Highest Package</p>
+        </div>
+        </div>
+    </section>
+
+    <!-- Our Top Recruiters-->
+    <section class="recruiters">
+      <h2>Our Top Recruiters</h2>
+      <div class="recruiter-container">
+        <div class="marquee-content">
+          <img src="../Resource/Success Assets/Zoho.jpg" alt="Zoho" class="recruiter-logo" />
+        
+        
+          <img src="../Resource/Success Assets/WIPRO.jpg" alt="Wipro" class="recruiter-logo" />
+        
+        
+          <img src="../Resource/Success Assets/infosys-logo-infosys-icon-free-free-vector.jpg" alt="Infosys" class="recruiter-logo" />
+          <img src="../Resource/Success Assets/TCS-Logo-Tata-consultancy-service.png" alt="TCS" class="recruiter-logo" />
+        
+      </div>
+      </div>
+      </section>
+      </div>`;
+                break;
     }
+    navElement[choice-1].classList.add('side-bar-element-active');
     if(window.innerWidth <= 480) {
         closeSideBar();
     }
@@ -343,6 +442,91 @@ async function getDefaulters() {
 }
 
 
+let placedStudentsList = [];
+async function openPlacementRecord() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `<div class="placement-records">
+    <div class="bg-animation"></div>
+    <header>
+      <h1>Placement Records</h1>
+    </header>
+
+    <div class="marquee">
+      <p>
+        2025 Placements: Infosys, Wipro, TCS, Zoho! Highest Package: 8.4 LPA,
+        Average Package: 5 LPA! Top Recruiter: Infosys, 50+ Students Placed!
+      </p>
+    </div>
+    <div class="nav">
+      <ul>
+        <li onClick="showPlacedStudentsList('ALL')"><p>All</p></li>
+        <li onClick="showPlacedStudentsList('CSE')"><p>CSE</p></li>
+        <li onClick="showPlacedStudentsList('MECH')"><p>MECH</p></li>
+        <li onClick="showPlacedStudentsList('ECE')"><p>ECE</p></li>
+        <li onClick="showPlacedStudentsList('AIDS')"><p>AIDS</p></li>
+        <li onClick="showPlacedStudentsList('GEO')"><p>GEO</p></li>
+      </ul>
+    </div>
+
+    <section class="animated-section">
+      <h2>All Placements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>Student Name</th>
+            <th>Company</th>
+            <th>Package</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </section>
+    <footer>
+      <p>&copy; Anna University Regional Campus, Tirunelveli</p>
+    </footer>
+    </div>`;
+
+    try {
+        const response = await fetch(domain + `placement/getplacedstudents?year=2027`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwt_token}`, 
+                'Content-type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        placedStudentsList = data.datas;
+        showPlacedStudentsList('ALL');
+    }
+    catch(error) {
+        console.log(error.message);
+    }
+  /* 
+ 
+  */
+}
+function showPlacedStudentsList(department) {
+    let table = document.querySelector('.placement-records table tbody');
+    let serialNumber = 1;
+    table.innerHTML = '';
+    placedStudentsList.forEach(placedStudent => {
+        if(department == 'ALL' || placedStudent.department == department) {
+            table.innerHTML += ` <tr>
+                <td>${serialNumber++}</td>
+                <td>${placedStudent.name}</td>
+                <td>${placedStudent.companyName}</td>
+                <td>${placedStudent.lpa} LPA</td>
+                <td>${placedStudent.department}</td>
+            </tr>`;
+        }
+    });
+}
+
+
 
 
 async function getFaculty(mobileno, token) {
@@ -451,12 +635,50 @@ async function getFacultyLoc() {
     try {
         const facultyData = await getFaculty(userName);
         facultyLoc(facultyData);
+        setProfile();
     }
-    catch {
+    catch(error) {
         console.error('An error occurred:', error.message);
     }
 }
 getFacultyLoc();
+
+function setProfile() {
+    let profileName = [];
+    let sname = faculty.name.split(" ");
+    if(sname.length === 1) {
+        profileName.push(sname[0].charAt(0));
+        profileName.push(sname[0].charAt(1));
+    }
+    else if(sname.length === 2) {
+        profileName.push(sname[0].charAt(0));
+        profileName.push(sname[1].charAt(0));
+    }
+    else {
+        let num = 0;
+        sname.forEach(i => {
+            if(i.length >= 3) {
+                num++;
+            }
+        });
+        if(num >= 2) {
+            sname.forEach(i => {
+                if(i.length >= 3 && profileName.length <2) {
+                    profileName.push(i.charAt(0));
+                }
+            })
+        }
+        else {
+            profileName.push(sname[0].charAt(0));
+            profileName.push(sname[1].charAt(0));
+        }
+    }
+    let name = profileName.join("");
+    name = name.toUpperCase();
+    document.querySelector('.side-bar> .head> div> h2').textContent = name;
+    document.querySelector('.side-bar> .head> #name').textContent = faculty.name;
+    document.querySelector('.side-bar> .head> #rollno').textContent = faculty.mobileno;
+}
 
 
 function addEventOpen() {
@@ -604,7 +826,20 @@ function eventContainerFunc(eventData) {
                 <div class="event-info">
                 ${(element.eventDateFrom=="" && element.eventDateTo=="" && element.eventTimeFrom=="" && element.eventTimeTo=="")?"":`<div class="event-date-time">
                         <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
-                        <p>${element.eventDateFrom!="" ? element.eventDateFrom.substring(8,10)+"-"+element.eventDateFrom.substring(5,7)+"-"+element.eventDateFrom.substring(0,4):""} ${element.eventTimeFrom!="" ? element.eventTimeFrom.substring(0,2) <= 12?element.eventTimeFrom+"AM":(element.eventTimeFrom.substring(0,2)-12)+element.eventTimeFrom.substring(2)+"PM":""} - ${element.eventDateTo!="" ? element.eventDateTo.substring(8,10)+"-"+element.eventDateTo.substring(5,7)+"-"+element.eventDateTo.substring(0,4):""} ${element.eventTimeTo!="" ? element.eventTimeTo.substring(0,2) <= 12?element.eventTimeTo+"AM":(element.eventTimeTo.substring(0,2)-12)+element.eventTimeTo.substring(2)+"PM": ""}</p>
+                        <p>
+
+                        ${element.eventDateFrom!="" ? element.eventDateFrom.substring(8,10)+"-"+element.eventDateFrom.substring(5,7)+"-"+element.eventDateFrom.substring(0,4):""}
+
+                        ${element.eventTimeFrom!="" ? changeTimeFormat(element.eventTimeFrom) :""}
+
+                        ${(element.eventDateTo!="" || element.eventTimeTo!="") ? " - ":""}
+
+                        ${element.eventDateTo!="" ? element.eventDateTo.substring(8,10)+"-"+element.eventDateTo.substring(5,7)+"-"+element.eventDateTo.substring(0,4):""}
+
+                        ${element.eventTimeTo!="" ? changeTimeFormat(element.eventTimeTo) : ""}
+
+                        </p>
+
                     </div>`}
                     ${element.eventLocation!="" ? `<div class="event-location">
                         <img src="../Resource/Event icons/location.png" alt="Location Icon">
@@ -622,8 +857,26 @@ function eventContainerFunc(eventData) {
     });
     eventContainer.innerHTML += `<button onClick="getEvents(1)">More</button>`;
 }
+
+
+
+
+
+
 function wrapLinks(text) {
     return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+}
+function link(url) {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "https://" + url;
+    }
+    return url
+}
+function changeTimeFormat(time) {
+    let [hours, minutes] = time.split(":").map(Number);
+    let period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
 }
 function openEvent(event) {
     let mainBar = document.querySelector('.main-bar');
@@ -645,11 +898,23 @@ function openEvent(event) {
     })
 
     document.querySelector('.event-in').innerHTML += `</div> <pre> ${wrapLinks(eventData[index].eventContent)} </pre>
-    ${eventData[index].eventDateFrom==""&&eventData[index].eventDateTo==""&&eventData[index].eventTimeFrom==""&&eventData[index].eventTimeFrom==""?""&&eventData[index].eventLocation=="":`<div class="event-in-info">
+    ${(eventData[index].eventDateFrom==""&&eventData[index].eventDateTo==""&&eventData[index].eventTimeFrom==""&&eventData[index].eventTimeTo==""&&eventData[index].eventLocation=="")?"":`<div class="event-in-info">
                 <h3>Date and Location</h3>
                 ${(eventData[index].eventDateFrom=="" && eventData[index].eventDateTo=="" && eventData[index].eventTimeFrom=="" && eventData[index].eventTimeTo=="")?"":`<div class="event-date-time">
                         <img src="../Resource/Event icons/calendar.png" alt="Calendar Icon">
-                        <p>${eventData[index].eventDateFrom!="" ? eventData[index].eventDateFrom.substring(8,10)+"-"+eventData[index].eventDateFrom.substring(5,7)+"-"+eventData[index].eventDateFrom.substring(0,4):""} ${eventData[index].eventTimeFrom!="" ? eventData[index].eventTimeFrom.substring(0,2) <= 12?eventData[index].eventTimeFrom+"AM":(eventData[index].eventTimeFrom.substring(0,2)-12)+eventData[index].eventTimeFrom.substring(2)+"PM":""} - ${eventData[index].eventDateTo!="" ? eventData[index].eventDateTo.substring(8,10)+"-"+eventData[index].eventDateTo.substring(5,7)+"-"+eventData[index].eventDateTo.substring(0,4):""} ${eventData[index].eventTimeTo!="" ? eventData[index].eventTimeTo.substring(0,2) <= 12?eventData[index].eventTimeTo+"AM":(eventData[index].eventTimeTo.substring(0,2)-12)+eventData[index].eventTimeTo.substring(2)+"PM": ""}</p>
+                        <p>
+
+                        ${eventData[index].eventDateFrom!="" ? eventData[index].eventDateFrom.substring(8,10)+"-"+eventData[index].eventDateFrom.substring(5,7)+"-"+eventData[index].eventDateFrom.substring(0,4):""} 
+                        
+                        ${eventData[index].eventTimeFrom!="" ? changeTimeFormat(eventData[index].eventTimeFrom):""} 
+                        
+                        ${(eventData[index].eventDateTo!="" || eventData[index].eventTimeTo!="") ? " - ":""}
+                        
+                        ${eventData[index].eventDateTo!="" ? eventData[index].eventDateTo.substring(8,10)+"-"+eventData[index].eventDateTo.substring(5,7)+"-"+eventData[index].eventDateTo.substring(0,4):""} 
+                        
+                        ${eventData[index].eventTimeTo!="" ? changeTimeFormat(eventData[index].eventTimeTo) : ""}
+
+                        </p>
                     </div>`}
 
                     ${eventData[index].eventLocation!="" ? `<div class="event-location">
@@ -657,13 +922,47 @@ function openEvent(event) {
                         <p>${eventData[index].eventLocation}</p>
                     </div>`:""}</div>
                 `}
-                ${eventData[index].applyLink!=""?`<a href="${eventData[index].applyLink}" target="_blank">Apply</a>`:""}
+                ${eventData[index].applyLink!=""?`<a href="${link(eventData[index].applyLink)}" target="_blank">Apply</a>`:""}
+                <p onClick="deleteEventOpen(${eventData[index].eventid})" class="delete-btn">Delete Event</p>
             <p class="event-author"><span>Posted by : </span> ${eventData[index].postedBy}</p>
         </div>
     `;
 } 
-
-
+function deleteEventOpen(eventid) {
+    let logOutMenuMasterContainer = document.createElement('div');
+    logOutMenuMasterContainer.classList.add('log-out-menu-master-container');    //used log out template
+    logOutMenuMasterContainer.innerHTML = `<div class="log-out-menu-container">
+        <div class="box">
+            <img src="../Resource/pop up menu icons/exclamation-mark.jpg" alt="!!!" class="logo">
+            <p>Are you sure you want to delete this event?</p>
+            <div class="buttons">
+                <button class="ok-btn" onClick="deleteEvent(${eventid})">Yes</button>
+                <button class="cancel-btn" onClick="closeLogOutMenu()">Cancel</button>
+            </div>
+        </div>
+    </div>`;
+    if(window.innerWidth <= 480) {
+        closeSideBar();
+    }
+    document.querySelector('body').appendChild(logOutMenuMasterContainer);
+}
+async function deleteEvent(eventid) {
+    try {
+        const response = await fetch(domain + `event/deleteevent/${eventid}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${jwt_token}`,
+                'Content-type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        closeLogOutMenu();
+        toggleMainBar(5);
+    }
+    catch(error) {
+        console.log(error.message);
+    }
+}
 
 
 function addJobPostOpen() {
@@ -801,11 +1100,47 @@ function openJobPost(event) {
 
     document.querySelector('.job-post-in').innerHTML += `</div> <pre> ${wrapLinks(jobPostData[index].jobPostContent)} </pre>
     
-                ${jobPostData[index].applyLink!=""?`<a href="${jobPostData[index].applyLink}" target="_blank">Apply</a>`:""}
+                ${jobPostData[index].applyLink!=""?`<a href="${link(jobPostData[index].applyLink)}" target="_blank">Apply</a>`:""}
+                <p onClick="deleteJobPostOpen(${jobPostData[index].jobPostid})" class="delete-btn">Delete Post</p>
             <p class="job-post-author"><span>Posted by : </span> ${jobPostData[index].postedBy}</p>
         </div>
     `;
 } 
+function deleteJobPostOpen(jobPostid) {
+    let logOutMenuMasterContainer = document.createElement('div');
+    logOutMenuMasterContainer.classList.add('log-out-menu-master-container');    //used log out template
+    logOutMenuMasterContainer.innerHTML = `<div class="log-out-menu-container">
+        <div class="box">
+            <img src="../Resource/pop up menu icons/exclamation-mark.jpg" alt="!!!" class="logo">
+            <p>Are you sure you want to delete this post?</p>
+            <div class="buttons">
+                <button class="ok-btn" onClick="deleteJobPost(${jobPostid})">Yes</button>
+                <button class="cancel-btn" onClick="closeLogOutMenu()">Cancel</button>
+            </div>
+        </div>
+    </div>`;
+    if(window.innerWidth <= 480) {
+        closeSideBar();
+    }
+    document.querySelector('body').appendChild(logOutMenuMasterContainer);
+}
+async function deleteJobPost(jobPostid) {
+    try {
+        const response = await fetch(domain + `jobpost/deletejobpost/${jobPostid}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${jwt_token}`,
+                'Content-type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        closeLogOutMenu();
+        toggleMainBar(7);
+    }
+    catch(error) {
+        console.log(error.message);
+    }
+}
 
 
 

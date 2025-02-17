@@ -14,6 +14,7 @@ body {
     height: 100dvh;
     background-color: rgb(238, 238, 238);
 }
+
 nav {
     grid-area: 1/2/2/3;
     display: flex;
@@ -21,13 +22,14 @@ nav {
     align-items: center;
     padding-left: 1rem;
     padding-right: 1rem;
+    background-color: rgb(238, 238, 238);
 }
 nav>img {
     height: 0px;
 }
 nav>h1{
     margin-left: 1rem;
-    color: #41a0ff;
+    /* color: #41a0ff; */
     color: #416aff;
     text-decoration: underline;
     flex-grow: 1;
@@ -342,6 +344,503 @@ nav>h1{
 }
 
 
+
+
+.placement {
+    font-family: "Arial", sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    opacity: 100%;
+    overflow-x: hidden;
+    width: 100%;
+}
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url("../Resource/Success Assets/bg.jpg") no-repeat center center;
+    background-size: cover;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.cta-button {
+background: #e50914;
+padding: 15px 40px;
+color: white;
+text-decoration: wavy;
+border-radius: 25px;
+transition: 0.2s ease;
+cursor: pointer;
+border: none;
+}
+.cta-button:hover {
+background: #ff4b5c;
+transform: scale(1.05);
+}
+.filters {
+text-align: center;
+padding: 20px;
+}
+.filter-buttons button {
+padding: 10px 20px;
+margin: 5px;
+border: none;
+cursor: pointer;
+background: #222;
+color: #fff;
+transition: 0.3s ease;
+border-radius: 10px;
+}
+.filter-buttons button.active {
+background: #e50914;
+}
+.success-stories {
+text-align: center;
+padding: 50px;
+}
+.story-container {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
+scroll-snap-type: x mandatory;
+-webkit-overflow-scrolling: touch;
+max-width: 100%;
+overflow-x: hidden;
+}
+.story-card {
+background: #222;
+padding: 20px;
+border-radius: 10px;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+flex: 1 1 300px;
+max-width: 300px;
+flex: 0 0 auto;
+scroll-snap-align: center;
+margin: 0 10px;
+}
+.story-card:hover {
+transform: scale(1.05);
+box-shadow: 0 5px 15px rgba(240, 238, 240, 0.2);
+}
+.story-card img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+border-radius: 10px;
+}
+.placement-stats {
+text-align: center;
+padding: 50px;
+}
+.stats-container {
+display: flex;
+justify-content: center;
+gap: 30px;
+}
+.stat-box {
+background: #222;
+padding: 20px;
+border-radius: 10px;
+transition: transform 0.3s ease;
+}
+.stat-box:hover {
+transform: translateY(-5px);
+}
+.recruiters {
+text-align: center;
+padding: 50px;
+}
+.recruiter-marquee {
+overflow: hidden;
+white-space: nowrap;
+}
+.marquee-content {
+display: flex;
+gap: 30px;
+animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+0% {
+    transform: translateX(100%);
+}
+100% {
+    transform: translateX(-100%);
+}
+}
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+animation: fadeIn 1s ease-in-out forwards;
+}
+@keyframes fadeIn {
+0% {
+    opacity: 0;
+    transform: translateY(20px);
+}
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+.recruiter-logo {
+width: 200px;
+height: 100px;
+object-fit: contain;
+margin: 10px;
+display: inline-block;
+}
+@media (max-width: 768px) {
+.stats-container {
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero {
+    height: 40vh;
+}
+
+.cta-button {
+    padding: 8px 16px;
+}
+
+.filter-buttons button {
+    padding: 6px 12px;
+}
+
+.story-card {
+    padding: 15px;
+}
+
+.recruiter-logo {
+    width: 150px;
+    height: 75px;
+}
+
+.story-container,
+.stats-container {
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-box {
+    padding: 15px;
+}
+}
+@media (max-width: 540px) {
+.hero {
+    height: 30vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.cta-button {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.filter-buttons button {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.story-card {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.stat-box {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.recruiter-logo {
+    width: 100px;
+
+    width: 80px;
+    height: 40px;
+}
+}
+@media (max-width: 360px) {
+.hero {
+    height: 25vh;
+    background-size: cover;
+    background-position: center;
+}
+.cta-button {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.filter-buttons button {
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+.story-card {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.stat-box {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.recruiter-logo {
+    width: 80px;
+    height: 40px;
+}
+}
+@media (min-width: 1024px) {
+.hero {
+    height: 80vh;
+}
+
+.cta-button {
+    padding: 20px 50px;
+}
+
+.filter-buttons button {
+    padding: 12px 24px;
+}
+
+.story-card {
+    padding: 25px;
+}
+
+.stat-box {
+    padding: 25px;
+}
+
+.recruiter-logo {
+    width: 250px;
+    height: 125px;
+}
+}
+@media (min-width: 1440px) {
+.hero {
+    height: 80vh;
+}
+
+.cta-button {
+    padding: 25px 60px;
+}
+
+.filter-buttons button {
+    padding: 15px 30px;
+}
+
+.story-card {
+    padding: 30px;
+}
+
+.stat-box {
+    padding: 30px;
+}
+
+.recruiter-logo {
+    width: 300px;
+    height: 150px;
+}
+}
+
+
+
+.placement-records {
+    background-color: #141414;
+    color: white;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+  .placement-records .bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(to bottom, #1a1a1a, #000000);
+    z-index: -1;
+    animation: cinematicGlow 10s infinite alternate;
+  }
+  @keyframes cinematicGlow {
+    0% {
+      filter: brightness(100%);
+    }
+    100% {
+      filter: brightness(120%);
+    }
+  }
+  .placement-records header {
+    background: linear-gradient(to right, #1c1c1c, #222831);
+    padding: 3rem 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px black;
+    letter-spacing: 2px;
+    position: relative;
+    animation: headerGlow 3s infinite alternate;
+  }
+  @keyframes headerGlow {
+    0% {
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    }
+    100% {
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
+    }
+  }
+  .placement-records header h1 {
+    background: none;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  }
+  .placement-records .marquee {
+    background: black;
+    padding: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px red;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(130%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  .placement-records .marquee p {
+    position: absolute;
+    animation: marquee 10s linear infinite;
+    min-width: max-content;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+  .placement-records .nav {
+    padding: 2rem 0;
+    background: none;
+  }
+  .placement-records .nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  .placement-records .nav ul li {
+    margin: 10px;
+  }
+  .placement-records .nav ul li p {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(to right, #e50914, #ff1a1a);
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .placement-records .nav ul li p:hover {
+    background: #ff4d4d;
+    box-shadow: 0px 0px 10px red;
+  }
+  .placement-records .animated-section {
+      margin: 40px auto;
+      width: 80%;
+      opacity: 1;
+      animation: fadeInUpBounce 1s forwards ease-in-out;
+  }
+  @keyframes fadeInUpBounce {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    70% {
+      opacity: 1;
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .placement-records .table-container {
+      margin: 40px auto;
+      width: 80%;
+      opacity: 1;
+      animation: none;
+  }
+  .placement-records table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: rgba(34, 34, 34, 0.9);
+    box-shadow: 0px 0px 15px red;
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+  animation: fadeIn 1s ease-in-out;
+  }
+  @keyframes fadeIn {
+      from { 
+          opacity: 0;
+          transform: scale(0.95);
+      }
+      to {
+          opacity: 1;
+          transform: scale(1);
+      }
+  }
+  .placement-records th,
+  .placement-records td {
+    border: 1px solid white;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+  }
+  .placement-records th {
+    background: #e50914;
+    font-size: 20px;
+  }
+  .placement-records td {
+    color: #ddd;
+  }
+  .placement-records tbody tr:hover {
+    background: rgba(225, 12, 12, 0.2);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .placement-records footer {
+    background: black;
+    padding: 20px;
+    font-size: 16px;
+    color: white;
+    box-shadow: 0px 0px 10px red;
+  }
+  
+
+
+
+
+
+
+
+
+
+
 .event-container {
     display: flex;
     flex-direction: column;
@@ -375,7 +874,6 @@ nav>h1{
 }
 .event-title {
     font-size: 1.8rem;
-    /* color: #2b7a78; */
     color: #416aff;
     margin-bottom: 1rem;
 }
@@ -400,6 +898,9 @@ nav>h1{
     color: #444;
     margin-bottom: 1rem;
 } 
+#read-more-txt {
+    font-weight: bold;
+}
 .event-author {
     font-size: 1rem;
     color: #777;
@@ -498,8 +999,8 @@ nav>h1{
     padding: 1.5rem;
     border-radius: 1rem;
     margin-bottom: 1rem;
-    background-color: #24244e;
-    background-color: #416aff;
+    /* background-color: #24244e;
+    background-color: #416aff; */
     background-color: #2b2b88;
 }
 .event-in-info > h3 {
@@ -658,14 +1159,15 @@ nav>h1{
 .job-post-container > button {
     padding: 0.5rem;
     border: none;
-    background-color: rgb(2, 247, 255);
     border-radius: 5px;
     font-weight: bold;
     letter-spacing: 1px;
     cursor: pointer;
+    background-color: #416aff;
+    color: white;
 }
 .job-post-container > button:hover {
-    background-color: rgb(81, 249, 255);
+    background-color: #0056b3;
 }
 @media (max-width: 480px) {
     .job-post-container {

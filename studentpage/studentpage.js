@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.6:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -46,6 +46,11 @@ function toggleMainBar(choice) {
             element.classList.remove('side-bar-element-active');
         }
     });
+    let navBar = document.querySelector('nav');
+    if(navBar.style.backgroundColor == 'rgb(18, 18, 18)') {
+        navBar.style.backgroundColor = 'rgb(238, 238, 238)';
+        document.querySelector('nav > h1').style.color = '#416aff';
+    }
     let mainBar = document.querySelector('.main-bar');
     switch(choice) {
         case 1:
@@ -68,6 +73,93 @@ function toggleMainBar(choice) {
             `;
             assessmentCalculation();
             break;
+            case 3:
+                navBar.style.backgroundColor = '#121212';
+                document.querySelector('nav > h1').style.color = 'white';
+                mainBar.innerHTML = `<div class="placement">
+                <header class="hero">
+      <h1>Your Success Story Begins Here!</h1>
+      <p>Join hundreds who've landed their dream jobs</p>
+      <button onClick="openPlacementRecord()" class="cta-button">Explore Success Stories</button>
+    </header>
+
+    <!-- Filters-->
+    <section class="filters">
+      <div class="filter-buttons">
+        <button data-filter="all" class="active">Departments</button>
+        <button data-filter="CSE">CSE</button>
+        <button data-filter="Mechanical">MECH</button>
+        <button data-filter="Geo Informatics">GEO</button>
+        <button data-filter="ECE">ECE</button>
+        <button data-filter="AIDS">AIDS</button>
+      </div>
+    </section>
+
+    <!-- Success Stories-->
+    <section class="success-stories" id="success-stories">
+      <h2>Our Top Acheivers</h2>
+      <div class="story-container">
+        <div class="story-card fade-in" data-company="Zoho">
+          <img src="../Resource/Success Assets/Nishanth.jpg" alt="Student1" />
+          <h3>Nishanth R</h3>
+          <p>Placed at <strong>Zoho</strong> | &#8377;8.4 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="Wipro">
+          <img src="../Resource/Success Assets/SubaElakkiya.jpg" alt="Student2" />
+          <h3>Suba Elakkiya</h3>
+          <p>Placed at <strong>Wipro</strong> | &#8377;4 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="Infosys">
+          <img src="../Resource/Success Assets/Molija.jpg" alt="Student3" />
+          <h3>Molija</h3>
+          <p>Placed at <strong>Infosys</strong> | &#8377;3.6 LPA</p>
+        </div>
+        <div class="story-card fade-in" data-company="TCS">
+          <img src="../Resource/Success Assets/janani.jpg" alt="Student4" />
+          <h3>Janani</h3>
+          <p>Placed at <strong>TCS</strong> | &#8377;3.6 LPA</p>
+      </div>
+    </section>
+
+
+    <!--Placement Statistics-->
+    <section class="placement-stats">
+      <h2>Placement Statistics</h2>
+      <div class="stats-container">
+        <div class="stat-box fade-in">
+            <h3>100+</h3>
+            <p>Students Placed</p>
+        </div>
+        <div class="stat-box fade-in">
+            <h3>50+</h3>
+            <p>Companies Visited</p>
+        </div>
+        <div class="stat-box fade-in">
+            <h3>&#8377;8.4 LPA</h3>
+            <p>Highest Package</p>
+        </div>
+        </div>
+    </section>
+
+    <!-- Our Top Recruiters-->
+    <section class="recruiters">
+      <h2>Our Top Recruiters</h2>
+      <div class="recruiter-container">
+        <div class="marquee-content">
+          <img src="../Resource/Success Assets/Zoho.jpg" alt="Zoho" class="recruiter-logo" />
+        
+        
+          <img src="../Resource/Success Assets/WIPRO.jpg" alt="Wipro" class="recruiter-logo" />
+        
+        
+          <img src="../Resource/Success Assets/infosys-logo-infosys-icon-free-free-vector.jpg" alt="Infosys" class="recruiter-logo" />
+          <img src="../Resource/Success Assets/TCS-Logo-Tata-consultancy-service.png" alt="TCS" class="recruiter-logo" />
+        
+      </div>
+      </div>
+      </section>
+      </div>`;
+                break;
             case 4:
                 mainBar.innerHTML = `<div class="job-post-container"></div>`;
                 getJobPost(-1);
@@ -331,41 +423,91 @@ async function addAnswer() {
     
 }
 
-async function getStudent(rollNo) { 
+let placedStudentsList = [];
+async function openPlacementRecord() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `<div class="placement-records">
+    <div class="bg-animation"></div>
+    <header>
+      <h1>Placement Records</h1>
+    </header>
+
+    <div class="marquee">
+      <p>
+        2025 Placements: Infosys, Wipro, TCS, Zoho! Highest Package: 8.4 LPA,
+        Average Package: 5 LPA! Top Recruiter: Infosys, 50+ Students Placed!
+      </p>
+    </div>
+    <div class="nav">
+      <ul>
+        <li onClick="showPlacedStudentsList('ALL')"><p>All</p></li>
+        <li onClick="showPlacedStudentsList('CSE')"><p>CSE</p></li>
+        <li onClick="showPlacedStudentsList('MECH')"><p>MECH</p></li>
+        <li onClick="showPlacedStudentsList('ECE')"><p>ECE</p></li>
+        <li onClick="showPlacedStudentsList('AIDS')"><p>AIDS</p></li>
+        <li onClick="showPlacedStudentsList('GEO')"><p>GEO</p></li>
+      </ul>
+    </div>
+
+    <section class="animated-section">
+      <h2>All Placements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>Student Name</th>
+            <th>Company</th>
+            <th>Package</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </section>
+    <footer>
+      <p>&copy; Anna University Regional Campus, Tirunelveli</p>
+    </footer>
+    </div>`;
+
     try {
-        const response = await fetch(domain + `student/getstudent?rollno=${rollNo}`, {
-            method: "GET",
+        const response = await fetch(domain + `placement/getplacedstudents?year=2027`, {
+            method: 'GET',
             headers: {
-                "Authorization": `Bearer ${jwt_token}`, 
-                "Content-Type": "application/json"
+                'Authorization': `Bearer ${jwt_token}`, 
+                'Content-type': 'application/json'
             }
         });
-
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-
         const data = await response.json();
-        return data;
+        placedStudentsList = data.datas;
+        showPlacedStudentsList('ALL');
     }
-    catch (error) {
-        console.error('An error occurred:', error.message);
+    catch(error) {
+        console.log(error.message);
     }
+  /* 
+ 
+  */
+}
+function showPlacedStudentsList(department) {
+    let table = document.querySelector('.placement-records table tbody');
+    let serialNumber = 1;
+    table.innerHTML = '';
+    placedStudentsList.forEach(placedStudent => {
+        if(department == 'ALL' || placedStudent.department == department) {
+            table.innerHTML += ` <tr>
+                <td>${serialNumber++}</td>
+                <td>${placedStudent.name}</td>
+                <td>${placedStudent.companyName}</td>
+                <td>${placedStudent.lpa} LPA</td>
+                <td>${placedStudent.department}</td>
+            </tr>`;
+        }
+    });
 }
 
-// add student to local storage
-function studentLoc(userData) {
-    student.name = userData.datas.name;
-    student.rollno = userData.datas.rollno;
-    student.year = userData.datas.year;
-    student.semester = userData.datas.semester;
-    student.department = userData.datas.department;
-	student.email = userData.datas.email;
-	student.mobileno = userData.datas.mobileno;
-    localStorage.setItem('student', JSON.stringify(student));
-}
 
-// Function to enable editing of the profile form
 function editProfile() {
     const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
     
@@ -381,8 +523,6 @@ function editProfile() {
     editButton.textContent = "Save Changes";
     editButton.setAttribute('onclick', 'saveProfile()');
 }
-  
-  // Function to save profile after editing
 async function saveProfile() {
     const inputs = document.querySelectorAll('#profileForm input, #profileForm select');
     if(inputs[0].value.trim().length === 0) {
@@ -447,10 +587,46 @@ async function saveProfile() {
 
 
 
+async function getStudent(rollNo) { 
+    try {
+        const response = await fetch(domain + `student/getstudent?rollno=${rollNo}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.error('An error occurred:', error.message);
+    }
+}
+
+// add student to local storage
+function studentLoc(userData) {
+    student.name = userData.datas.name;
+    student.rollno = userData.datas.rollno;
+    student.year = userData.datas.year;
+    student.semester = userData.datas.semester;
+    student.department = userData.datas.department;
+	student.email = userData.datas.email;
+	student.mobileno = userData.datas.mobileno;
+    localStorage.setItem('student', JSON.stringify(student));
+}
+
+
 async function getStudentLoc() {
     try {
         const studentData = await getStudent(userName);
         studentLoc(studentData);
+        setProfile();
     }
     catch {
         console.error('An error occurred:', error.message);
@@ -458,7 +634,42 @@ async function getStudentLoc() {
 }
 getStudentLoc();
 
-
+function setProfile() {
+    let profileName = [];
+    let sname = student.name.split(" ");
+    if(sname.length === 1) {
+        profileName.push(sname[0].charAt(0));
+        profileName.push(sname[0].charAt(1));
+    }
+    else if(sname.length === 2) {
+        profileName.push(sname[0].charAt(0));
+        profileName.push(sname[1].charAt(0));
+    }
+    else {
+        let num = 0;
+        sname.forEach(i => {
+            if(i.length >= 3) {
+                num++;
+            }
+        });
+        if(num >= 2) {
+            sname.forEach(i => {
+                if(i.length >= 3 && profileName.length <2) {
+                    profileName.push(i.charAt(0));
+                }
+            })
+        }
+        else {
+            profileName.push(sname[0].charAt(0));
+            profileName.push(sname[1].charAt(0));
+        }
+    }
+    let name = profileName.join("");
+    name = name.toUpperCase();
+    document.querySelector('.side-bar> .head> div> h2').textContent = name;
+    document.querySelector('.side-bar> .head> #name').textContent = student.name;
+    document.querySelector('.side-bar> .head> #rollno').textContent = student.rollno;
+}
 
 
 
@@ -551,6 +762,12 @@ function eventContainerFunc(eventData) {
 function wrapLinks(text) {
     return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 }
+function link(url) {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "https://" + url;
+    }
+    return url
+}
 function openEvent(event) {
     let mainBar = document.querySelector('.main-bar');
     let eventContainer = document.querySelector('.event-container');
@@ -584,7 +801,7 @@ function openEvent(event) {
                         <p>${eventData[index].eventLocation}</p>
                     </div>`:""}</div>
                 `}
-                ${eventData[index].applyLink!=""?`<a href="${eventData[index].applyLink}" target="_blank">Apply</a>`:""}
+                ${eventData[index].applyLink!=""?`<a href="${link(eventData[index].applyLink)}" target="_blank">Apply</a>`:""}
             <p class="event-author"><span>Posted by : </span> ${eventData[index].postedBy}</p>
         </div>
     `;
@@ -661,7 +878,7 @@ function openJobPost(event) {
 
     document.querySelector('.job-post-in').innerHTML += `</div> <pre> ${wrapLinks(jobPostData[index].jobPostContent)} </pre>
     
-                ${jobPostData[index].applyLink!=""?`<a href="${jobPostData[index].applyLink}" target="_blank">Apply</a>`:""}
+                ${jobPostData[index].applyLink!=""?`<a href="${link(jobPostData[index].applyLink)}" target="_blank">Apply</a>`:""}
             <p class="job-post-author"><span>Posted by : </span> ${jobPostData[index].postedBy}</p>
         </div>
     `;
