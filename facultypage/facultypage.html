@@ -4,80 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="facultypage.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <nav>
-        <img src="../Resource/Nav Bar Logos/image.png" alt="" height="0px" width="0px" onclick="openSideBar()" class="hamburger-btn">
+        <img src="../Resource/Nav Bar Logos/image.png" alt="" onclick="openSideBar()" class="hamburger-btn">
         <img src="../Resource/Nav Bar Logos/xMark.png" alt="" height="0px" width="0px" onclick="closeSideBar()" class="x-btn">
-        <h1>Faculty Dashboard</h1>
+        <!-- <img src="../Resource/college logo/college-logo.jpeg" alt="" id="nav-clg-logo"> -->
+        <h1>Anna University Regional Campus Tirunelveli</h1>
     </nav>
 
     <aside class="side-bar">
         <div class="head">
-            <h2>Menu</h2>
+            <div>
+                <h2>SH</h2>
+            </div>
+            <p id="name">Sham</p>
+            <p id="mobileno">9876543210</p>
         </div>
         <ul>
-            <li onclick="toggleMainBar(1)">
-                <div class="element">
+            <li>
+                <div class="element  side-bar-element-active" onclick="toggleMainBar(1)">
+                    <img src="../Resource/Side Bar Logos/home.png" alt="">
                     <p>Home</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
                 </div>
             </li>
-            <li onclick="toggleMainBar(2)">
-                <div class="element">
-                    <p>Post Assessment</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+            <li>
+                <div class="element" onclick="toggleMainBar(2)">
+                    <img src="../Resource/Side Bar Logos/assessment.png" alt="">
+                    <p>Assessment</p>
                 </div>
             </li>
-            <li onclick="toggleMainBar(3)">
-                <div class="element">
-                    <p>Students Marks</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+            <li>
+                <div class="element" onclick="toggleMainBar(3)">
+                  <img src="../Resource/Side Bar Logos/placement.png" alt="">
+                  <p>Placement</p>
                 </div>
-            </li>
-            <li onclick="toggleMainBar(4)">
-                <div class="element">
-                    <p>Defaulters</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
-                </div>
-            </li>
-            <li onclick="toggleMainBar(7)">
-                <div class="element">
+              </li>
+            <li>
+                <div class="element"  onclick="toggleMainBar(4)">
+                    <img src="../Resource/Side Bar Logos/job-post.png" alt="">
                     <p>Jobs Post</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
                 </div>
             </li>
-            <li onclick="toggleMainBar(5)">
-                <div class="element">
+            <li>
+                <div class="element" onclick="toggleMainBar(5)">
+                    <img src="../Resource/Side Bar Logos/event.png" alt="">
                     <p>Events</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
                 </div>
             </li>
-            <li onclick="toggleMainBar(6)">
-                <div class="element">
+            <li>
+                <div class="element" onclick="toggleMainBar(6)">
+                    <img src="../Resource/Side Bar Logos/setting.png" alt="">
+                    <p>Settings</p>
+                </div>
+            </li>
+            <li>
+                <div class="element" onclick="toggleMainBar(7)">
+                    <img src="../Resource/Side Bar Logos/profile.png" alt="">
                     <p>Account</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
                 </div>
             </li>
-            <li onclick="openLogOutMenu()">
-                <div class="element">
+            <li>
+                <div class="element" onclick="openLogOutMenu()">
+                    <img src="../Resource/Side Bar Logos/logout.png" alt="">
                     <p>Log out</p>
-                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
                 </div>
             </li>
         </ul>
     </aside>
     <main class="main-bar">
         
+        
+        <div class="home-window">
 
+            <div class="welcome-msg">
+              <h1 id="home-welcome-message">Welcome <span id="username-placeholder">Loading...</span> 👋</h1>
+              <img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" alt="" class="corner-image">
+            </div>
+           <section id="home-tab-event-section">
+              <h2 class="event-heading">🔥 Exclusive Events Just for You!</h2>
+              <div class="home-tab-event">
+                <img src="../Resource/Event icons/event.jpeg" alt="">
+                <h2></h2>
+                <p></p>
+              </div>
+              <button class="event-view-more-btn">View More →</button>
+          </section>
+          <div class="home-tab-assessment">
+            <h2>Your Assessment</h2>
+            <div class="home-tab-assessment-container">
+                <h3>Check your tasks and schedules!</h3>
+                <img src="https://www.postgrid.co.uk/wp-content/uploads/2024/01/patient-engagement-strategies-in-healthcare-1024x576.jpeg" alt="">
+                <p><span>Latest Question:</span> Java mcq</p>
+              <button type="button">Today's Task-></button>
+            </div>
+          </div>
+        </div>
+        
 
-
-
-
+       
+        
         
                  
     </main>

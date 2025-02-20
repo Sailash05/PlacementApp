@@ -1,5 +1,58 @@
 let domain = "http://192.168.1.5:8080/";
 
+
+//const publicVapidKey = "BCwlkvIYRB_GS_2KpjEeCRUl2W5PQQsww_gkRahGGRczg68POnTYuYFH3MUQTie1vCuqg0_d_7ua_psD59_ejbA"; // Replace with your actual public VAPID key
+
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register("/service-worker.js")
+		.then(reg => console.log("Service Worker Registered"))
+		.catch(err => console.log("Service Worker Registration Failed", err));
+}
+console.log(Notification.permission);
+if (Notification.permission !== "granted") {
+	Notification.requestPermission().then(permission => {
+		if (permission === "granted") {
+			console.log("Notification permission granted");
+		}
+	});
+}
+
+console.log(Notification.permission);
+
+        // Handle subscribe button click event
+/* document.getElementById("subscribe").addEventListener("click", async () => {
+	const registration = await navigator.serviceWorker.ready;
+
+	// Subscribe to push notifications
+	const subscription = await registration.pushManager.subscribe({
+		userVisibleOnly: true,
+		applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+	});
+
+	console.log("Subscription:", subscription);
+
+	await fetch(domain+"api/push/subscribe", {
+		method: "POST",
+		body: JSON.stringify(subscription),
+		headers: {
+			"Content-Type": "application/json"
+		}
+	});
+
+	alert("Subscribed to notifications!");
+}); */
+
+/* function urlBase64ToUint8Array(base64String) {
+	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, "+")
+		.replace(/_/g, "/");
+
+	const rawData = window.atob(base64);
+	return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+} */
+
+
 let container = document.querySelector(".container");
 
 let token = {
