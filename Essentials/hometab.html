@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./hometab.css" />
+  </head>
+  <body>
+    <nav>
+      <img src="../Resource/Nav Bar Logos/image.png" alt="" onclick="openSideBar()" class="hamburger-btn">
+      <img src="../Resource/Nav Bar Logos/xMark.png"  alt="" onclick="closeSideBar()" class="x-btn"/>
+      <!-- <img src="../Resource/college logo/college-logo.jpeg" alt="" id="nav-clg-logo"> -->
+      <h1>Anna University Regional Campus Tirunelveli</h1>
+    </nav>
+
+    <aside class="side-bar">
+      <div class="head">
+        <div>
+          <h2></h2>
+        </div>
+        <p id="name"></p>
+        <p id="rollno"></p>
+      </div>
+      <ul>
+        <li>
+          <div class="element side-bar-element-active"onclick="toggleMainBar(1)">
+            <img src="../Resource/Side Bar Logos/home.png" alt="">
+            <p>Home</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="toggleMainBar(2)">
+            <img src="../Resource/Side Bar Logos/assessment.png" alt="">
+            <p>Assessment</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="toggleMainBar(3)">
+            <img src="../Resource/Side Bar Logos/placement.png" alt="">
+            <p>Placement</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="toggleMainBar(4)">
+            <img src="../Resource/Side Bar Logos/job-post.png" alt="">
+            <p>Job Post</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="toggleMainBar(5)">
+            <img src="../Resource/Side Bar Logos/event.png" alt="">
+            <p>Events</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="toggleMainBar(6)">
+            <img src="../Resource/Side Bar Logos/profile.png" alt="">
+            <p>Profile</p>
+          </div>
+        </li>
+        <li>
+          <div class="element" onclick="openLogOutMenu()">
+            <img src="../Resource/Side Bar Logos/logout.png" alt="">
+            <p>Log out</p>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-bar home-window">
+        <section>
+            <!-- Home Tab -->
+            <div class="welcome-msg">
+                <div id="home-tab" class="tab-content active">
+                    <header class="home-header">
+                        <h1 id="home-welcome-message">
+                            Welcome <span id="username-placeholder">Loading...</span> 👋
+                        </h1>
+                    </header>
+                </div>
+            </div>
+            <img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" 
+                alt="Corner Image" 
+                       class="corner-image">
+        </section>
+        <!-- Event Box -->
+         <section>
+            <h2 class="event-heading">🔥 Exclusive Events Just for You!</h2>
+            <div class="event-box">
+              <img src="latest-event-image.jpg" alt="Event Poster" class="event-poster">
+              <button class="responsive-btn">View More →</button>
+          </div>
+        </section>
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+       <div class="notification-container">
+            <!-- Announcements Button -->
+            <button class="responsive-btn-bell" onclick="toggleMotionWindow()">
+                <i class="fa-solid fa-bell"></i> Announcements
+                <span id="notification-dot" class="notification-dot"></span> <!-- Red dot -->
+            </button>
+      </div>
+
+        <!-- Motion Window (Initially Hidden) -->
+          <div id="motion-window" class="motion-window">
+            <div class="motion-header">
+                <h2 class="motion-headline">Placement Updates | Anna University</h2>
+                <button class="close-btn" onclick="toggleMotionWindow()">&times;</button>
+            </div>
+            <!-- Job Post Title will be inserted dynamically -->
+            <div class="job-post-container">
+                <p id="latest-job-title">Fetching latest job...</p>
+                <button id="view-job-btn" class="view-job-btn" style="display: none;">View Now →</button>
+            </div>
+          </div>
+
+          <!-- Overlay (Closes Motion Window on Click) -->
+          <div id="overlay" class="overlay" onclick="toggleMotionWindow()"></div>
+
+        <div class="container-wrapper">
+          <div class="gradient-container">
+            <h2 class="style-assessment-heading">Your Assessments</h2>
+            <div class="activity-container">
+              <img src="https://www.postgrid.co.uk/wp-content/uploads/2024/01/patient-engagement-strategies-in-healthcare-1024x576.jpeg" alt="Activity Image" class="activity-image">
+              <h2 class="assessment-side-head"> Check your daily tasks and schedules!</h2>
+              <!-- Dynamic Question Placeholder -->
+              <p id="latest-question" class="latest-question"><strong>Latest Question:</strong> Loading...</p>
+              <button class="assessment-btn todays-task-btn"> Today's Task -></button>
+            </div>
+          </div>
+      </div>
+    </main>
+
+    <!-- <script src="studentpage.js"></script> -->
+  </body>
+</html>
