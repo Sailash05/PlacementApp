@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Code Entry</title>
+    <link rel="stylesheet" href="admin-code.css">
+    <script>
+        function formatCodeInput(event) {
+            let input = event.target;
+            let value = input.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            value = value.slice(0, 10);
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i === 2 || i === 6) {
+                    formattedValue += '-';
+                }
+                formattedValue += value[i];
+            }
+            input.value = formattedValue;
+        }
+    </script>
+</head>
+<body>
+    <div class="admin-code-container">
+        <span class="admin-code-close-icon">&times;</span>
+        <h2>Enter Admin Code</h2>
+        <input type="text" id="adminCode" placeholder="XX-XXXX-XXXX" oninput="formatCodeInput(event)" maxlength="12">
+        <button class="btn-clr">Submit</button>
+        <button class="btn-clrr">Cancel</button>
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 
 //const publicVapidKey = "BCwlkvIYRB_GS_2KpjEeCRUl2W5PQQsww_gkRahGGRczg68POnTYuYFH3MUQTie1vCuqg0_d_7ua_psD59_ejbA"; // Replace with your actual public VAPID key
