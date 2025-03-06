@@ -15,7 +15,7 @@ self.addEventListener("notificationclick", event => {
 
     // Open a new window or focus the existing one
     event.waitUntil(
-        clients.openWindow("http://192.168.1.6:5500/index.html")   // Redirect to a specific URL
+        clients.openWindow("http://192.168.1.7:5500/index.html")   // Redirect to a specific URL
     );
 });
 

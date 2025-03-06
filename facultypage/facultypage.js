@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -7,7 +7,8 @@ let faculty = {
     name:null,
     department:null,
     mobileno:null,
-	email:null
+	email:null,
+    role:null
 }
 
 
@@ -73,7 +74,7 @@ async function toggleMainBar(choice) {
                 <h2></h2>
                 <p></p>
               </div>
-              <button class="event-view-more-btn">View More →</button>
+              <button class="event-view-more-btn" onClick="toggleMainBar(5)">View More →</button>
           </section>
           <div class="home-tab-assessment">
             <h2>Your Assessment</h2>
@@ -81,7 +82,7 @@ async function toggleMainBar(choice) {
                 <h3>Check your tasks and schedules!</h3>
                 <img src="https://www.postgrid.co.uk/wp-content/uploads/2024/01/patient-engagement-strategies-in-healthcare-1024x576.jpeg" alt="">
                 <p><span>Latest Question:</span> Java mcq</p>
-              <button type="button">Today's Task-></button>
+              <button type="button" onClick="toggleMainBar(2)">Today's Task-></button>
             </div>
           </div>
         </div>
@@ -98,6 +99,9 @@ async function toggleMainBar(choice) {
             </div>
         </div>
             `;
+            if(faculty.role === "FACULTY") {
+                document.querySelector('.post-assessment-btn').style.display = 'none';
+            }
             await assessmentTab();
             break;
         
@@ -204,7 +208,8 @@ async function toggleMainBar(choice) {
                 mainBar.innerHTML = `
                 <div class="settings">
                     <h2>Settings</h2>
-                        <div class="notification-setting">
+
+                    <div class="notification-setting"> 
                         <div class="details">
                             <h3>Notification</h3>
                             <p>Allow notifications</p>
@@ -216,9 +221,28 @@ async function toggleMainBar(choice) {
                             </label>
                             <span id="status">Off</span>
                         </div>
+                    </div>
+
+
+                    <div class="admin-setting"> 
+                        <div class="details">
+                            <h3>Admin</h3>
+                            <p>Admin previledge</p>
                         </div>
-                    </div>  
+                        <div class="toggle-container">
+                            <label class="switch">
+                                <input type="checkbox" id="toggle" onclick="adminSettingsSwitch()">
+                                <span class="slider"></span>
+                            </label>
+                            <span id="status">Off</span>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
                 `;
+                checkAdmin();
                 checkNotificationSubscriptionStatus();
                 break;
 
@@ -411,7 +435,8 @@ async function assessmentTab() {
                     <h3>${element.name}</h3>
                     <p class="mark-btn" onClick="getAssessmentsMark(${element.questionid})">Marks</p>
                     <p class="defaulter-btn" onClick="getAssessmentsDefaulters(${element.questionid})">Defaulters</p>
-                    <p class="delete-btn" onClick="deleteAssessmentOpen(${element.questionid})"><img src="../Resource/Event icons/delete.png" alt=""></p>
+                    ${faculty.role==="ADMIN"? `<p class="delete-btn" onClick="deleteAssessmentOpen(${element.questionid})"><img src="../Resource/Event icons/delete.png" alt=""></p>`:""}
+                    
                 </div>`;
         });
         
@@ -896,8 +921,10 @@ function facultyLoc(facultyData) {
     faculty.department = facultyData.datas.department;
     faculty.mobileno = facultyData.datas.mobileno;
 	faculty.email = facultyData.datas.email;
+    faculty.role = facultyData.datas.role;
     localStorage.setItem('faculty',JSON.stringify(faculty));
 }
+
 
 
 function editProfile() {
@@ -986,7 +1013,6 @@ async function getFacultyLoc() {
     toggleMainBar(1);
 }
 getFacultyLoc();
-
 function setProfile() {
     let profileName = [];
     let sname = faculty.name.split(" ");
@@ -1200,13 +1226,10 @@ function eventContainerFunc(eventData) {
         
     });
     eventContainer.innerHTML += `<button onClick="getEvents(1)">More</button>`;
+    if(faculty.role === "FACULTY") {
+        document.querySelector('p[onClick="addEventOpen()"]').style.display = 'none';
+    }
 }
-
-
-
-
-
-
 function wrapLinks(text) {
     return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
 }
@@ -1271,6 +1294,9 @@ function openEvent(event) {
             <p class="event-author"><span>Posted by : </span> ${eventData[index].postedBy}</p>
         </div>
     `;
+    if(faculty.role === "FACULTY") {
+        document.querySelector('.delete-btn').style.display = 'none';
+    }
 } 
 function deleteEventOpen(eventid) {
     let logOutMenuMasterContainer = document.createElement('div');
@@ -1422,6 +1448,9 @@ function jobPostContainerFunc(jobPostData) {
         
     });
     jobPostContainer.innerHTML += `<button onClick="getJobPost(1)">More</button>`;
+    if(faculty.role === "FACULTY") {
+        document.querySelector('p[onclick="addJobPostOpen()"]').style.display = 'none';
+    }
 }
 function openJobPost(event) {
     let mainBar = document.querySelector('.main-bar');
@@ -1449,6 +1478,9 @@ function openJobPost(event) {
             <p class="job-post-author"><span>Posted by : </span> ${jobPostData[index].postedBy}</p>
         </div>
     `;
+    if(faculty.role === "FACULTY") {
+        document.querySelector('.delete-btn').style.display = 'none';
+    }
 } 
 function deleteJobPostOpen(jobPostid) {
     let logOutMenuMasterContainer = document.createElement('div');
@@ -1490,7 +1522,7 @@ async function deleteJobPost(jobPostid) {
 
 
 function notificationSettingsSwitch() {
-    const toggle = document.getElementById("toggle");
+    const toggle = document.querySelector('.notification-setting #toggle');
     if (toggle.checked) {
         subscribeForNotification();
         
@@ -1498,7 +1530,6 @@ function notificationSettingsSwitch() {
         unsubscribeForNotification();
     }
 }
-
 const publicVapidKey = "BCwlkvIYRB_GS_2KpjEeCRUl2W5PQQsww_gkRahGGRczg68POnTYuYFH3MUQTie1vCuqg0_d_7ua_psD59_ejbA";
 function urlBase64ToUint8Array(base64String) {
 	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -1564,7 +1595,6 @@ async function checkNotificationSubscriptionStatus() {
         notificationSettingOff();
     }
 }
-    
 function arrayBufferToBase64(buffer) {
     const bytes = new Uint8Array(buffer);
     return btoa(String.fromCharCode.apply(null, bytes))
@@ -1572,7 +1602,6 @@ function arrayBufferToBase64(buffer) {
         .replace(/\//g, "_")
         .replace(/=+$/, "");
 }
-
 async function subscribeForNotification() {
 
     if (Notification.permission !== "granted") {
@@ -1605,7 +1634,6 @@ async function subscribeForNotification() {
         showFailMessage("Error","Internal Sever Error","Please try again later");
     }
 }
-
 async function unsubscribeForNotification() {
     const registration = await navigator.serviceWorker.ready;
     const currentSubscription = await registration.pushManager.getSubscription();
@@ -1626,19 +1654,136 @@ async function unsubscribeForNotification() {
     catch {
     }
 }
-
 function notificationSettingOff() {
-    const toggle = document.getElementById("toggle");
-    const status = document.getElementById("status");
+    const toggle = document.querySelector('.notification-setting #toggle');
+    const status = document.querySelector('.notification-setting #status');
     toggle.checked = false;
     status.textContent = "Off";
 }
 function notificationSettingOn() {
-    const toggle = document.getElementById("toggle");
+    const toggle = document.querySelector('.notification-setting #toggle');
     const status = document.getElementById("status");
     toggle.checked = true;
     status.textContent = "On";
 }
+
+
+function checkAdmin() {
+    if(faculty.role === "ADMIN") {
+        adminSettingOn();
+    }
+}
+function adminSettingsSwitch() {
+    const toggle = document.querySelector('.admin-setting #toggle');
+    if (toggle.checked) {
+        addAdminOpen();
+    } else {
+        removeAdmin();
+    }
+}
+function adminSettingOff() {
+    const toggle = document.querySelector('.admin-setting #toggle');
+    const status = document.querySelector('.admin-setting #status');
+    toggle.checked = false;
+    status.textContent = "Off";
+}
+function adminSettingOn() {
+    const toggle = document.querySelector('.admin-setting #toggle');
+    const status = document.querySelector(".admin-setting #status");
+    toggle.checked = true;
+    status.textContent = "On";
+}
+function addAdminOpen() {
+    adminSettingOff();
+    let adminCode = document.createElement("div");
+    adminCode.className = "admin-code-master-container";
+    document.querySelector("body").appendChild(adminCode);
+    document.querySelector('.admin-code-master-container').innerHTML = `<div class="admin-code-container">
+        <span class="admin-code-close-icon" onClick="addAdminClose()">&times;</span>
+        <h2>Enter Admin Code</h2>
+        <input type="text" id="adminCode" placeholder="XX-XXXX-XXXX" oninput="formatCodeInput(event)" maxlength="12">
+        <button class="btn-clr" onClick="addAdmin()">Submit</button>
+        <button class="btn-clrr" onClick="addAdminClose()">Cancel</button>
+    </div>`;
+}
+function addAdminClose() {
+    let adminCode = document.querySelector('.admin-code-master-container');
+    document.querySelector('body').removeChild(adminCode);
+    toggleMainBar(6);
+}
+function formatCodeInput(event) {
+    let input = event.target;
+    let value = input.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    value = value.slice(0, 10);
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i === 2 || i === 6) {
+            formattedValue += '-';
+        }
+        formattedValue += value[i];
+    }
+    input.value = formattedValue;
+}
+async function addAdmin() {
+    let adminCode = document.querySelector('#adminCode').value;
+    try {
+        const response = await fetch(domain + `faculty/addadmin?mobileno=${faculty.mobileno}&admin-code=${adminCode}`, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await response.json();
+        if(response.status === 202) {
+            if (localStorage.getItem("faculty")) {
+                let faculty = JSON.parse(localStorage.getItem("faculty"));
+                faculty.role = "ADMIN";
+                localStorage.setItem("faculty", JSON.stringify(faculty));
+            }
+            faculty.role = "ADMIN";
+            adminSettingOn();
+            addAdminClose();
+            showSuccessMessage("Success","You are now admin","");
+        }
+        else if(response.status === 403) {
+            adminSettingOff();
+            showFailMessage("Failed",data.message,"");
+        }
+    }
+    catch(error) {
+        adminSettingOff();
+        showFailMessage("Error","Internal server error","");
+    }
+}
+async function removeAdmin() {
+    try {
+        const response = await fetch(domain + `faculty/removeadmin?mobileno=${faculty.mobileno}`, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`, 
+                "Content-Type": "application/json"
+            }
+        });
+        const data = await response.json();
+        if(response.status === 202) {
+            if (localStorage.getItem("faculty")) {
+                let faculty = JSON.parse(localStorage.getItem("faculty"));
+                faculty.role = "FACULTY";
+                localStorage.setItem("faculty", JSON.stringify(faculty));
+            }
+            faculty.role = "FACULTY";
+            adminSettingOff();
+        }
+        else if (response.status === 403){
+            showFailMessage("Failed",data.message,"");
+        }
+    }
+    catch(error) {
+        showFailMessage("Error","Insernal server Error","Please Try again");
+    }
+}
+
 
 
 function showFailMessage(title, message1, message2) {
@@ -1661,7 +1806,6 @@ function hideFailMessage() {
 	let popUpMasterContainer = document.querySelector('.pop-up-master-container');
 	popUpMasterContainer.remove();
 }
-
 function showSuccessMessage(title, message1, message2) {
     let popUpMasterContainer = document.createElement('div');
     popUpMasterContainer.classList.add('pop-up-master-container1');
