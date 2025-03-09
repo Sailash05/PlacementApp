@@ -1,7 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
-
-
-//const publicVapidKey = "BCwlkvIYRB_GS_2KpjEeCRUl2W5PQQsww_gkRahGGRczg68POnTYuYFH3MUQTie1vCuqg0_d_7ua_psD59_ejbA"; // Replace with your actual public VAPID key
+let domain = "http://192.168.1.5:8080/";
 
 if ("serviceWorker" in navigator) {
 	navigator.serviceWorker.register("/service-worker.js")
@@ -18,40 +15,6 @@ if (Notification.permission !== "granted") {
 }
 
 console.log(Notification.permission);
-
-        // Handle subscribe button click event
-/* document.getElementById("subscribe").addEventListener("click", async () => {
-	const registration = await navigator.serviceWorker.ready;
-
-	// Subscribe to push notifications
-	const subscription = await registration.pushManager.subscribe({
-		userVisibleOnly: true,
-		applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-	});
-
-	console.log("Subscription:", subscription);
-
-	await fetch(domain+"api/push/subscribe", {
-		method: "POST",
-		body: JSON.stringify(subscription),
-		headers: {
-			"Content-Type": "application/json"
-		}
-	});
-
-	alert("Subscribed to notifications!");
-}); */
-
-/* function urlBase64ToUint8Array(base64String) {
-	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-	const base64 = (base64String + padding)
-		.replace(/\-/g, "+")
-		.replace(/_/g, "/");
-
-	const rawData = window.atob(base64);
-	return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
-} */
-
 
 let container = document.querySelector(".container");
 
@@ -81,7 +44,13 @@ function change(choice) {
 			<form action="/student/addstudent" method="POST" class="studentSignInForm">
 				<input type="text" placeholder="User Name" class="userName"><br>
 				<input type="number" placeholder="Roll Number" class="rollno"><br>
-				<input type="number" placeholder="Year" class="year"><br>
+				<select name="" id="year-select">
+                    <option value="" disabled selected>Select the year</option>
+                    <option value="1">I Year</option>
+                    <option value="2">II Year</option>
+                    <option value="3">III Year</option>
+                    <option value="4">IV Year</option>
+                 </select><br>
 				<select name="departmentSelect" id="departmentSelect">
 					<option value="" disabled selected>Select a department</option>
 					<option value="CSE">CSE</option>
@@ -143,7 +112,7 @@ function change(choice) {
 async function addStudent() {
 	const name = document.querySelector(".userName").value.trim();
 	const rollno = document.querySelector(".rollno").value;
-	const year = document.querySelector(".year").value;
+	const year = document.querySelector("#year-select").value;
 	const department = document.querySelector("#departmentSelect").value;
 	const password = document.querySelector(".password").value;
 
@@ -163,8 +132,8 @@ async function addStudent() {
 		showFailMessage("Error","Please Enter the Password","Try again!!");
 	}
 	else {
-		//document.querySelector('#loading-screen').style.display = 'flex';
 		try {
+			startLoading();
 			const response = await fetch(domain + "student/addstudent", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -179,11 +148,9 @@ async function addStudent() {
 	
 			const data = await response.json();
 			if(response.status === 201) {
-				//document.querySelector('#loading-screen').style.display = 'none';
 				showSuccessMessage("Success","Account Created",data.message);
 			}
 			else if(response.status === 409) {
-				//document.querySelector('#loading-screen').style.display = 'none';
 				showFailMessage("Error",data.message,"Please Log In!");
 			}
 			else if (!response.ok) {
@@ -193,8 +160,10 @@ async function addStudent() {
 			change(1);
 		} 
 		catch (error) {
-			//document.querySelector('#loading-screen').style.display = 'none';
 			showFailMessage("Error","Internal Server Error","Please try again!");
+		}
+		finally {
+			stopLoading();
 		}
 	}
 }
@@ -211,6 +180,7 @@ async function loginStudent() {
 	}
 	else {
 		try {
+			startLoading();
 			const response = await fetch(domain + "student/loginstudent", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -220,7 +190,7 @@ async function loginStudent() {
 				}),
 			});
 			const data = await response.json();
-	
+
 			if(response.status === 404) {
 				showFailMessage("Error",data.message,"Please Enter the Correct Register Number.");
 			}
@@ -240,6 +210,9 @@ async function loginStudent() {
 		} 
 		catch (error) {
 			showFailMessage("Error","Internal Server Error","Please try again!");
+		}
+		finally {
+			stopLoading();
 		}
 	}
 	
@@ -263,6 +236,7 @@ async function addFaculty() {
 	}
 	else {
 		try {
+			startLoading();
 			const response = await fetch(domain + "faculty/addfaculty", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -289,6 +263,9 @@ async function addFaculty() {
 		catch (error) {
 			showFailMessage("Error","Internal Server Error","Please try again!");
 		}
+		finally {
+			stopLoading();
+		}
 	}	
 }
 
@@ -304,6 +281,7 @@ async function loginFaculty() {
 	}
 	else {
 		try {
+			startLoading();
 			const response = await fetch(domain + "faculty/loginfaculty", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -333,6 +311,9 @@ async function loginFaculty() {
 		} 
 		catch (error) {
 			showFailMessage("Error","Internal Server Error","Please try again!");
+		}
+		finally {
+			stopLoading();
 		}
 	}
 }
@@ -557,3 +538,9 @@ async function sendFacultyResetRequest() {
 	}
 }
 
+function startLoading() {
+	document.querySelector('.loader-container').style.display = 'flex';
+}
+function stopLoading() {
+	document.querySelector('.loader-container').style.display = 'none';
+}

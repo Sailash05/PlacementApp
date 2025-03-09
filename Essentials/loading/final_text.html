@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .loader-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100dvw;
+            height: 100dvh;
+            gap: 0px;
+            color: #298dff;
+            background: #2b30393c;
+        }
+        .loader-container .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #58a6ff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin: auto;
+            margin: 10px;
+        }
+        .loader-container .text {
+            font-size: 1.5em;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #58a6ff;
+            animation: blink 0.7s step-end infinite alternate;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes typing {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="text">Loading...</div>
+    </div>
+</body>
+</html>
