@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.5:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -50,11 +50,13 @@ async function toggleMainBar(choice) {
     if(navBar.style.backgroundColor == 'rgb(18, 18, 18)') {
         if(window.innerWidth < 480) {
             navBar.style.backgroundColor = '#24244e';
-            document.querySelector('nav > h1').style.color = 'white';
+            document.querySelector('nav > div > h1').style.color = 'white';
+            document.querySelector('nav > div > h3').style.color = 'white';
         }
         else {
             navBar.style.backgroundColor = 'rgb(238, 238, 238)';
-            document.querySelector('nav > h1').style.color = '#416aff';
+            document.querySelector('nav > div > h1').style.color = '#416aff';
+            document.querySelector('nav > div > h3').style.color = '#416aff';
         }
     }
     let mainBar = document.querySelector('.main-bar');
@@ -65,7 +67,7 @@ async function toggleMainBar(choice) {
 
             <div class="welcome-msg">
               <h1 id="home-welcome-message">Welcome <span id="username-placeholder">Loading...</span> 👋</h1>
-              <img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" alt="" class="corner-image">
+              <img src="../Resource/college logo/college-logo.jpeg" alt="" class="corner-image">
             </div>
            <section id="home-tab-event-section">
               <h2 class="event-heading">🔥 Exclusive Events Just for You!</h2>
@@ -107,7 +109,8 @@ async function toggleMainBar(choice) {
         
             case 3:
                 navBar.style.backgroundColor = '#121212';
-                document.querySelector('nav > h1').style.color = 'white';
+                document.querySelector('nav > div > h1').style.color = 'white';
+                document.querySelector('nav > div > h3').style.color = 'white';
                 mainBar.innerHTML = `<div class="placement">
                 <header class="hero">
       <h1>Your Success Story Begins Here!</h1>

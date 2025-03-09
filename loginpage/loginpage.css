@@ -124,6 +124,19 @@ body{
 .studentSignInForm > .forgot-password > span:hover {
     color: #5c5cff;
 }
+#year-select {
+    margin-top: 10px;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    width: 75%;
+    border: none;
+    width: 83%;
+}
+#year-select:hover {
+    cursor: pointer;
+}
 #departmentSelect{
     margin-top: 10px;
     padding: 10px 10px 10px 20px;
@@ -407,4 +420,47 @@ body{
 
 .resend-cancel-btn:hover {
     background-color: #932222;
+}
+
+
+.loader-container {
+    position: fixed;
+    display: none;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100dvw;
+    height: 100dvh;
+    gap: 0px;
+    color: #2d77ff;
+    background: #000000a2;
+}
+.loader-container .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #58a6ff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+    margin: auto;
+    margin: 10px;
+}
+.loader-container .text {
+    font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #58a6ff;
+    animation: blink 0.7s step-end infinite alternate;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes typing {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
 }

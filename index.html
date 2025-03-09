@@ -24,9 +24,15 @@
             <form action="/student/addstudent" method="POST" class="studentSignInForm">
                 <input type="text" placeholder="User Name" class="userName"><br>
                 <input type="number" placeholder="Roll Number" class="rollno"><br>
-                <input type="number" placeholder="Year" class="year"><br>
+                 <select name="" id="year-select">
+                    <option value="" disabled selected>Select the year</option>
+                    <option value="1">I Year</option>
+                    <option value="2">II Year</option>
+                    <option value="3">III Year</option>
+                    <option value="4">IV Year</option>
+                 </select><br>
                 <select name="departmentSelect" id="departmentSelect">
-                    <option value="" disabled selected>Select a department</option>
+                    <option value="" disabled selected>Select the department</option>
                     <option value="CSE">CSE</option>
                     <option value="AIDS">AI & DS</option>
                     <option value="ECE">ECE</option>
@@ -41,6 +47,11 @@
         </div>
     </div>
 
+
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="text"><h4>Loading...</h4></div>
+    </div>
     
 
     <script src="./loginpage/loginpage.js"></script>

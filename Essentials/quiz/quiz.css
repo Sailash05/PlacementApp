@@ -1,0 +1,96 @@
+/* General page styling */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #74EBD5 0%, #9FACE6 100%);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container box */
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 30px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading */
+h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #333;
+}
+
+p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Option cards */
+.options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    padding: 20px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px #b8b8b8, -5px -5px 15px #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 10px 10px 30px #b8b8b8, -10px -10px 30px #ffffff;
+}
+
+.card i {
+    font-size: 50px;
+    color: #FF6B6B;
+    margin-bottom: 15px;
+    animation: pop 0.5s ease;
+}
+
+.card h2 {
+    margin: 10px 0;
+    font-size: 22px;
+    color: #444;
+}
+
+.card p {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
