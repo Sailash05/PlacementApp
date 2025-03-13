@@ -1,0 +1,137 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    height: 100vh;
+}
+
+.quiz-manual-entry {
+    min-height: 100%;
+    width: 100%;
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    margin: 2rem;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+}
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+#quizForm textarea, #quizForm input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#quizForm .options label {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+#quizForm .options input[type="radio"] {
+    margin-right: 10px;
+    appearance: radio;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+#quizForm .options input[type="radio"]:checked {
+    accent-color: #007bff;
+}
+#questionNumber {
+    margin-bottom: 1.5rem;
+}
+#ques {
+    margin-bottom: 1rem;
+}
+ul {
+    font-weight: bold;
+    padding-left: 1.5rem;
+}
+#crt-option {
+    color: rgb(47, 188, 3);
+}
+.save-btn {
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+.save-btn:hover {
+    background: #0056b3;
+}
+.saved-questions {
+    margin-bottom: 20px;
+}
+.question-box {
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    position: relative;
+}
+.question-box ul {
+    list-style: none;
+}
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #FF3B30;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete-btn:hover {
+    background: #D63031;
+}
+.upload-btn {
+    background: #28a745;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+.upload-btn:hover {
+    background: #218838;
+}
+#quizHeadForm input[type="text"],
+#quizHeadForm input[type="date"],
+#quizHeadForm input[type="time"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#quizHeadForm input[type="date"],
+#quizHeadForm input[type="time"] {
+    cursor: pointer;
+}
+#quizHeadForm label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}

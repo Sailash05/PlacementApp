@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="./home-tab.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <img src="../Resource/Nav Bar Logos/image.png" alt="" height="0px" width="0px" onclick="openSideBar()" class="hamburger-btn">
+        <img src="../Resource/Nav Bar Logos/xMark.png" alt="" height="0px" width="0px" onclick="closeSideBar()" class="x-btn">
+        <h1>Faculty Dashboard</h1>
+    </nav>
+
+    <aside class="side-bar">
+        <div class="head">
+            <h2>Menu</h2>
+        </div>
+        <ul>
+            <li onclick="toggleMainBar(1)">
+                <div class="element">
+                    <p>Home</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(2)">
+                <div class="element">
+                    <p>Post Assessment</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(3)">
+                <div class="element">
+                    <p>Students Marks</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(4)">
+                <div class="element">
+                    <p>Defaulters</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(7)">
+                <div class="element">
+                    <p>Jobs Post</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(5)">
+                <div class="element">
+                    <p>Events</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="toggleMainBar(6)">
+                <div class="element">
+                    <p>Account</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+            <li onclick="openLogOutMenu()">
+                <div class="element">
+                    <p>Log out</p>
+                    <img src="../Resource/Side Bar Logos/image.png" alt="" height="20px" width="20px">
+                </div>
+            </li>
+        </ul>
+    </aside>
+    <main class="main-bar">
+        <section class="welcome-section">
+            <div class="welcome-msg">
+                <div id="home-tab" class="tab-content active">
+                    <header class="home-header">
+                        <h1 id="home-welcome-message">
+                            Welcome <span id="username-placeholder">Loading...</span> 👋
+                        </h1>
+                    </header>
+                    <header>
+                        <h2 class="hi-msg">You have new tasks to do.It's a lot of work today, </br> Let's Get Started </h2>
+                    </header>
+                    <button class="review-btn"> Review It</button>
+                </div>
+            </div>
+            <img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" 
+                alt="Corner Image" 
+                       class="corner-image">
+        </section>
+        <!-- Event Box -->
+        <section class="event-box-section">
+            <h2 class="event-heading">🔥 Exclusive Events Just for You!</h2>
+            <div class="event-box">
+              <img src="latest-event-image.jpg" alt="Event Poster" class="event-poster">
+              <button class="responsive-btn">View More →</button>
+          </div>
+        </section>
+        <section class="announcement-section">
+      
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+                    <div class="notification-container">
+                            <!-- Announcements Button -->
+                            <button class="responsive-btn-bell" onclick="toggleMotionWindow()">
+                                <i class="fa-solid fa-bell"></i> Announcements
+                                <span id="notification-dot" class="notification-dot"></span> <!-- Red dot -->
+                            </button>
+                    </div>
+
+                <!-- Motion Window (Initially Hidden) -->
+                <div id="motion-window" class="motion-window">
+                    <div class="motion-header">
+                        <h2 class="motion-headline">Placement Updates | Anna University</h2>
+                        <button class="close-btn" onclick="toggleMotionWindow()">&times;</button>
+                    </div>
+                    <!-- Job Post Title will be inserted dynamically -->
+                    <div class="job-post-container">
+                        <p id="latest-job-title">Fetching latest job...</p>
+                        <button id="view-job-btn" class="view-job-btn" style="display: none;">View Now →</button>
+                    </div>
+                </div>
+
+                <!-- Overlay (Closes Motion Window on Click) -->
+                <div id="overlay" class="overlay" onclick="toggleMotionWindow()"></div>
+        </section>
+        <section class="leaderboard">
+            <div class="container-wrapper">
+                <div class="gradient-container">
+                  <h2 class="style-assessment-heading">📊Performance Leaderboard: </h2>
+                  <div class="activity-container">
+                    <div class="month-dropdown">
+                        <button class="dropdown-btn" id="selected-month" onclick="toggleDropdown()">December ⌄</button>
+                        <ul class="dropdown-menu" id="month-menu">
+                            <li onclick="selectMonth('January')">January</li>
+                            <li onclick="selectMonth('February')">February</li>
+                            <li onclick="selectMonth('March')">March</li>
+                            <li onclick="selectMonth('April')">April</li>
+                            <li onclick="selectMonth('May')">May</li>
+                            <li onclick="selectMonth('June')">June</li>
+                            <li onclick="selectMonth('July')">July</li>
+                            <li onclick="selectMonth('August')">August</li>
+                            <li onclick="selectMonth('September')">September</li>
+                            <li onclick="selectMonth('October')">October</li>
+                            <li onclick="selectMonth('November')">November</li>
+                            <li onclick="selectMonth('December')">December</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </section>            
+    </main>
+   <script src="facultypage.js"></script>
+</body>
+</html>

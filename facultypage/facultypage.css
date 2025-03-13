@@ -479,6 +479,79 @@ nav > div > h3 {
     }
 }
 
+
+
+.quiz-option-container {
+    text-align: center;
+    background: #fff;
+    padding: 30px 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: calc(100% - 60px);
+}
+.quiz-option-container h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #333;
+    color: #416aff;
+}
+.quiz-option-container p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.quiz-option-container .options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.quiz-option-container .card {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px #b8b8b8, -5px -5px 15px #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+}
+.quiz-option-container .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 10px 10px 30px #b8b8b8, -10px -10px 30px #ffffff;
+}
+.quiz-option-container .card i {
+    font-size: 50px;
+    color: #FF6B6B;
+    margin-bottom: 15px;
+    animation: pop 0.5s ease;
+}
+.quiz-option-container .card h2 {
+    margin: 10px 0;
+    font-size: 22px;
+    color: #444;
+    color: #416aff;
+}
+.quiz-option-container .card p {
+    font-size: 14px;
+    color: #777;
+}
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@media (max-width: 480px) {
+    .quiz-option-container .options {
+        flex-direction: column;
+    }
+    .quiz-option-container .card {
+        padding: 20px;
+    }
+}
+
+
+
 .add-assessment-form {
     width: 80%;
     max-width: 600px;
@@ -511,7 +584,7 @@ nav > div > h3 {
 
 .add-assessment-field input,
 .add-assessment-field textarea {
-    width: 100%;
+    width: calc(100% - 1.5rem);
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -1587,7 +1660,7 @@ left: 150%;
 
 .add-event-field input,
 .add-event-field textarea {
-    width: 100%;
+    width: calc(100% - 1.5rem);
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -1816,7 +1889,7 @@ left: 150%;
 }
 .add-job-post-field input,
 .add-job-post-field textarea {
-    width: 100%;
+    width: calc(100% - 1.5rem);
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 5px;
