@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz Manually</title>
+    <link rel="stylesheet" href="./manual-quiz.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Create a Quiz Question</h1>
+
+    <form id="quizForm">
+        <!-- Question Box -->
+        <textarea class="question-box" id="question" placeholder="Type your question here..." rows="4" required></textarea>
+        
+        <!-- Options -->
+        <div class="option">
+            <label class="radio-container">
+                <input type="radio" name="correctAnswer" value="option1" required>
+                <span class="checkmark"></span>
+            </label>
+            <input type="text" id="option1" class="option-input" placeholder="Option 1" required>
+        </div>
+        <div class="option">
+            <label class="radio-container">
+                <input type="radio" name="correctAnswer" value="option2">
+                <span class="checkmark"></span>
+            </label>
+            <input type="text" id="option2" class="option-input" placeholder="Option 2" required>
+        </div>
+        <div class="option">
+            <label class="radio-container">
+                <input type="radio" name="correctAnswer" value="option3">
+                <span class="checkmark"></span>
+            </label>
+            <input type="text" id="option3" class="option-input" placeholder="Option 3" required>
+        </div>
+        <div class="option">
+            <label class="radio-container">
+                <input type="radio" name="correctAnswer" value="option4">
+                <span class="checkmark"></span>
+            </label>
+            <input type="text" id="option4" class="option-input" placeholder="Option 4" required>
+        </div>
+        <button type="submit" class="btn">Save Question</button>
+    </form>
+</div>
+
+<script src="./manual-quiz.js"></script>
+
+</body>
+</html>

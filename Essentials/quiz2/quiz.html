@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="./quiz.css">
+</head>
+<body>
+    <div class="quiz-manual-entry">
+        
+        <div class="container">
+            <h1>Create a Quiz Question</h1>
+    
+            <form id="quizHeadForm">
+                <label for="">Enter Question Title</label>
+                <input type="text" id="title" placeholder="Enter Question Title" required><br>
+                <label for="">Due Date</label>
+                <input type="date" id="dueDate" required><br>
+                <label for="">Due Time</label>
+                <input type="time" id="dueTime" required><br>
+            </form>
+    
+            <h2>Questions</h2>
+    
+    
+            <div id="savedQuestions" class="saved-questions"></div>
+    
+            <form id="quizForm">
+                <h2 id="questionNumber">1. Create a New Question</h2>
+    
+                <textarea id="question" placeholder="Type your question here..." required></textarea>
+                
+                <div class="options">
+                    <label>
+                        <input type="radio" name="correctAnswer" value="a" required>
+                        <input type="text" id="option1" placeholder="Option a" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="b">
+                        <input type="text" id="option2" placeholder="Option b" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="c">
+                        <input type="text" id="option3" placeholder="Option c" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="d">
+                        <input type="text" id="option4" placeholder="Option d" required>
+                    </label>
+                </div>
+                
+                <button type="submit" class="save-btn">Save Question</button>
+            </form>
+    
+            <button id="uploadBtn" class="upload-btn" onclick="uploadQuestions()">Upload All Questions</button>
+        </div>
+    
+    </div>
+   
+    <script src="./quiz.js"></script>
+</body>
+</html>

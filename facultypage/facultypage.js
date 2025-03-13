@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.5:8080/";
+let domain = "http://192.168.1.7:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -95,7 +95,7 @@ async function toggleMainBar(choice) {
             mainBar.innerHTML = `
             <div class="assessment-tab">
             <h2>Assessments</h2>
-            <p onclick="openAssessmentPostForm()" class="post-assessment-btn">+ Post Assessment</p>
+            <p onclick="openAssessmentPostOption()" class="post-assessment-btn">+ Post Assessment</p>
             <div class="assessment-list">
                 <h2>Assessment List</h2>
             </div>
@@ -448,6 +448,25 @@ async function assessmentTab() {
 
     }
 }
+function openAssessmentPostOption() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `<div class="quiz-option-container">
+        <h1>Welcome to Quiz Creator</h1>
+        <p>Select an option to get started:</p>
+        <div class="options">
+            <div class="card" onclick="">
+                <i class="fas fa-edit"></i>
+                <h2>Create a Manual Quiz</h2>
+                <p>Manually type questions and set correct answers.</p>
+            </div>
+            <div class="card" onclick="openAssessmentPostForm()">
+                <i class="fas fa-upload"></i>
+                <h2>Upload a Document</h2>
+                <p>Upload questions from a file or Google Drive.</p>
+            </div>
+        </div>
+    </div>`;
+}
 async function openAssessmentPostForm() {
     let mainBar = document.querySelector('.main-bar');
     mainBar.innerHTML = `<form class="add-assessment-form">
@@ -521,6 +540,10 @@ async function addAssessment(event) {
             }
             else if(response.status === 400) {
                 showFailMessage("Failed","Failed to add");
+                toggleMainBar(2);
+            }
+            else if(response.status === 500) {
+                showFailMessage("Error","Internal Server Error","Please Try again later!");
                 toggleMainBar(2);
             }
         }
