@@ -454,7 +454,7 @@ function openAssessmentPostOption() {
         <h1>Welcome to Quiz Creator</h1>
         <p>Select an option to get started:</p>
         <div class="options">
-            <div class="card" onclick="">
+            <div class="card" onclick="manualQuizEntry()">
                 <i class="fas fa-edit"></i>
                 <h2>Create a Manual Quiz</h2>
                 <p>Manually type questions and set correct answers.</p>
@@ -466,6 +466,166 @@ function openAssessmentPostOption() {
             </div>
         </div>
     </div>`;
+}
+function manualQuizEntry() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `<div class="quiz-manual-entry">
+        
+        <div class="container">
+            <h1>Create a Quiz Question</h1>
+    
+            <form id="quizHeadForm">
+                <label for="">Enter Question Title</label>
+                <input type="text" id="title" placeholder="Enter Question Title" required><br>
+                <label for="">Due Date</label>
+                <input type="date" id="dueDate" required><br>
+                <label for="">Due Time</label>
+                <input type="time" id="dueTime" required><br>
+            </form>
+    
+            <h2>Questions</h2>
+    
+    
+            <div id="savedQuestions" class="saved-questions"></div>
+    
+            <form id="quizForm">
+                <h2 id="questionNumber">1. Create a New Question</h2>
+    
+                <textarea id="question" placeholder="Type your question here..." required></textarea>
+                
+                <div class="options">
+                    <label>
+                        <input type="radio" name="correctAnswer" value="a" required>
+                        <input type="text" id="option1" placeholder="Option a" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="b">
+                        <input type="text" id="option2" placeholder="Option b" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="c">
+                        <input type="text" id="option3" placeholder="Option c" required>
+                    </label>
+                    <label>
+                        <input type="radio" name="correctAnswer" value="d">
+                        <input type="text" id="option4" placeholder="Option d" required>
+                    </label>
+                </div>
+                
+                <button type="button" class="save-btn" onClick="quizEntrySaveBtn()">Save Question</button>
+            </form>
+    
+            <button id="uploadBtn" class="upload-btn" onclick="uploadQuestions()">Upload All Questions</button>
+        </div>
+    
+    </div>`;
+}
+let questions = [];
+let currentQuestionIndex = 0;
+function quizEntrySaveBtn() {
+    event.preventDefault();
+
+    const questionText = document.getElementById("question").value;
+    const options = [
+        document.getElementById("option1").value,
+        document.getElementById("option2").value,
+        document.getElementById("option3").value,
+        document.getElementById("option4").value,
+    ];
+    const correctAnswer = document.querySelector('input[name="correctAnswer"]:checked').value;
+
+    const newQuestion = {
+        questionText,
+        options,
+        correctAnswer,
+    };
+
+    questions.push(newQuestion);
+    renderSavedQuestions();
+    clearForm();
+}
+function renderSavedQuestions() {
+    const savedQuestionsDiv = document.getElementById("savedQuestions");
+    savedQuestionsDiv.innerHTML = "";
+
+    questions.forEach((q, index) => {
+        const questionBox = document.createElement("div");
+        questionBox.className = "question-box";
+        
+        questionBox.innerHTML = `
+            <button class="delete-btn" onclick="deleteQuestion(${index})">Delete</button>
+            <div>
+                <h3 id="ques">${index + 1}. ${q.questionText}</h3>
+                <ul>
+                    <li id="crt-option">a) ${q.options[0]}</li>
+                    <li>b) ${q.options[1]}</li>
+                    <li>c) ${q.options[2]}</li>
+                    <li>d) ${q.options[3]}</li>
+                </ul>
+            </div>
+        `;
+        /////////////////////////////////
+        savedQuestionsDiv.appendChild(questionBox);
+    });
+}
+function deleteQuestion(index) {
+    questions.splice(index, 1);
+    renderSavedQuestions();
+    updateQuestionNumber()
+}
+function updateQuestionNumber() {
+    document.getElementById("questionNumber").innerText = `${questions.length + 1}. Create a New Question`;
+}
+function clearForm() {
+    document.getElementById("quizForm").reset();
+    document.getElementById("questionNumber").innerText = `${questions.length + 1}. Create a New Question`;
+}
+async function uploadQuestions() {
+    let time = document.getElementById("dueTime").value +":00";
+    let date = document.getElementById("dueDate").value;
+    if (questions.length === 0) {
+        console.log("No questions to upload.");
+        return;
+    }
+
+    const quizData = {
+        name: document.getElementById("title").value || "Untitled Quiz",
+        dateTime: date+"T"+time,
+        questions: questions.map(q => ({
+            question: q.questionText,
+            a: q.options[0],
+            b: q.options[1],
+            c: q.options[2],
+            d: q.options[3],
+            answer: q.options[q.correctAnswer.charCodeAt(0) - 97],
+            type: "MCQ"
+        }))
+    };
+
+    try {
+        const response = await fetch(domain+`questions/addquestion`, {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${jwt_token}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(quizData)
+        });
+
+        const data = await response.json();
+        if(response.status === 201) {
+            toggleMainBar(2);
+            showSuccessMessage("Success","Questions Added","");
+        }
+        else if(response.status === 400) {
+            toggleMainBar(2);
+            showFailMessage("Failed","Questions was not added","");
+        }
+    }
+    catch(error) {
+        toggleMainBar(2);
+        showFailMessage("Error","Internal Server Error","");
+    }
 }
 async function openAssessmentPostForm() {
     let mainBar = document.querySelector('.main-bar');
@@ -789,9 +949,10 @@ async function openPlacementRecord() {
       </ul>
     </div>
 
-     <div class="button-container">
+    ${faculty.role == "ADMIN" ? `<div class="button-container">
       <button class="add-student-btn" type="button" onClick="openAddPlacedStudentForm()">Add Student</button>
-     </div>
+     </div>`:``}
+     
      
     <section class="animated-section">
       <h2>All Placements</h2>
@@ -851,11 +1012,13 @@ function openAddPlacedStudentForm() {
     if(navBar.style.backgroundColor == 'rgb(18, 18, 18)') {
         if(window.innerWidth < 480) {
             navBar.style.backgroundColor = '#24244e';
-            document.querySelector('nav > h1').style.color = 'white';
+            document.querySelector('nav > div > h1').style.color = 'white';
+            document.querySelector('nav > div > h3').style.color = 'white';
         }
         else {
             navBar.style.backgroundColor = 'rgb(238, 238, 238)';
-            document.querySelector('nav > h1').style.color = '#416aff';
+            document.querySelector('nav > div > h1').style.color = '#416aff';
+            document.querySelector('nav > div > h3').style.color = '#416aff';
         }
     }
     let mainBar = document.querySelector('.main-bar');
@@ -907,18 +1070,22 @@ async function addPlacedStudent() {
         const response = await fetch(domain+`placement/addplacedstudent`, {
             method: "POST",
             headers: {
+                "Authorization": `Bearer ${jwt_token}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(placedStudentData)
         });
         const data = await response.json();
         if(response.status === 201) {
+            toggleMainBar(3);
             showSuccessMessage("Success",data.message,"");
         }
         else if(response.status === 404) {
+            toggleMainBar(3);
             showFailMessage("Failed",data.message,"");
         }
     } catch (error) {
+        toggleMainBar(3);
         showFailMessage("Error","Internal Server Error","Please Try Again Later!");
     }
 }

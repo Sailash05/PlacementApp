@@ -15,7 +15,7 @@ body {
     align-items: center;
 }
 
-.container {
+.quiz-manual-entry .container {
     margin: 2rem;
     padding: 20px;
     background: #fff;
@@ -23,46 +23,46 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 800px;
 }
-h1 {
+.quiz-manual-entry h1 {
     text-align: center;
     color: #007bff;
 }
-#quizForm textarea, #quizForm input[type="text"] {
+.quiz-manual-entry #quizForm textarea, .quiz-manual-entry #quizForm input[type="text"] {
     width: 100%;
     padding: 10px;
     border: 2px solid #007bff;
     border-radius: 5px;
     font-size: 16px;
 }
-#quizForm .options label {
+.quiz-manual-entry #quizForm .options label {
     display: flex;
     align-items: center;
     margin: 10px 0;
 }
-#quizForm .options input[type="radio"] {
+.quiz-manual-entry #quizForm .options input[type="radio"] {
     margin-right: 10px;
     appearance: radio;
     cursor: pointer;
     width: 20px;
     height: 20px;
 }
-#quizForm .options input[type="radio"]:checked {
+.quiz-manual-entry #quizForm .options input[type="radio"]:checked {
     accent-color: #007bff;
 }
-#questionNumber {
+.quiz-manual-entry #questionNumber {
     margin-bottom: 1.5rem;
 }
-#ques {
+.quiz-manual-entry #ques {
     margin-bottom: 1rem;
 }
-ul {
+.quiz-manual-entry ul {
     font-weight: bold;
     padding-left: 1.5rem;
 }
-#crt-option {
+.quiz-manual-entry #crt-option {
     color: rgb(47, 188, 3);
 }
-.save-btn {
+.quiz-manual-entry .save-btn {
     background: #007bff;
     color: #fff;
     padding: 10px;
@@ -73,23 +73,23 @@ ul {
     margin-top: 0.5rem;
     margin-bottom: 2rem;
 }
-.save-btn:hover {
+.quiz-manual-entry .save-btn:hover {
     background: #0056b3;
 }
-.saved-questions {
+.quiz-manual-entry .saved-questions {
     margin-bottom: 20px;
 }
-.question-box {
+.quiz-manual-entry .question-box {
     background: #e3f2fd;
     padding: 10px;
     border-radius: 5px;
     margin: 10px 0;
     position: relative;
 }
-.question-box ul {
+.quiz-manual-entry .question-box ul {
     list-style: none;
 }
-.delete-btn {
+.quiz-manual-entry .delete-btn {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -100,10 +100,10 @@ ul {
     border-radius: 5px;
     cursor: pointer;
 }
-.delete-btn:hover {
+.quiz-manual-entry .delete-btn:hover {
     background: #D63031;
 }
-.upload-btn {
+.quiz-manual-entry .upload-btn {
     background: #28a745;
     color: #fff;
     padding: 10px;
@@ -113,12 +113,12 @@ ul {
     font-size: 16px;
     width: 100%;
 }
-.upload-btn:hover {
+.quiz-manual-entry .upload-btn:hover {
     background: #218838;
 }
-#quizHeadForm input[type="text"],
-#quizHeadForm input[type="date"],
-#quizHeadForm input[type="time"] {
+.quiz-manual-entry #quizHeadForm input[type="text"],
+.quiz-manual-entry #quizHeadForm input[type="date"],
+.quiz-manual-entry #quizHeadForm input[type="time"] {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
@@ -126,11 +126,11 @@ ul {
     border-radius: 5px;
     font-size: 16px;
 }
-#quizHeadForm input[type="date"],
-#quizHeadForm input[type="time"] {
+.quiz-manual-entry #quizHeadForm input[type="date"],
+.quiz-manual-entry #quizHeadForm input[type="time"] {
     cursor: pointer;
 }
-#quizHeadForm label {
+.quiz-manual-entry #quizHeadForm label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
