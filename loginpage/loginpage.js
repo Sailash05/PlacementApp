@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.8:8080/";
 
 if ("serviceWorker" in navigator) {
 	navigator.serviceWorker.register("/service-worker.js")
@@ -131,6 +131,9 @@ async function addStudent() {
 	else if(password.trim() === "") {
 		showFailMessage("Error","Please Enter the Password","Try again!!");
 	}
+	else if(!isStrongPassword(password)) {
+		showPasswordCriteria();
+	}
 	else {
 		try {
 			startLoading();
@@ -233,6 +236,9 @@ async function addFaculty() {
 	}
 	else if(department === "") {
 		showFailMessage("Error","Please select the department.","Try again!!");
+	}
+	else if(!isStrongPassword(password)) {
+		showPasswordCriteria();
 	}
 	else {
 		try {
@@ -536,6 +542,19 @@ async function sendFacultyResetRequest() {
 			showFailMessage("Error","Internal Server Error","Please try again!");
 		}
 	}
+}
+
+function isStrongPassword(password) {
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasMinLength = password.length >= minLength;
+    return hasUppercase && hasLowercase && hasNumber && hasMinLength;
+}
+
+function showPasswordCriteria() {
+	
 }
 
 function startLoading() {
