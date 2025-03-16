@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.7:8080/";
+let domain = "http://192.168.1.8:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -618,6 +618,12 @@ async function openPlacementRecord() {
       </ul>
     </div>
 
+
+    <div class="button-container">
+        <button class="add-student-btn" type="button" onclick="openCoordinators()">Coordinators</button>
+     </div>
+
+
     <section class="animated-section">
       <h2>All Placements</h2>
       <table>
@@ -656,8 +662,6 @@ async function openPlacementRecord() {
         console.log(error.message);
     }
 }
-
-
 function showPlacedStudentsList(department) {
     let table = document.querySelector('.placement-records table tbody');
     let serialNumber = 1;
@@ -673,6 +677,54 @@ function showPlacedStudentsList(department) {
             </tr>`;
         }
     });
+}
+function openCoordinators() {
+    let mainBar = document.querySelector('.main-bar');
+    mainBar.innerHTML = `<div class="placement-landing-page">
+        <div class="bg-animation"></div>
+        <header>
+            <h1>Meet Our Placement Team</h1>
+        </header>
+
+        <section class="team-grid">
+            <div class=""profile-card>
+                <img src="../Resource/faculty photo/Nava Barathy.jpeg" alt="" height="300px">
+                <h2>Dr.Nava Barathy M</h2>
+                <p>Training and Placement Cell Officer</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="../Resource/faculty photo/jesu_vedha.jpeg" alt="CSE Coordinator">
+                <h2>Dr.Jesu Vedha Nayahi J</h2>
+                <p>CSE Department </p>
+            </div>
+
+            <div class="profile-card">
+                <img src="../Resource/faculty photo/Usha.jpg" alt="ECE Coordinator">
+                <h2>Mrs.Usha Kingsly Devi K</h2>
+                <p>ECE Department</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="../Resource/faculty photo/Venkatesan.jpg" alt="GEO Coordinator">
+                <h2>Dr.Venkatesan B</h2>
+                <p>GEO Department</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="../Resource/faculty photo/profile.jpeg" alt="AI & DS Coordinator">
+                <h2>Samyuktha</h2>
+                <p>AI & DS Department</p>
+            </div>
+
+            <div class="profile-card">
+                <img src="../Resource/faculty photo/Mukesh.jpg" alt="MECH Coordinator">
+                <h2>Dr.Mugesh Raja V</h2>
+                <p>MECH Department</p>
+            </div>
+            
+        </section>
+    </div>`;
 }
 
 
