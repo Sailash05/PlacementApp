@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.8:8080/";
+let domain = "http://192.168.1.4:8080/";
 
 if ("serviceWorker" in navigator) {
 	navigator.serviceWorker.register("/service-worker.js")

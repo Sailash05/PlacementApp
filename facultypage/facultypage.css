@@ -621,6 +621,32 @@ nav > div > h3 {
 .quiz-manual-entry .save-btn:hover {
     background: #0056b3;
 }
+.quiz-manual-entry .auto-generate-btn {
+    background-size: 100% 100%;
+background-position: 0px 0px,0px 0px,0px 0px,0px 0px,0px 0px;
+background-image: radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #FF5A00FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+.quiz-manual-entry .auto-generate-btn > img{
+    height: 1rem;
+}
+.quiz-manual-entry .auto-generate-btn:hover {
+    background-size: 100% 100%;
+background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+background-image: 
+    radial-gradient(49% 81% at 45% 47%, rgba(255, 226, 3, 0.25) 0%, rgba(7, 58, 255, 0) 100%),
+    radial-gradient(113% 91% at 17% -2%, rgba(255, 90, 0, 0.6) 1%, rgba(255, 0, 0, 0) 99%),
+    radial-gradient(142% 91% at 83% 7%, rgba(255, 219, 0, 0.6) 1%, rgba(255, 0, 0, 0) 99%),
+    radial-gradient(142% 91% at -6% 74%, rgba(255, 0, 73, 0.6) 1%, rgba(255, 0, 0, 0) 99%),
+    radial-gradient(142% 91% at 111% 84%, rgba(255, 112, 0, 0.6) 0%, rgba(255, 0, 0, 0.6) 100%);
+}
 .quiz-manual-entry .saved-questions {
     margin-bottom: 20px;
 }
@@ -779,6 +805,94 @@ nav > div > h3 {
         margin-bottom: 5px;
     }
 }
+
+.auto-generation-master-container {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.09);
+    height: 100dvh;
+    width: 100dvw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auto-generation-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 400px;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.auto-generation-container h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.auto-generation-container .input-group {
+    margin-bottom: 15px;
+}
+.auto-generation-container .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+    font-weight: 500;
+}
+.auto-generation-container .input-group input {
+    width: calc(100% - 25px);
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+.auto-generation-container .input-group input:focus {
+    outline: none;
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+.auto-generation-container .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+.auto-generation-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.auto-generation-container .cancel-btn {
+    background-color: #e9ecef;
+    color: #495057;
+}
+.auto-generation-container .cancel-btn:hover {
+    background-color: #dee2e6;
+}
+.auto-generation-container .generate-btn {
+    background-color: #4dabf7;
+    color: white;
+}
+.auto-generation-container .generate-btn:hover {
+    background-color: #339af0;
+}
+
+@media (max-width: 480px) {
+    .auto-generation-container {
+        padding: 15px;
+    }
+    .auto-generation-container .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .auto-generation-container button {
+        width: 100%;
+    }
+}
+
+
 
 
 .add-assessment-form {

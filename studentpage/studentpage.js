@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.8:8080/";
+let domain = "http://192.168.1.4:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -10,7 +10,8 @@ let student = {
     semester:null,
     department:null,
 	email:null,
-	mobileno:null
+	mobileno:null,
+    leetcodeUserName:null
 }
 //<img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" alt="" class="corner-image">
 function openSideBar() {
@@ -288,6 +289,11 @@ function toggleMainBar(choice) {
                 <div class="profile-field">
                     <label for="phone">Mobile Number:</label>
                     <input type="number" id="phone" name="phone" placeholder="Your Mobile Number" readonly value="${student.mobileno==0?"":student.mobileno}">
+                </div>
+
+                <div class="profile-field">
+                    <label for="leetcodeUserName">Leetcode:</label>
+                    <input type="text" id="leetcodeUserName" name="leetcodeUserName" placeholder="Your leetcode username" readonly value="${student.leetcodeUserName==null?"":student.leetcodeUserName}">
                 </div>
             </form>
             <button class="edit-button" onclick="editProfile()">Edit Profile</button>
@@ -771,7 +777,8 @@ async function saveProfile() {
                     'year': student.year,
                     'department': inputs[2].value,
                     'mobileno': inputs[4].value,
-                    'email': inputs[3].value
+                    'email': inputs[3].value,
+                    'leetcodeUserName': inputs[5].value
                 })
             });
             const data = await response.json();
@@ -788,9 +795,9 @@ async function saveProfile() {
             }
             
             inputs.forEach(input => {
-            input.style.color = "rgb(93, 93, 93)";
-            input.readOnly = true;
-            input.disabled = true;
+                input.style.color = "rgb(93, 93, 93)";
+                input.readOnly = true;
+                input.disabled = true;
             });
     
             
@@ -831,6 +838,7 @@ async function getStudent(rollNo) {
 
 // add student to local storage
 function studentLoc(userData) {
+    console.log(userData);
     student.name = userData.datas.name;
     student.rollno = userData.datas.rollno;
     student.year = userData.datas.year;
@@ -838,6 +846,7 @@ function studentLoc(userData) {
     student.department = userData.datas.department;
 	student.email = userData.datas.email;
 	student.mobileno = userData.datas.mobileno;
+    student.leetcodeUserName = userData.datas.leetcodeUserName;
     localStorage.setItem('student', JSON.stringify(student));
 }
 
