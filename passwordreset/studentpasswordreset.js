@@ -1,4 +1,4 @@
-domain = 'http://192.168.1.5:8080/';
+domain = 'http://192.168.1.6:8080/';
 
 async function changePassword() {
     let rollno = document.querySelector('#Register-no').value;

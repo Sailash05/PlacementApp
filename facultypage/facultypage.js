@@ -1,4 +1,4 @@
-let domain = "http://192.168.1.8:8080/";
+let domain = "http://192.168.1.4:8080/";
 
 let jwt_token = JSON.parse(localStorage.getItem('token')).jwt_token;
 let userName = JSON.parse(localStorage.getItem('userName'));
@@ -513,6 +513,11 @@ function manualQuizEntry() {
                 </div>
                 
                 <button type="button" class="save-btn" onClick="quizEntrySaveBtn()">Save Question</button>
+
+                <button type="button" class="auto-generate-btn" onClick="autoQuestionGenerateForm()">Auto Generate 
+                    <img src="../Resource/other icons/magic-wand.png" alt="">
+                </button>
+
             </form>
     
             <button id="uploadBtn" class="upload-btn" onclick="uploadQuestions()">Upload All Questions</button>
@@ -579,6 +584,47 @@ function updateQuestionNumber() {
 function clearForm() {
     document.getElementById("quizForm").reset();
     document.getElementById("questionNumber").innerText = `${questions.length + 1}. Create a New Question`;
+}
+function autoQuestionGenerateForm() {
+    let masterContainer = document.createElement('div');
+    masterContainer.className = 'auto-generation-master-container';
+    masterContainer.innerHTML = `
+        <div class="auto-generation-container">
+            <h2>Auto Generate Questions</h2>
+            <div class="input-group">
+                <label for="topic">Topic:</label>
+                <input type="text" id="topic" placeholder="Enter topic...">
+            </div>
+            <div class="input-group">
+                <label for="question-count">Number of questions:</label>
+                <input type="number" id="question-count">
+            </div>
+            <div class="button-group">
+                <button class="cancel-btn">Cancel</button>
+                <button class="generate-btn" onClick="autoQuestionGeneration()">Generate</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(masterContainer);
+    masterContainer.querySelector('.cancel-btn').addEventListener('click', () => {
+        masterContainer.remove();
+    });
+}
+async function autoQuestionGeneration() {
+    let topic = document.querySelector('#topic').value;
+    let noOfQuestions = document.querySelector('#question-count').value;
+    if(topic.trim() == "") {
+        showFailMessage("Failed","Please Enter any topic!","");
+    }
+    else if(noOfQuestions <= 0) {
+        showFailMessage("Failed","Please Enter the valid number","");
+    }
+    /* try {
+
+    }
+    catch(error) {
+        showFailMessage("Error",error.message,"");
+    } */
 }
 async function uploadQuestions() {
     let time = document.getElementById("dueTime").value +":00";
@@ -796,7 +842,7 @@ async function getMarkFilter(questionid) {
                             </tr>`;
             });
             if(data.datas.length === 0) {
-                assessmentTable.parentElement.parentElement.innerHTML = '<p style="text-align: center;">No students</p>'
+                //assessmentTable.parentElement.parentElement.innerHTML = '<p style="text-align: center;">No students</p>'
             }
         }
         catch(error) {
@@ -876,7 +922,7 @@ async function getDefaultersFilter(questionid) {
                             </tr>`;
             });
             if(data.datas.length === 0) {
-                assessmentTable.parentElement.parentElement.innerHTML = '<p style="text-align: center;">No defaulters</p>'
+                //assessmentTable.parentElement.parentElement.innerHTML = '<p style="text-align: center;">No defaulters</p>'
             }
         }
         catch(error) {

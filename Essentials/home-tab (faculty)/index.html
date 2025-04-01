@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Dashboard</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <main class="main-bar">
+        <section class="welcome-section">
+            <div class="welcome-msg">
+                <div id="home-tab" class="tab-content active">
+                    <header class="home-header">
+                        <h1 id="home-welcome-message">
+                            Welcome <span id="username-placeholder">Loading...</span> 👋
+                        </h1>
+                    </header>
+                    <header>
+                        <h2 class="hi-msg">You have new tasks to do. It's a lot of work today, <br> Let's Get Started </h2>
+                    </header>
+                    <button class="review-btn">Review It</button>
+                </div>
+            </div>
+            <img src="https://terotam.com/wp-content/uploads/2021/10/Spotless-Work-Order-Management.png" 
+                alt="Corner Image" 
+                class="corner-image">
+        </section>
+        
+        <!-- Event Box -->
+        <section class="event-box-section">
+            <h2 class="event-heading">🔥 Exclusive Events Just for You!</h2>
+            <div class="event-box">
+                <img src="latest-event-image.jpg" alt="Event Poster" class="event-poster">
+                <button class="responsive-btn">View More →</button>
+            </div>
+        </section>
+        
+        <!-- Announcements Section -->
+        <section class="announcement-section">
+            <div class="notification-container">
+                <button class="responsive-btn-bell" onclick="toggleMotionWindow()">
+                    <i class="fa-solid fa-bell"></i> Announcements
+                    <span id="notification-dot" class="notification-dot"></span>
+                </button>
+            </div>
+            <div id="motion-window" class="motion-window">
+                <div class="motion-header">
+                    <h2 class="motion-headline">Placement Updates | Anna University</h2>
+                    <button class="close-btn" onclick="toggleMotionWindow()">&times;</button>
+                </div>
+                <div class="job-post-container">
+                    <p id="latest-job-title">Fetching latest job...</p>
+                    <button id="view-job-btn" class="view-job-btn" style="display: none;">View Now →</button>
+                </div>
+            </div>
+            <div id="overlay" class="overlay" onclick="toggleMotionWindow()"></div>
+        </section>
+        
+        <!-- Leaderboard Section -->
+        <section class="leaderboard">
+            <div class="container-wrapper">
+                <div class="gradient-container">
+                    <h2 class="style-assessment-heading">📊 Performance Leaderboard</h2>
+                </div>
+                <div class="activity-container">
+                    <div class="month-dropdown-container">
+
+                        <div class="month-dropdown">
+                            <button class="dropdown-btn" id="selected-month" onclick="toggleDropdown()">December ⌄</button>
+                            <ul class="dropdown-menu" id="month-menu">
+                                <li onclick="selectMonth('January')">January</li>
+                                <li onclick="selectMonth('February')">February</li>
+                                <li onclick="selectMonth('March')">March</li>
+                                <li onclick="selectMonth('April')">April</li>
+                                <li onclick="selectMonth('May')">May</li>
+                                <li onclick="selectMonth('June')">June</li>
+                                <li onclick="selectMonth('July')">July</li>
+                                <li onclick="selectMonth('August')">August</li>
+                                <li onclick="selectMonth('September')">September</li>
+                                <li onclick="selectMonth('October')">October</li>
+                                <li onclick="selectMonth('November')">November</li>
+                                <li onclick="selectMonth('December')">December</li>
+                            </ul>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="top-performers-container">
+                    <h3 class="top-head-color">🏆 Top Performers</h3>
+                    <ul class="performers-list">
+                        <li>Josh (CSE 3rd Year)</li>
+                        <li>Jane (CSE 4th Year)</li>
+                        <li>Alex (ECE 3rd Year)</li>
+                        <li>Harper (MECH 3rd Year)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        
+    </main>
+    <script src="./script.js"></script>
+</body>
+</html>
